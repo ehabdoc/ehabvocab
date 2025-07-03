@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم المفردات - منصة أتقن الإنجليزية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f7f5;
+            color: #333;
+        }
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .vocabulary-container {
+            width: 90%;
+            max-width: 700px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+        .word-display {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fcfcfc;
+        }
+        .english-word {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .arabic-translation {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-top: 10px;
+            opacity: 0; /* مخفي في البداية */
+            transition: opacity 0.3s ease;
+        }
+        .show-translation .arabic-translation {
+            opacity: 1; /* يظهر عند إضافة الكلاس */
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* for anchor tags */
+            display: inline-block; /* for anchor tags */
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745; /* أخضر */
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-danger {
+            background-color: #dc3545; /* أحمر */
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-info {
+            background-color: #17a2b8; /* أزرق فاتح */
+        }
+        .btn-info:hover {
+            background-color: #138496;
+        }
+        .btn-feedback {
+            transition: background-color 0.1s ease;
+        }
+        .btn-feedback.known {
+            background-color: #218838;
+        }
+        .btn-feedback.needs-review {
+            background-color: #c82333;
+        }
+        .finish-session {
+            margin-top: 40px;
+            background-color: #6c757d; /* رمادي */
+        }
+        .finish-session:hover {
+            background-color: #5a6268;
+        }
+        .no-words-message {
+            font-size: 1.5em;
+            color: #555;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">الرئيسية</a>
+        <a href="{{ url_for('dashboard') }}">لوحة التحكم</a>
+        <a href="{{ url_for('vocabulary') }}">تعلم المفردات</a>
+        <a href="{{ url_for('logout') }}">تسجيل الخروج</a>
+    </div>
+
+    <div class="vocabulary-container">
+        <h2>تعلم المفردات الإنجليزية</h2>
+
+        <div id="word-card" class="word-display">
+            <p id="english-word" class="english-word">تحميل...</p>
+            <p id="arabic-translation" class="arabic-translation">...</p>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-info" id="toggle-translation">عرض/إخفاء الترجمة</button>
+            <button class="btn" id="pronounce-word">تشغيل النطق</button>
+        </div>
+
+        <div class="controls" style="margin-top: 20px;">
+            <button class="btn btn-success" id="known-button">أعرفها جيداً</button>
+            <button class="btn btn-danger" id="needs-review-button">أحتاج لمراجعة</button>
+        </div>
+
+        <button class="btn finish-session" id="finish-session-button">إنهاء الجلسة</button>
+    </div>
+
+    <script>
+        const vocabularyWords = JSON.parse('{{ words_json | safe }}'); 
+        console.log("Parsed vocabularyWords object:", vocabularyWords); 
+
+        let currentWordIndex = 0;
+        let wordsReviewedInSession = 0; // متغير جديد لتتبع الكلمات في الجلسة
+
+        const englishWordDisplay = document.getElementById('english-word');
+        const arabicTranslationDisplay = document.getElementById('arabic-translation');
+        const wordCard = document.getElementById('word-card');
+
+        const toggleTranslationButton = document.getElementById('toggle-translation');
+        const pronounceButton = document.getElementById('pronounce-word');
+        const knownButton = document.getElementById('known-button');
+        const needsReviewButton = document.getElementById('needs-review-button');
+        const finishSessionButton = document.getElementById('finish-session-button'); // جلب زر إنهاء الجلسة
+
+        function displayCurrentWord() {
+            if (vocabularyWords.length === 0) {
+                wordCard.innerHTML = '<p class="no-words-message">لا توجد كلمات حالياً للمراجعة. يمكنك العودة لاحقاً!</p>';
+                // إخفاء الأزرار إذا لم تكن هناك كلمات
+                toggleTranslationButton.style.display = 'none';
+                pronounceButton.style.display = 'none';
+                knownButton.style.display = 'none';
+                needsReviewButton.style.display = 'none';
+                finishSessionButton.style.display = 'block'; // عرض زر إنهاء الجلسة حتى لو لا توجد كلمات
+                return;
+            }
+
+            const currentWord = vocabularyWords[currentWordIndex];
+            englishWordDisplay.textContent = currentWord.english_word;
+            arabicTranslationDisplay.textContent = currentWord.arabic_translation;
+            wordCard.classList.remove('show-translation'); // إخفاء الترجمة للكلمة الجديدة
+        }
+
+        function toggleTranslation() {
+            wordCard.classList.toggle('show-translation');
+        }
+
+        function pronounceWord() {
+            if ('speechSynthesis' in window) {
+                const speech = new SpeechSynthesisUtterance(englishWordDisplay.textContent);
+                speech.lang = 'en-US';
+                window.speechSynthesis.speak(speech);
+            } else {
+                alert('متصفحك لا يدعم خاصية النطق.');
+            }
+        }
+
+        async function submitWordStatus(status) {
+            if (vocabularyWords.length === 0) return;
+
+            const currentWord = vocabularyWords[currentWordIndex];
+            const button = status === 'known' ? knownButton : needsReviewButton;
+
+            button.classList.add('btn-feedback', status);
+
+            try {
+                const response = await fetch('/submit_word_status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ word_id: currentWord.id, status: status }),
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    setTimeout(() => {
+                        button.classList.remove('btn-feedback', status);
+                        moveToNextWord();
+                    }, 200);
+                } else {
+                    console.error('Failed to submit word status:', result.message);
+                    alert('حدث خطأ أثناء حفظ تقدمك. يرجى المحاولة مرة أخرى.');
+                    button.classList.remove('btn-feedback', status);
+                }
+            } catch (error) {
+                console.error('Error sending word status:', error);
+                alert('حدث خطأ في الاتصال بالخادم. يرجى التحقق من اتصالك والمحاولة مرة أخرى.');
+                button.classList.remove('btn-feedback', status);
+            }
+        }
+
+        function moveToNextWord() {
+            wordsReviewedInSession++; // زيادة عدد الكلمات المراجعة في الجلسة
+            currentWordIndex++;
+            if (currentWordIndex < vocabularyWords.length) {
+                displayCurrentWord();
+            } else {
+                // انتهت الكلمات في هذه الجلسة
+                wordCard.innerHTML = '<p class="no-words-message">لقد أكملت جميع الكلمات في هذه الجلسة! يمكنك العودة إلى لوحة التحكم أو إنهاء الجلسة.</p>';
+                toggleTranslationButton.style.display = 'none';
+                pronounceButton.style.display = 'none';
+                knownButton.style.display = 'none';
+                needsReviewButton.style.display = 'none';
+                finishSessionButton.style.display = 'block'; // تأكد من إظهار زر إنهاء الجلسة
+            }
+        }
+
+        // إضافة المستمعين للأحداث
+        toggleTranslationButton.addEventListener('click', toggleTranslation);
+        pronounceButton.addEventListener('click', pronounceWord);
+        knownButton.addEventListener('click', () => submitWordStatus('known'));
+        needsReviewButton.addEventListener('click', () => submitWordStatus('needs_review'));
+
+        // عند الضغط على زر إنهاء الجلسة، قم بإعادة التوجيه مع تمرير عدد الكلمات المراجعة
+        finishSessionButton.addEventListener('click', () => {
+            window.location.href = `/summary?reviewed=${wordsReviewedInSession}`;
+        });
+
+        // عرض أول كلمة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', displayCurrentWord);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملخص الجلسة - منصة أتقن الإنجليزية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f7f5; /* لون خلفية مريح */
+            color: #333;
+        }
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .summary-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+        .summary-item {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .summary-item span {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+            transition: background 0.3s ease;
+        }
+        .cta-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">الرئيسية</a>
+        <a href="{{ url_for('dashboard') }}">لوحة التحكم</a>
+        <a href="{{ url_for('vocabulary') }}">تعلم المفردات</a>
+        <a href="{{ url_for('logout') }}">تسجيل الخروج</a>
+    </div>
+
+    <div class="summary-container">
+        <h2>ملخص الجلسة</h2>
+        <p class="summary-item">لقد أكملت جلسة التعلم بنجاح!</p>
+
+        <p class="summary-item">عدد الكلمات التي راجعتها في هذه الجلسة: <span>{{ session_reviewed }}</span></p>
+
+        <p class="summary-item">إجمالي الكلمات التي راجعتها (المجموع الكلي): <span>{{ total_words_reviewed }}</span></p>
+        <p class="summary-item">الكلمات التي أتقنتها (المجموع الكلي): <span>{{ words_mastered }}</span></p>
+        <p class="summary-item">الكلمات التي تحتاج لمراجعة (المجموع الكلي): <span>{{ words_needs_review }}</span></p>
+
+        {% if words_to_review %}
+        <h2>كلمات تحتاج إلى مراجعة إضافية</h2>
+        <ul>
+            {% for word in words_to_review %}
+            <li>{{ word }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <a href="{{ url_for('dashboard') }}" class="cta-button">العودة إلى لوحة التحكم</a>
+    </div>
+
+</body>
+</html>

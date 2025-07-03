@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - منصة أتقن الإنجليزية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f7f5;
+            color: #333;
+        }
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .dashboard-container {
+            width: 90%;
+            max-width: 960px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+        .welcome-message {
+            font-size: 1.8em;
+            color: #28a745;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .stat-card {
+            background-color: #e9f7ef; /* لون فاتح للخلفية */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border-bottom: 5px solid #28a745; /* شريط أخضر */
+        }
+        .stat-card h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #007bff; /* أزرق للأرقام */
+        }
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .action-card {
+            background-color: #f8f9fa; /* لون خلفية أفتح */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            text-align: right; /* محاذاة النص لليمين */
+        }
+        .action-card h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            text-align: center; /* عنوان البطاقة في المنتصف */
+        }
+        .action-card p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center; /* وصف البطاقة في المنتصف */
+        }
+        .action-button {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .action-button.learn {
+            background: #28a745; /* أخضر لتعلم المفردات */
+        }
+        .action-button.learn:hover {
+            background: #218838;
+        }
+        .action-button.track {
+            background: #ffc107; /* أصفر لتتبع التقدم */
+            color: #333;
+        }
+        .action-button.track:hover {
+            background: #e0a800;
+        }
+        .action-button.review {
+            background: #dc3545; /* أحمر لمراجعة الكلمات */
+        }
+        .action-button.review:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">الرئيسية</a>
+        <a href="{{ url_for('dashboard') }}">لوحة التحكم</a>
+        <a href="{{ url_for('vocabulary') }}">تعلم المفردات</a>
+        <a href="{{ url_for('logout') }}">تسجيل الخروج</a>
+    </div>
+
+    <div class="dashboard-container">
+        <p class="welcome-message"> مرحباً بك، {{ user.username }}!</p>
+
+        <h2>ملخص التقدم</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>إجمالي الكلمات المراجعة</h3>
+                <p class="number">{{ total_words_reviewed }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>الكلمات المتقنة</h3>
+                <p class="number">{{ words_mastered }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>كلمات تحتاج للمراجعة</h3>
+                <p class="number">{{ words_to_review }}</p>
+            </div>
+        </div>
+
+        <canvas id="progressChart" width="400" height="200"></canvas>
+
+        <h2>ابدأ التعلم الآن!</h2>
+        <div class="action-grid">
+            <div class="action-card">
+                <h3>ابدأ التعلم</h3>
+                <p>اكتشف كلمات جديدة وتدرب على مفرداتك اليومية.</p>
+                <a href="{{ url_for('vocabulary') }}" class="action-button learn">انتقل إلى التدريب</a>
+            </div>
+            <div class="action-card">
+                <h3>تتبع التقدم</h3>
+                <p>راقب إحصائياتك وحدد الكلمات التي أتقنتها.</p>
+                <a href="{{ url_for('dashboard') }}" class="action-button track">عرض التقدم</a>
+            </div>
+            <div class="action-card">
+                <h3>مراجعة الكلمات</h3>
+                <p>راجع الكلمات الصعبة باستخدام نظام التكرار المتباعد.</p>
+                <a href="{{ url_for('review') }}" class="action-button review">ابدأ المراجعة</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/progress_chart_data')
+                .then(response => response.json())
+                .then(data => {
+                    const ctx = document.getElementById('progressChart').getContext('2d');
+                    const progressChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Words Reviewed',
+                                data: data.data,
+                                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                                borderColor: 'rgba(40, 167, 69, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

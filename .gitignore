@@ -1,0 +1,19 @@
+# Virtual environment
+my_vocab_env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Instance folder (contains secrets and temporary files)
+instance/
+
+# Local database files
+*.db
+*.sqlite3
+
+# Environment variables
+.env
+
+# Uploads folder
+uploads/

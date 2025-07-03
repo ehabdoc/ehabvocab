@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Session Summary{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Review Session Summary</h2>
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">Words Reviewed: {{ total_words_reviewed }}</h5>
+            <p class="card-text text-success">Correct Answers: {{ correct_count }}</p>
+            <p class="card-text text-danger">Incorrect Answers: {{ incorrect_count }}</p>
+            <hr>
+            <a href="{{ url_for('review') }}" class="btn btn-primary">Continue Reviewing</a>
+            <a href="{{ url_for('reset_session') }}" class="btn btn-warning">Start New Session</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Return to Main Page</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
