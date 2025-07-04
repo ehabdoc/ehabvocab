@@ -204,7 +204,7 @@ def import_words_from_csv():
         words_per_book = 600
 
         try:
-            with open(filepath, mode='r', encoding='utf-8') as f:
+            with open(filepath, mode='r', encoding='utf-8-sig') as f:
                 csv_reader = csv.reader(f)
                 for i, row in enumerate(csv_reader):
                     book_name = f'Book {(i // words_per_book) + 1}'
