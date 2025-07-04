@@ -79,6 +79,7 @@
                 {% for book in book_names %}
                     <a href="{{ url_for('review', book_name=book) }}" class="btn btn-primary btn-lg">{{ book }}</a>
                 {% endfor %}
+                <a href="{{ url_for('statistics') }}" class="btn btn-info btn-lg mt-3">Statistics</a>
             </div>
         {% else %}
             <p class="text-center">No words have been added to the app yet. An administrator needs to import words.</p>

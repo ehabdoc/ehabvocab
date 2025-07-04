@@ -358,6 +358,51 @@ def session_summary():
                            incorrect_count=incorrect_count,
                            total_words_reviewed=total_words_reviewed)
 
+@app.route('/statistics')
+def statistics():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Total words reviewed by the user (words in user_word_progress)
+    cursor.execute('''
+        SELECT COUNT(*) FROM user_word_progress WHERE user_id = ?
+    ''', (user_id,))
+    total_reviewed_words = cursor.fetchone()[0]
+
+    # Words due for review today
+    cursor.execute('''
+        SELECT COUNT(*) FROM user_word_progress
+        WHERE user_id = ? AND next_review <= date('now')
+    ''', (user_id,))
+    words_due_today = cursor.fetchone()[0]
+
+    # Words mastered (e.g., repetitions >= 5, this is an arbitrary threshold, can be adjusted)
+    cursor.execute('''
+        SELECT COUNT(*) FROM user_word_progress
+        WHERE user_id = ? AND repetitions >= 5
+    ''', (user_id,))
+    words_mastered = cursor.fetchone()[0]
+
+    # Average ease factor
+    cursor.execute('''
+        SELECT AVG(ease_factor) FROM user_word_progress WHERE user_id = ?
+    ''', (user_id,))
+    avg_ease_factor = cursor.fetchone()[0]
+    if avg_ease_factor is None:
+        avg_ease_factor = 0.0
+
+    conn.close()
+
+    return render_template('statistics.html',
+                           total_reviewed_words=total_reviewed_words,
+                           words_due_today=words_due_today,
+                           words_mastered=words_mastered,
+                           avg_ease_factor=f'{avg_ease_factor:.2f}')
+
 @app.route('/reset_session')
 def reset_session():
     """Resets the current review session statistics."""
