@@ -488,6 +488,27 @@ def admin_delete_user(user_id):
     flash('User and their progress have been deleted.', 'success')
     return redirect(url_for('admin_panel'))
 
+@app.route('/admin/delete_all_words', methods=['POST'])
+def delete_all_words():
+    """Deletes all words from the words table."""
+    if not session.get('is_admin'):
+        flash('You must be an admin to perform this action.', 'error')
+        return redirect(url_for('index'))
+    
+    conn = get_db_connection()
+    try:
+        conn.execute('DELETE FROM words')
+        # Also clear the progress for all users since the words are gone
+        conn.execute('DELETE FROM user_word_progress')
+        conn.commit()
+        flash('All words have been successfully deleted.', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {e}', 'error')
+    finally:
+        conn.close()
+    
+    return redirect(url_for('admin_panel'))
+
 import click
 from flask.cli import with_appcontext
 

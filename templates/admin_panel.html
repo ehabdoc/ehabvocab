@@ -35,14 +35,21 @@
             </tbody>
         </table>
 
-        <h2>Words</h2>
-        <a href="{{ url_for('add_word') }}">Add New Word</a>
-        <a href="{{ url_for('import_words_from_csv') }}">Import Words from CSV</a>
+        <h2>Words Management</h2>
+        <a href="{{ url_for('import_words_from_csv') }}" class="button">Import Words from CSV</a>
+        
+        <hr>
+
+        <h3>Danger Zone</h3>
+        <form action="{{ url_for('delete_all_words') }}" method="post" style="display:inline;">
+            <button type="submit" class="danger-button" onclick="return confirm('Are you absolutely sure you want to delete ALL words from the database? This action cannot be undone.');">Delete All Words</button>
+        </form>
+
+        <h2>Word List</h2>
         <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for words..">
         <table>
             <thead>
                 <tr>
-                    <th>User</th>
                     <th>English Word</th>
                     <th>Arabic Translation</th>
                     <th>Book</th>
@@ -52,13 +59,12 @@
             <tbody>
                 {% for word in words %}
                 <tr>
-                    <td>{{ word.username }}</td>
                     <td>{{ word.english_word }}</td>
                     <td>{{ word.arabic_translation }}</td>
                     <td>{{ word.book_name }}</td>
                     <td>
-                        <a href="{{ url_for('admin_edit_word', word_id=word.id) }}">Edit</a>
-                        <form action="{{ url_for('admin_delete_word', word_id=word.id) }}" method="post" style="display:inline;">
+                        <a href="{{ url_for('edit_word', word_id=word.id) }}">Edit</a>
+                        <form action="{{ url_for('delete_word', word_id=word.id) }}" method="post" style="display:inline;">
                             <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
                         </form>
                     </td>
@@ -67,12 +73,12 @@
             </tbody>
         </table>
         <div class="pagination">
-            {% if page > 1 %}
-                <a href="{{ url_for('admin_panel', page=page-1) }}">Previous</a>
+            {% if current_page > 1 %}
+                <a href="{{ url_for('admin_panel', page=current_page-1, book_name=selected_book) }}">Previous</a>
             {% endif %}
-            <span>Page {{ page }}</span>
-            {% if page * per_page < total_words %}
-                <a href="{{ url_for('admin_panel', page=page+1) }}">Next</a>
+            <span>Page {{ current_page }} of {{ total_pages }}</span>
+            {% if current_page < total_pages %}
+                <a href="{{ url_for('admin_panel', page=current_page+1, book_name=selected_book) }}">Next</a>
             {% endif %}
         </div>
     </div>
@@ -83,16 +89,20 @@
             filter = input.value.toUpperCase();
             table = document.querySelector("table:last-of-type");
             tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1]; // Search in the "English Word" column
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
+            for (i = 1; i < tr.length; i++) { // Start from 1 to skip header row
+                // Check English, Arabic, and Book columns
+                let rowVisible = false;
+                for (let j = 0; j < 3; j++) {
+                    td = tr[i].getElementsByTagName("td")[j];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            rowVisible = true;
+                            break;
+                        }
                     }
                 }
+                tr[i].style.display = rowVisible ? "" : "none";
             }
         }
     </script>
