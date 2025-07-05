@@ -462,8 +462,9 @@ def admin_panel():
         return redirect(url_for('index'))
     conn = get_db_connection()
     users = conn.execute('SELECT id, username, is_admin FROM users ORDER BY username ASC').fetchall()
+    words = conn.execute('SELECT * FROM words ORDER BY english_word ASC').fetchall() # Fetch all words
     conn.close()
-    return render_template('admin_panel.html', users=users)
+    return render_template('admin_panel.html', users=users, words=words)
 
 @app.route('/make-admin/<int:user_id>')
 def make_admin(user_id):
