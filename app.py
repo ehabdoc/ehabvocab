@@ -460,11 +460,32 @@ def delete_word(word_id):
 def admin_panel():
     if not session.get('is_admin'):
         return redirect(url_for('index'))
+    
     conn = get_db_connection()
-    users = conn.execute('SELECT id, username, is_admin FROM users ORDER BY username ASC').fetchall()
-    words = conn.execute('SELECT * FROM words ORDER BY english_word ASC').fetchall() # Fetch all words
+    cursor = conn.cursor()
+
+    # Fetch users
+    users = cursor.execute('SELECT id, username, is_admin FROM users ORDER BY username ASC').fetchall()
+
+    # Pagination for words
+    page = request.args.get('page', 1, type=int)
+    per_page = 50  # Words per page
+
+    # Get total words for pagination
+    total_words = cursor.execute('SELECT COUNT(*) FROM words').fetchone()[0]
+    total_pages = (total_words + per_page - 1) // per_page
+
+    # Fetch words for the current page
+    offset = (page - 1) * per_page
+    words = cursor.execute('SELECT * FROM words ORDER BY english_word ASC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
+    
     conn.close()
-    return render_template('admin_panel.html', users=users, words=words)
+    
+    return render_template('admin_panel.html', 
+                           users=users, 
+                           words=words,
+                           current_page=page,
+                           total_pages=total_pages)
 
 @app.route('/make-admin/<int:user_id>')
 def make_admin(user_id):
