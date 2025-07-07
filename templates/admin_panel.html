@@ -44,12 +44,16 @@
         <form action="{{ url_for('delete_all_words') }}" method="post" style="display:inline;">
             <button type="submit" class="danger-button" onclick="return confirm('Are you absolutely sure you want to delete ALL words from the database? This action cannot be undone.');">Delete All Words</button>
         </form>
+        <form action="{{ url_for('delete_selected_words') }}" method="post" id="deleteSelectedForm">
+            <button type="submit" class="danger-button" onclick="return confirm('Are you sure you want to delete the selected words?');">Delete Selected Words</button>
+        </form>
 
         <h2>Word List</h2>
         <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for words..">
         <table>
             <thead>
                 <tr>
+                    <th><input type="checkbox" id="selectAllCheckbox"></th>
                     <th>English Word</th>
                     <th>Arabic Translation</th>
                     <th>Book</th>
@@ -59,6 +63,7 @@
             <tbody>
                 {% for word in words %}
                 <tr>
+                    <td><input type="checkbox" name="word_ids" value="{{ word.id }}" class="word-checkbox"></td>
                     <td>{{ word.english_word }}</td>
                     <td>{{ word.arabic_translation }}</td>
                     <td>{{ word.book_name }}</td>
@@ -105,6 +110,13 @@
                 tr[i].style.display = rowVisible ? "" : "none";
             }
         }
+
+        document.getElementById('selectAllCheckbox').addEventListener('change', function(e) {
+            const checkboxes = document.querySelectorAll('.word-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = e.target.checked;
+            });
+        });
     </script>
 </body>
 </html>

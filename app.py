@@ -196,6 +196,8 @@ def import_words_from_csv():
 
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
         conn = get_db_connection()
@@ -204,17 +206,27 @@ def import_words_from_csv():
         words_per_book = 600
 
         try:
-            with open(filepath, mode='r', encoding='utf-8-sig') as f:
+            with open(filepath, mode='r', encoding='utf-8') as f:
                 csv_reader = csv.reader(f)
                 for i, row in enumerate(csv_reader):
                     book_name = f'Book {(i // words_per_book) + 1}'
                     if len(row) < 2:
                         skipped_count += 1
+                        app.logger.warning(f'Skipping row {i+1}: not enough columns.')
                         continue
 
                     english_word, arabic_translation = row[0].strip(), row[1].strip()
-                    if not is_valid_word(english_word)[0] or not is_valid_word(arabic_translation)[0]:
+                    
+                    is_valid_eng, eng_error = is_valid_word(english_word)
+                    if not is_valid_eng:
                         skipped_count += 1
+                        app.logger.warning(f'Skipping row {i+1}: English word "{english_word}" is invalid: {eng_error}')
+                        continue
+
+                    is_valid_ara, ara_error = is_valid_word(arabic_translation)
+                    if not is_valid_ara:
+                        skipped_count += 1
+                        app.logger.warning(f'Skipping row {i+1}: Arabic translation "{arabic_translation}" is invalid: {ara_error}')
                         continue
 
                     try:
@@ -530,6 +542,34 @@ def delete_all_words():
         conn.close()
     
     return redirect(url_for('admin_panel'))
+
+@app.route('/admin/delete_selected_words', methods=['POST'])
+def delete_selected_words():
+    """Deletes selected words from the database."""
+    if not session.get('is_admin'):
+        flash('You must be an admin to perform this action.', 'error')
+        return redirect(url_for('index'))
+
+    word_ids_to_delete = request.form.getlist('word_ids')
+    if not word_ids_to_delete:
+        flash('No words selected for deletion.', 'warning')
+        return redirect(url_for('admin_panel'))
+
+    conn = get_db_connection()
+    try:
+        # Using placeholders to prevent SQL injection
+        placeholders = ','.join('?' for _ in word_ids_to_delete)
+        query = f'DELETE FROM words WHERE id IN ({placeholders})'
+        conn.execute(query, word_ids_to_delete)
+        conn.commit()
+        flash(f'{len(word_ids_to_delete)} words have been successfully deleted.', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {e}', 'error')
+    finally:
+        conn.close()
+
+    return redirect(url_for('admin_panel'))
+
 
 import click
 from flask.cli import with_appcontext
