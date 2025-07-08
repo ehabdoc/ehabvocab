@@ -324,16 +324,36 @@ def submit_review():
 
     new_ease_factor = max(1.3, ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
     
+    # Initialize session lists if they don't exist
+    if 'reviewed_word_ids' not in session:
+        session['reviewed_word_ids'] = []
+    if 'correct_word_ids' not in session:
+        session['correct_word_ids'] = []
+    if 'incorrect_word_ids' not in session:
+        session['incorrect_word_ids'] = []
+
+    # Add word_id to the reviewed list
+    if word_id not in session['reviewed_word_ids']:
+        session['reviewed_word_ids'].append(word_id)
+
     if is_correct:
         new_repetitions = repetitions + 1
         if new_repetitions <= 1: new_interval = 1
         elif new_repetitions == 2: new_interval = 6
         else: new_interval = int(round(previous_interval * new_ease_factor))
         session['correct_answers'] = session.get('correct_answers', 0) + 1
+        if word_id not in session['correct_word_ids']:
+            session['correct_word_ids'].append(word_id)
+        if word_id in session['incorrect_word_ids']:
+            session['incorrect_word_ids'].remove(word_id) # Remove from incorrect if now correct
     else:
         new_repetitions = 0
         new_interval = 1
         session['incorrect_answers'] = session.get('incorrect_answers', 0) + 1
+        if word_id not in session['incorrect_word_ids']:
+            session['incorrect_word_ids'].append(word_id)
+        if word_id in session['correct_word_ids']:
+            session['correct_word_ids'].remove(word_id) # Remove from correct if now incorrect
 
     today = datetime.now().date()
     new_next_review = today + timedelta(days=new_interval)
@@ -352,6 +372,9 @@ def submit_review():
 
     conn.commit()
     conn.close()
+
+    # Manually mark the session as modified since we are changing mutable types (lists)
+    session.modified = True
 
     return jsonify({'success': True, 'is_correct': is_correct, 'correct_answer': word_info['english_word']})
 
@@ -415,11 +438,99 @@ def statistics():
                            words_mastered=words_mastered,
                            avg_ease_factor=f'{avg_ease_factor:.2f}')
 
+@app.route('/word_list')
+def word_list():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    list_type = request.args.get('list_type')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    words = []
+    title = "Word List"
+
+    if list_type == 'reviewed':
+        title = "Total Words Reviewed"
+        cursor.execute('''
+            SELECT w.english_word, w.arabic_translation
+            FROM words w
+            JOIN user_word_progress p ON w.id = p.word_id
+            WHERE p.user_id = ?
+            ORDER BY w.english_word
+        ''', (user_id,))
+        words = cursor.fetchall()
+    elif list_type == 'due_today':
+        title = "Words Due for Review Today"
+        cursor.execute('''
+            SELECT w.english_word, w.arabic_translation
+            FROM words w
+            JOIN user_word_progress p ON w.id = p.word_id
+            WHERE p.user_id = ? AND p.next_review <= date('now')
+            ORDER BY w.english_word
+        ''', (user_id,))
+        words = cursor.fetchall()
+    elif list_type == 'mastered':
+        title = "Words Mastered"
+        cursor.execute('''
+            SELECT w.english_word, w.arabic_translation
+            FROM words w
+            JOIN user_word_progress p ON w.id = p.word_id
+            WHERE p.user_id = ? AND p.repetitions >= 5
+            ORDER BY w.english_word
+        ''', (user_id,))
+        words = cursor.fetchall()
+    else:
+        flash('Invalid list type.', 'error')
+        return redirect(url_for('statistics'))
+
+    conn.close()
+    return render_template('word_list.html', words=words, title=title)
+
+@app.route('/session_word_list')
+def session_word_list():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    list_type = request.args.get('list_type')
+    word_ids = []
+    title = "Session Word List"
+
+    if list_type == 'reviewed':
+        title = "Words Reviewed in This Session"
+        word_ids = session.get('reviewed_word_ids', [])
+    elif list_type == 'correct':
+        title = "Correct Answers in This Session"
+        word_ids = session.get('correct_word_ids', [])
+    elif list_type == 'incorrect':
+        title = "Incorrect Answers in This Session"
+        word_ids = session.get('incorrect_word_ids', [])
+    else:
+        flash('Invalid list type.', 'error')
+        return redirect(url_for('session_summary'))
+
+    words = []
+    if word_ids:
+        conn = get_db_connection()
+        # Using placeholders to prevent SQL injection
+        placeholders = ','.join('?' for _ in word_ids)
+        query = f'SELECT english_word, arabic_translation FROM words WHERE id IN ({placeholders}) ORDER BY english_word'
+        words = conn.execute(query, word_ids).fetchall()
+        conn.close()
+    
+    return render_template('word_list.html', words=words, title=title)
+
 @app.route('/reset_session')
 def reset_session():
     """Resets the current review session statistics."""
     session['correct_answers'] = 0
     session['incorrect_answers'] = 0
+    session['reviewed_word_ids'] = []
+    session['correct_word_ids'] = []
+    session['incorrect_word_ids'] = []
+    session.modified = True
     flash('Review session statistics have been reset.', 'info')
     return redirect(url_for('review'))
 

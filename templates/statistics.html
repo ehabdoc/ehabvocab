@@ -2,32 +2,77 @@
 
 {% block title %}Statistics{% endblock %}
 
+{% block head %}
+{{ super() }}
+<style>
+    .stat-item {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        border-radius: .25rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid transparent;
+    }
+    .stat-item:hover {
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        z-index: 10;
+    }
+    .stat-badge {
+        font-size: 1.1em;
+        padding: 0.6em 0.9em;
+        font-weight: 600;
+    }
+    .stat-item.reviewed {
+        background-color: #e9f5ff;
+        border-color: #aed9ff;
+        color: #0056b3;
+    }
+    .stat-item.due-today {
+        background-color: #fff8e1;
+        border-color: #ffecb3;
+        color: #856404;
+    }
+    .stat-item.mastered {
+        background-color: #e8f5e9;
+        border-color: #c8e6c9;
+        color: #155724;
+    }
+    .stat-item.ease-factor {
+        background-color: #e0f7fa;
+        border-color: #b2ebf2;
+        color: #004085;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
     <h1 class="text-center mb-4">Your Learning Statistics</h1>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Total Words Reviewed:
-                            <span class="badge bg-primary rounded-pill">{{ total_reviewed_words }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Words Due for Review Today:
-                            <span class="badge bg-warning rounded-pill">{{ words_due_today }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Words Mastered (Repetitions >= 5):
-                            <span class="badge bg-success rounded-pill">{{ words_mastered }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Average Ease Factor:
-                            <span class="badge bg-info rounded-pill">{{ avg_ease_factor }}</span>
-                        </li>
-                    </ul>
+            <div class="list-group">
+                <a href="{{ url_for('word_list', list_type='reviewed') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center stat-item reviewed">
+                    Total Words Reviewed
+                    <span class="badge bg-primary rounded-pill stat-badge">{{ total_reviewed_words }}</span>
+                </a>
+                <a href="{{ url_for('word_list', list_type='due_today') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center stat-item due-today">
+                    Words Due for Review Today
+                    <span class="badge bg-warning rounded-pill stat-badge">{{ words_due_today }}</span>
+                </a>
+                <a href="{{ url_for('word_list', list_type='mastered') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center stat-item mastered">
+                    Words Mastered (Repetitions >= 5)
+                    <span class="badge bg-success rounded-pill stat-badge">{{ words_mastered }}</span>
+                </a>
+                <div class="list-group-item d-flex justify-content-between align-items-center stat-item ease-factor">
+                    <span>
+                        Average Ease Factor
+                        <i class="fas fa-info-circle ms-1" 
+                           data-bs-toggle="tooltip" 
+                           data-bs-placement="top"
+                           data-bs-title="This score (typically 1.3 to 2.5+) shows how easy words are for you. Higher is better, meaning longer review intervals.">
+                        </i>
+                    </span>
+                    <span class="badge bg-info rounded-pill stat-badge">{{ avg_ease_factor }}</span>
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -36,4 +81,15 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
 {% endblock %}

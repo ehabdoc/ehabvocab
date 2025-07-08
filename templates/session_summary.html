@@ -2,18 +2,66 @@
 
 {% block title %}Session Summary{% endblock %}
 
+{% block head %}
+{{ super() }}
+<style>
+    .summary-card {
+        max-width: 600px;
+        margin: 2rem auto;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border-radius: 12px;
+    }
+    .summary-list .list-group-item {
+        font-size: 1.2rem;
+        padding: 1rem 1.5rem;
+    }
+    .summary-list .list-group-item a {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .summary-list .list-group-item a:hover {
+        background-color: #f8f9fa;
+    }
+    .summary-badge {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
     <h2 class="mb-4 text-center">Review Session Summary</h2>
-    <div class="card text-center">
-        <div class="card-body">
-            <h5 class="card-title">Words Reviewed: {{ total_words_reviewed }}</h5>
-            <p class="card-text text-success">Correct Answers: {{ correct_count }}</p>
-            <p class="card-text text-danger">Incorrect Answers: {{ incorrect_count }}</p>
-            <hr>
+    <div class="card summary-card">
+        <div class="card-header text-center">
+            <h4>Session Stats</h4>
+        </div>
+        <div class="list-group list-group-flush summary-list">
+            <div class="list-group-item">
+                <a href="{{ url_for('session_word_list', list_type='reviewed') }}">
+                    <span>Words Reviewed</span>
+                    <span class="badge bg-secondary rounded-pill summary-badge">{{ total_words_reviewed }}</span>
+                </a>
+            </div>
+            <div class="list-group-item">
+                <a href="{{ url_for('session_word_list', list_type='correct') }}">
+                    <span class="text-success">Correct Answers</span>
+                    <span class="badge bg-success rounded-pill summary-badge">{{ correct_count }}</span>
+                </a>
+            </div>
+            <div class="list-group-item">
+                <a href="{{ url_for('session_word_list', list_type='incorrect') }}">
+                    <span class="text-danger">Incorrect Answers</span>
+                    <span class="badge bg-danger rounded-pill summary-badge">{{ incorrect_count }}</span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body text-center">
             <a href="{{ url_for('review') }}" class="btn btn-primary">Continue Reviewing</a>
             <a href="{{ url_for('reset_session') }}" class="btn btn-warning">Start New Session</a>
-            <a href="{{ url_for('index') }}" class="btn btn-secondary">Return to Main Page</a>
         </div>
     </div>
 </div>

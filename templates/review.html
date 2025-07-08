@@ -1,295 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مراجعة الكلمات</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            flex-direction: column;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-            min-height: 250px; /* لتوفير مساحة كافية للعناصر */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .word-card {
-            margin-bottom: 25px;
-        }
-        .word-card h2 {
-            font-size: 2.5em; /* حجم أكبر للكلمة العربية */
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-        .translation-input {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1.2em;
-            box-sizing: border-box; /* للتأكد من أن padding لا يوسع الحقل */
-            text-align: center;
-        }
-        /* جديد: أنماط لحالة الإجابة */
-        .translation-input.correct-answer {
-            border-color: #28a745;
-            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
-        }
-        .translation-input.wrong-answer {
-            border-color: #dc3545;
-            box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
-        }
-        /* نهاية الأنماط الجديدة */
+{% extends "base.html" %}
 
-        .buttons-container {
-            display: flex;
-            flex-direction: column; /* جعل الأزرار فوق بعضها */
-            gap: 10px; /* مسافة بين الأزرار */
-            margin-top: 20px;
-        }
-        .btn {
-            background-color: #28a745;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .btn:hover {
-            background-color: #218838;
-        }
-        .btn.show-answer {
-            background-color: #007bff;
-        }
-        .btn.show-answer:hover {
-            background-color: #0056b3;
-        }
-        .translation-display {
-            font-size: 1.8em;
-            color: #555;
-            margin-top: 15px;
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
-            min-height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .translation-display.visible {
-            opacity: 1;
-        }
-        .feedback-buttons {
-            display: none;
-            justify-content: space-around;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .feedback-btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            color: white;
-            flex-grow: 1;
-        }
-        .feedback-btn.correct { background-color: #28a745; }
-        .feedback-btn.correct:hover { background-color: #218838; }
-        .feedback-btn.wrong { background-color: #dc3545; }
-        .feedback-btn.wrong:hover { background-color: #c82333; }
-        .no-words {
-            font-size: 1.5em;
-            color: #666;
-            margin-top: 50px;
-        }
-        /* جديد: نمط لرسالة نتيجة الإجابة */
-        .answer-result {
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: none; /* مخفي في البداية */
-        }
-        .answer-result.correct {
-            color: #28a745; /* أخضر */
-        }
-        .answer-result.wrong {
-            color: #dc3545; /* أحمر */
-        }
-        /* نهاية الأنماط الجديدة */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>مراجعة الكلمات</h1>
+{% block title %}Review Words{% endblock %}
 
-        <div class="filter-group" style="margin-bottom: 20px;">
-            <label for="book_filter_select">تصفية حسب الكتاب:</label>
-            <select id="book_filter_select" onchange="filterByBook(this.value)">
-                <option value="">جميع الكتب</option>
+{% block head %}
+{{ super() }}
+<style>
+    .review-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .arabic-word {
+        font-size: 3em;
+        font-weight: 600;
+        color: #0056b3;
+        margin-bottom: 1.5rem;
+    }
+    .translation-input {
+        font-size: 1.2em;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 2px solid #ced4da;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .translation-input:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+        outline: none;
+    }
+    .feedback-message {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        border-radius: 8px;
+        display: none; /* Hidden by default */
+    }
+    .feedback-message.correct {
+        color: #0f5132;
+        background-color: #d1e7dd;
+        border-color: #badbcc;
+        display: block;
+    }
+    .feedback-message.wrong {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+        display: block;
+    }
+    .correct-answer-display {
+        font-size: 1.2em;
+        color: #6c757d;
+        margin-top: 0.5rem;
+    }
+    .btn-xl {
+        padding: 0.8rem 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="review-container">
+    {% if word %}
+        <div class="book-filter-wrapper mb-4">
+            <select class="form-select" id="book_filter_select" onchange="filterByBook(this.value)">
+                <option value="">All Books</option>
                 {% for book in book_names %}
                     <option value="{{ book }}" {% if book == selected_book %}selected{% endif %}>{{ book }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        {% if word %}
-            <div class="word-card">
-                <h2>{{ word.arabic_translation }}</h2>
-                
-                <input type="text" id="english_input" class="translation-input" placeholder="اكتب الكلمة الإنجليزية هنا...">
+        <h1 class="arabic-word">{{ word.arabic_translation }}</h1>
+        
+        <div id="review-area">
+            <input type="text" id="english_input" class="form-control translation-input" placeholder="Type the English translation...">
+            <button class="btn btn-primary w-100 mt-3 btn-xl" id="submit_answer_btn">Submit</button>
+        </div>
 
-                <div id="answer_result_message" class="answer-result"></div>
+        <div id="feedback-area" style="display: none;">
+            <div id="feedback_message" class="feedback-message"></div>
+            <p class="correct-answer-display">The correct answer is: <strong id="correct_english_word">{{ word.english_word }}</strong></p>
+            <button class="btn btn-success w-100 mt-3 btn-xl" id="next_word_btn">Next Word</button>
+        </div>
 
-                <div id="correct_english_translation" class="translation-display">
-                    {{ word.english_word }}
-                </div>
-            </div>
+        <div class="mt-4">
+            <a href="{{ url_for('session_summary') }}" class="btn btn-outline-secondary">Session Summary</a>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-danger">End Session</a>
+        </div>
 
-            <div class="buttons-container">
-                <button class="btn" id="submit_answer_btn" onclick="submitAnswer()">إرسال الإجابة</button>
-                <button class="btn" id="next_word_btn" onclick="nextWord()" style="display: none;">الكلمة التالية</button>
-                <a href="{{ url_for('index') }}" class="btn btn-secondary">العودة للصفحة الرئيسية</a>
-                <button class="btn btn-info" onclick="showSessionSummary()">ملخص الجلسة</button>
-                <button class="btn btn-danger" onclick="endSession()">إنهاء الجلسة</button>
-            </div>
+    {% else %}
+        <div class="book-filter-wrapper mb-4">
+            <select class="form-select" id="book_filter_select" onchange="filterByBook(this.value)">
+                <option value="">All Books</option>
+                {% for book in book_names %}
+                    <option value="{{ book }}" {% if book == selected_book %}selected{% endif %}>{{ book }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="alert alert-success text-center">
+            <h4>Well done!</h4>
+            <p>There are no more words to review in this book for now.</p>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Home</a>
+    {% endif %}
+</div>
 
-        {% else %}
-            <p class="no-words">أحسنت! لا توجد كلمات للمراجعة في الوقت الحالي.</p>
-            <p><a href="/" class="btn" style="width: auto; display: inline-block;">العودة للصفحة الرئيسية</a></p>
-        {% endif %}
-    </div>
-
-    <script>
-        function filterByBook(bookName) {
-            const baseUrl = "{{ url_for('review') }}";
-            if (bookName) {
-                window.location.href = baseUrl + "?book_name=" + encodeURIComponent(bookName);
-            } else {
-                window.location.href = baseUrl;
-            }
+<script>
+    function filterByBook(bookName) {
+        const baseUrl = "{{ url_for('review') }}";
+        if (bookName) {
+            window.location.href = baseUrl + "?book_name=" + encodeURIComponent(bookName);
+        } else {
+            window.location.href = baseUrl;
         }
+    }
 
-        function submitAnswer() {
-            const wordId = {{ word.id }};
-            const englishInput = document.getElementById('english_input');
-            const userInput = englishInput.value;
+    function submitAnswer() {
+        const wordId = {{ word.id if word else 'null' }};
+        const englishInput = document.getElementById('english_input');
+        const userInput = englishInput.value;
 
-            fetch('/submit_review', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    word_id: wordId,
-                    user_input: userInput
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const resultMessageDiv = document.getElementById('answer_result_message');
-                    const correctTranslationDiv = document.getElementById('correct_english_translation');
-                    const submitBtn = document.getElementById('submit_answer_btn');
-                    const nextWordBtn = document.getElementById('next_word_btn');
+        fetch('/submit_review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ word_id: wordId, user_input: userInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const feedbackMessageDiv = document.getElementById('feedback_message');
+                const reviewArea = document.getElementById('review-area');
+                const feedbackArea = document.getElementById('feedback-area');
 
-                    correctTranslationDiv.classList.add('visible');
-
-                    resultMessageDiv.style.display = 'block';
-                    if (data.is_correct) {
-                        resultMessageDiv.textContent = 'إجابة صحيحة! 🎉';
-                        resultMessageDiv.classList.add('correct');
-                        resultMessageDiv.classList.remove('wrong');
-                        englishInput.classList.add('correct-answer');
-                        englishInput.classList.remove('wrong-answer');
-                    } else {
-                        resultMessageDiv.textContent = 'إجابة خاطئة. 😔';
-                        resultMessageDiv.classList.add('wrong');
-                        resultMessageDiv.classList.remove('correct');
-                        englishInput.classList.add('wrong-answer');
-                        englishInput.classList.remove('correct-answer');
-                    }
-
-                    submitBtn.style.display = 'none';
-                    nextWordBtn.style.display = 'block';
-                    englishInput.disabled = true;
-                    nextWordBtn.focus();
-
+                if (data.is_correct) {
+                    feedbackMessageDiv.textContent = 'Correct! 🎉';
+                    feedbackMessageDiv.className = 'feedback-message correct';
                 } else {
-                    alert('حدث خطأ: ' + data.message);
+                    feedbackMessageDiv.textContent = 'Not quite. Keep trying! 😊';
+                    feedbackMessageDiv.className = 'feedback-message wrong';
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('حدث خطأ أثناء التحقق من الإجابة.');
+
+                reviewArea.style.display = 'none';
+                feedbackArea.style.display = 'block';
+                document.getElementById('next_word_btn').focus();
+
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while submitting your answer.');
+        });
+    }
+
+    function nextWord() {
+        const currentBook = new URLSearchParams(window.location.search).get('book_name');
+        let nextUrl = "{{ url_for('review') }}";
+        if (currentBook) {
+            nextUrl += "?book_name=" + encodeURIComponent(currentBook);
+        }
+        window.location.href = nextUrl;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const englishInput = document.getElementById('english_input');
+        const submitBtn = document.getElementById('submit_answer_btn');
+        const nextWordBtn = document.getElementById('next_word_btn');
+        const feedbackArea = document.getElementById('feedback-area');
+
+        if (englishInput) {
+            englishInput.focus();
+            englishInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    submitBtn.click();
+                }
             });
         }
 
-        function nextWord() {
-            window.location.reload();
+        if (submitBtn) {
+            submitBtn.addEventListener('click', submitAnswer);
         }
 
-        function showSessionSummary() {
-            window.location.href = "{{ url_for('session_summary') }}";
+        if (nextWordBtn) {
+            nextWordBtn.addEventListener('click', nextWord);
+            // Also allow Enter key on the feedback screen
+            document.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter' && feedbackArea && feedbackArea.style.display === 'block') {
+                    event.preventDefault();
+                    nextWordBtn.click();
+                }
+            });
         }
-
-        function endSession() {
-            window.location.href = "{{ url_for('index') }}";
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const englishInput = document.getElementById('english_input');
-            if (englishInput) {
-                englishInput.addEventListener('keypress', (event) => {
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        submitAnswer();
-                    }
-                });
-                englishInput.focus();
-            }
-
-            const nextWordBtn = document.getElementById('next_word_btn');
-            if(nextWordBtn) {
-                document.addEventListener('keypress', (event) => {
-                    if (event.key === 'Enter') {
-                        const submitBtn = document.getElementById('submit_answer_btn');
-                        if (submitBtn.style.display === 'none') {
-                            event.preventDefault();
-                            nextWord();
-                        }
-                    }
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+    });
+</script>
+{% endblock %}
