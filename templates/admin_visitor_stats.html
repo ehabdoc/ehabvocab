@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Visitor Statistics{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Visitor Statistics</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h2>All-Time Unique Visitors</h2>
+                </div>
+                <div class="card-body">
+                    <p class="display-4">{{ total_visitors }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h2>Today's Unique Visitors</h2>
+                </div>
+                <div class="card-body">
+                    <p class="display-4">{{ daily_visitors }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('admin_panel') }}" class="btn btn-primary">Back to Admin Panel</a>
+    </div>
+</div>
+{% endblock %}

@@ -71,19 +71,48 @@
             <p class="text-center">No words found for the selected filter.</p>
         {% endif %}
 
-    <!-- Regular User View: Book Buttons -->
+    <!-- Regular User View: Review Options -->
     {% else %}
-        <h1 class="text-center my-4">Choose a Book to Review</h1>
-        {% if book_names %}
-            <div class="d-grid gap-3 col-6 mx-auto">
-                {% for book in book_names %}
-                    <a href="{{ url_for('review', book_name=book) }}" class="btn btn-primary btn-lg">{{ book }}</a>
-                {% endfor %}
-                <a href="{{ url_for('statistics') }}" class="btn btn-info btn-lg mt-3">Statistics</a>
+        <h1 class="text-center my-4">Start Your Review</h1>
+
+        <!-- Filter Controls -->
+        <div class="d-flex justify-content-center align-items-center mb-4">
+            <div class="input-group" style="max-width: 400px;">
+                <label class="input-group-text" for="book_filter_select">Filter by Book:</label>
+                <select class="form-select" id="book_filter_select" onchange="filterByBook(this.value)">
+                    <option value="">All Books</option>
+                    {% for book in book_names %}
+                        <option value="{{ book }}" {% if book == selected_book %}selected{% endif %}>{{ book }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        {% else %}
-            <p class="text-center">No words have been added to the app yet. An administrator needs to import words.</p>
-        {% endif %}
+        </div>
+
+        <div class="d-grid gap-3 col-md-8 mx-auto">
+            <!-- General Review Button -->
+            <a href="{{ url_for('review', book_name=selected_book if selected_book else '') }}" class="btn btn-primary btn-lg">
+                Start Review
+                <span class="badge bg-light text-dark ms-2">{{ due_words_count + new_words_count }}</span>
+            </a>
+
+            <!-- Due Words Button -->
+            <a href="{{ url_for('review', book_name=selected_book if selected_book else '', review_type='due') }}" class="btn btn-warning btn-lg">
+                Words Due for Review
+                <span class="badge bg-light text-dark ms-2">{{ due_words_count }}</span>
+            </a>
+
+            <!-- New Words Button -->
+            <a href="{{ url_for('review', book_name=selected_book if selected_book else '', review_type='new') }}" class="btn btn-success btn-lg">
+                New Words
+                <span class="badge bg-light text-dark ms-2">{{ new_words_count }}</span>
+            </a>
+
+            <!-- Spacer -->
+            <hr class="my-3">
+
+            <!-- Statistics Button -->
+            <a href="{{ url_for('statistics') }}" class="btn btn-info btn-lg">View Statistics</a>
+        </div>
     {% endif %}
 </div>
 

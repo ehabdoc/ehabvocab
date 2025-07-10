@@ -30,30 +30,44 @@ def init_db():
     cursor = conn.cursor()
 
     # Drop tables in the correct order to avoid foreign key constraint issues
+    cursor.execute("DROP TABLE IF EXISTS visitor_stats")
     cursor.execute("DROP TABLE IF EXISTS user_word_progress")
     cursor.execute("DROP TABLE IF EXISTS words")
     cursor.execute("DROP TABLE IF EXISTS users")
     conn.commit()
 
     # Re-create tables
+    create_users_table(cursor)
+    create_words_table(cursor)
+    create_user_word_progress_table(cursor)
+    create_visitor_stats_table(cursor)
+    
+    conn.commit()
+    conn.close()
+
+def create_users_table(cursor):
     cursor.execute('''
-        CREATE TABLE users (
+        CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
             is_admin INTEGER NOT NULL DEFAULT 0
         )
     ''')
+
+def create_words_table(cursor):
     cursor.execute('''
-        CREATE TABLE words (
+        CREATE TABLE IF NOT EXISTS words (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             english_word TEXT NOT NULL UNIQUE,
             arabic_translation TEXT NOT NULL,
             book_name TEXT DEFAULT 'Uncategorized'
         )
     ''')
+
+def create_user_word_progress_table(cursor):
     cursor.execute('''
-        CREATE TABLE user_word_progress (
+        CREATE TABLE IF NOT EXISTS user_word_progress (
             user_id INTEGER NOT NULL,
             word_id INTEGER NOT NULL,
             last_reviewed TEXT DEFAULT (date('now')),
@@ -66,13 +80,55 @@ def init_db():
             FOREIGN KEY (word_id) REFERENCES words (id) ON DELETE CASCADE
         )
     ''')
-    conn.commit()
-    conn.close()
+
+def create_visitor_stats_table(cursor):
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS visitor_stats (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ip_address TEXT NOT NULL,
+            user_agent TEXT,
+            visit_date DATE NOT NULL,
+            UNIQUE(ip_address, visit_date)
+        )
+    ''')
 
 # Initialize the database when the app starts.
 with app.app_context():
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    create_users_table(cursor)
+    create_words_table(cursor)
+    create_user_word_progress_table(cursor)
+    create_visitor_stats_table(cursor)
+    conn.commit()
+    conn.close()
+
+@app.before_request
+def track_visitor():
+    # List of static file extensions to exclude from tracking
+    static_extensions = ['.css', '.js', '.png', '.jpg', '.gif', '.ico']
+    if any(request.path.endswith(ext) for ext in static_extensions):
+        return
+
+    ip_address = request.remote_addr
+    user_agent = request.headers.get('User-Agent')
+    today = datetime.now().date()
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute('''
+            INSERT INTO visitor_stats (ip_address, user_agent, visit_date)
+            VALUES (?, ?, ?)
+        ''', (ip_address, user_agent, today))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        # This means the IP for this date already exists, so we do nothing.
+        pass
+    finally:
+        conn.close()
 
 # --- Routes ---
 
@@ -175,8 +231,40 @@ def index():
         return render_template('index.html', words=words, book_names=book_names, selected_book=book_filter,
                                current_page=page, total_pages=total_pages)
     else:
+        user_id = session['user_id']
+        book_filter = request.args.get('book_name')
+
+        # Calculate new words
+        new_words_query = """
+            SELECT COUNT(w.id)
+            FROM words w
+            LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
+            WHERE p.word_id IS NULL
+        """
+        params = [user_id]
+        if book_filter:
+            new_words_query += " AND w.book_name = ?"
+            params.append(book_filter)
+        new_words_count = cursor.execute(new_words_query, tuple(params)).fetchone()[0]
+
+        # Calculate due words
+        due_words_query = """
+            SELECT COUNT(p.word_id)
+            FROM user_word_progress p
+            JOIN words w ON p.word_id = w.id
+            WHERE p.user_id = ? AND p.next_review <= date('now')
+        """
+        params = [user_id]
+        if book_filter:
+            due_words_query += " AND w.book_name = ?"
+            params.append(book_filter)
+        due_words_count = cursor.execute(due_words_query, tuple(params)).fetchone()[0]
+
         conn.close()
-        return render_template('index.html', book_names=book_names)
+        return render_template('index.html', book_names=book_names,
+                               new_words_count=new_words_count,
+                               due_words_count=due_words_count,
+                               selected_book=book_filter)
 
 @app.route('/import_csv', methods=['GET', 'POST'])
 def import_words_from_csv():
@@ -254,6 +342,7 @@ def review():
 
     user_id = session['user_id']
     book_filter = request.args.get('book_name')
+    review_type = request.args.get('review_type') # 'new', 'due', or None for all
 
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -261,26 +350,41 @@ def review():
     cursor.execute('SELECT DISTINCT book_name FROM words ORDER BY book_name ASC')
     book_names = [row['book_name'] for row in cursor.fetchall()]
 
-    query = """
+    base_query = """
         SELECT w.id, w.english_word, w.arabic_translation, w.book_name
         FROM words w
         LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
-        WHERE (p.next_review <= date('now') OR p.word_id IS NULL)
     """
     params = [user_id]
+    
+    # Add conditions based on review type
+    if review_type == 'new':
+        base_query += ' WHERE p.word_id IS NULL'
+    elif review_type == 'due':
+        base_query += " WHERE p.next_review <= date('now')"
+    else: # Default behavior: due words first, then new words
+        base_query += " WHERE (p.next_review <= date('now') OR p.word_id IS NULL)"
 
     if book_filter:
-        query += ' AND w.book_name = ?'
+        base_query += ' AND w.book_name = ?'
         params.append(book_filter)
 
-    query += ' ORDER BY p.next_review ASC, RANDOM() LIMIT 1'
+    # Prioritize due words over new words in the default case
+    if review_type is None:
+        # Order by whether the word is new (p.word_id IS NULL gives 1, else 0), then by due date
+        order_clause = ' ORDER BY CASE WHEN p.word_id IS NULL THEN 1 ELSE 0 END, p.next_review ASC, RANDOM()'
+    else:
+        # For specific lists, just randomize
+        order_clause = ' ORDER BY RANDOM()'
+
+    query = base_query + order_clause + ' LIMIT 1'
     
     word_data = cursor.execute(query, tuple(params)).fetchone()
     conn.close()
 
     if not word_data:
-        flash('No more words to review in this book for now!', 'success')
-        return redirect(url_for('index'))
+        flash('No more words to review in this category for now!', 'success')
+        return redirect(url_for('index', book_name=book_filter if book_filter else ''))
 
     return render_template('review.html', word=dict(word_data), book_names=book_names, selected_book=book_filter)
 
@@ -680,6 +784,29 @@ def delete_selected_words():
         conn.close()
 
     return redirect(url_for('admin_panel'))
+
+
+@app.route('/admin/visitor_stats')
+def admin_visitor_stats():
+    if not session.get('is_admin'):
+        flash('You must be an admin to view this page.', 'error')
+        return redirect(url_for('index'))
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Get today's visitor count
+    today = datetime.now().date()
+    cursor.execute("SELECT COUNT(DISTINCT ip_address) FROM visitor_stats WHERE visit_date = ?", (today,))
+    daily_visitors = cursor.fetchone()[0]
+
+    # Get all-time unique visitor count
+    cursor.execute("SELECT COUNT(DISTINCT ip_address) FROM visitor_stats")
+    total_visitors = cursor.fetchone()[0]
+
+    conn.close()
+
+    return render_template('admin_visitor_stats.html', daily_visitors=daily_visitors, total_visitors=total_visitors)
 
 
 import click
