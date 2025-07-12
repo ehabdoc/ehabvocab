@@ -676,15 +676,41 @@ def edit_word(word_id):
     
     conn = get_db_connection()
     if request.method == 'POST':
-        english_word = request.form['english_word'].strip()
-        arabic_translation = request.form['arabic_translation'].strip()
-        vocalized_arabic = request.form.get('vocalized_arabic', '').strip()
-        alternative_translations = request.form.get('alternative_translations', '').strip()
-        book_name = request.form.get('book_name', 'Uncategorized').strip()
+        english_word = clean_string(request.form['english_word'])
+        arabic_translation = clean_string(request.form['arabic_translation'])
+        vocalized_arabic = clean_string(request.form.get('vocalized_arabic', ''))
+        alternative_translations = clean_string(request.form.get('alternative_translations', ''))
+        book_name = clean_string(request.form.get('book_name', 'Uncategorized'))
+
+        # Fetch the current word data to re-render the form if validation fails
+        current_word = conn.execute('SELECT * FROM words WHERE id = ?', (word_id,)).fetchone()
+        if not current_word:
+            flash('Word not found.', 'error')
+            conn.close()
+            return redirect(url_for('index'))
+
+        is_valid_eng, eng_error = is_valid_word(english_word)
+        if not is_valid_eng:
+            flash(f'English word invalid: {eng_error}', 'error')
+            conn.close()
+            return render_template('edit_word.html', word=current_word)
+
+        is_valid_ara, ara_error = is_valid_word(arabic_translation)
+        if not is_valid_ara:
+            flash(f'Arabic translation invalid: {ara_error}', 'error')
+            conn.close()
+            return render_template('edit_word.html', word=current_word)
+        
+        is_valid_book, book_error = is_valid_book_name(book_name)
+        if not is_valid_book:
+            flash(f'Book name invalid: {book_error}', 'error')
+            conn.close()
+            return render_template('edit_word.html', word=current_word)
+
         try:
             conn.execute('''
-                UPDATE words 
-                SET english_word = ?, arabic_translation = ?, vocalized_arabic = ?, alternative_translations = ?, book_name = ? 
+                UPDATE words
+                SET english_word = ?, arabic_translation = ?, vocalized_arabic = ?, alternative_translations = ?, book_name = ?
                 WHERE id = ?
             ''', (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name, word_id))
             conn.commit()
@@ -692,8 +718,15 @@ def edit_word(word_id):
             return redirect(url_for('index'))
         except sqlite3.IntegrityError:
             flash(f'The English word "{english_word}" already exists.', 'error')
-        finally:
             conn.close()
+            return render_template('edit_word.html', word=current_word)
+        except Exception as e:
+            flash(f'An unexpected error occurred: {e}', 'error')
+            conn.close()
+            return render_template('edit_word.html', word=current_word)
+        finally:
+            # This finally block is now less critical as errors are caught and conn closed
+            pass
     
     word = conn.execute('SELECT * FROM words WHERE id = ?', (word_id,)).fetchone()
     conn.close()
