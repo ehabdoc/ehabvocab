@@ -77,7 +77,7 @@
             </select>
         </div>
 
-        <h1 class="arabic-word">{{ word.arabic_translation }}</h1>
+        <h1 class="arabic-word">{{ word.vocalized_arabic or word.arabic_translation }}</h1>
         
         <div id="review-area">
             <input type="text" id="english_input" class="form-control translation-input" placeholder="Type the English translation...">
@@ -136,13 +136,19 @@
         .then(data => {
             if (data.success) {
                 const feedbackMessageDiv = document.getElementById('feedback_message');
+                const correctAnswerDisplay = document.getElementById('correct_english_word');
                 const reviewArea = document.getElementById('review-area');
                 const feedbackArea = document.getElementById('feedback-area');
 
-                if (data.is_correct) {
+                correctAnswerDisplay.textContent = data.correct_answer;
+
+                if (data.result === 'correct') {
                     feedbackMessageDiv.textContent = 'Correct! 🎉';
                     feedbackMessageDiv.className = 'feedback-message correct';
-                } else {
+                } else if (data.result === 'alternative') {
+                    feedbackMessageDiv.textContent = 'Correct, but not the target word. 😊';
+                    feedbackMessageDiv.className = 'feedback-message wrong'; // Or a new 'alternative' class
+                } else { // incorrect
                     feedbackMessageDiv.textContent = 'Not quite. Keep trying! 😊';
                     feedbackMessageDiv.className = 'feedback-message wrong';
                 }

@@ -61,6 +61,8 @@ def create_words_table(cursor):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             english_word TEXT NOT NULL UNIQUE,
             arabic_translation TEXT NOT NULL,
+            vocalized_arabic TEXT,
+            alternative_translations TEXT,
             book_name TEXT DEFAULT 'Uncategorized'
         )
     ''')
@@ -209,15 +211,26 @@ def index():
         page = request.args.get('page', 1, type=int)
         per_page = 50
         book_filter = request.args.get('book_name')
+        search_query = request.args.get('search', '').strip()
 
-        query = 'SELECT * FROM words'
-        count_query = 'SELECT COUNT(*) FROM words'
+        base_query = 'FROM words'
+        conditions = []
         params = []
 
         if book_filter:
-            query += ' WHERE book_name = ?'
-            count_query += ' WHERE book_name = ?'
+            conditions.append('book_name = ?')
             params.append(book_filter)
+        
+        if search_query:
+            conditions.append('(english_word LIKE ? OR arabic_translation LIKE ?)')
+            params.extend([f'%{search_query}%', f'%{search_query}%'])
+
+        where_clause = ''
+        if conditions:
+            where_clause = ' WHERE ' + ' AND '.join(conditions)
+
+        query = 'SELECT * ' + base_query + where_clause
+        count_query = 'SELECT COUNT(*) ' + base_query + where_clause
 
         total_words = cursor.execute(count_query, tuple(params)).fetchone()[0]
         total_pages = (total_words + per_page - 1) // per_page
@@ -228,8 +241,9 @@ def index():
         cursor.execute(query, tuple(params))
         words = cursor.fetchall()
         conn.close()
-        return render_template('index.html', words=words, book_names=book_names, selected_book=book_filter,
-                               current_page=page, total_pages=total_pages)
+        return render_template('index.html', words=words, book_names=book_names, 
+                               selected_book=book_filter, current_page=page, 
+                               total_pages=total_pages, search_query=search_query)
     else:
         user_id = session['user_id']
         book_filter = request.args.get('book_name')
@@ -351,7 +365,7 @@ def review():
     book_names = [row['book_name'] for row in cursor.fetchall()]
 
     base_query = """
-        SELECT w.id, w.english_word, w.arabic_translation, w.book_name
+        SELECT w.id, w.english_word, w.arabic_translation, w.vocalized_arabic, w.book_name
         FROM words w
         LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
     """
@@ -397,68 +411,81 @@ def submit_review():
     user_id = session['user_id']
     data = request.get_json()
     word_id = data.get('word_id')
-    user_input = data.get('user_input')
+    user_input = data.get('user_input', '').strip().lower()
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    word_info = cursor.execute('SELECT english_word FROM words WHERE id = ?', (word_id,)).fetchone()
+    word_info = cursor.execute('SELECT english_word, alternative_translations FROM words WHERE id = ?', (word_id,)).fetchone()
     if not word_info:
         conn.close()
         return jsonify({'success': False, 'message': 'Word not found'}), 404
 
     progress = cursor.execute('SELECT * FROM user_word_progress WHERE user_id = ? AND word_id = ?', (user_id, word_id)).fetchone()
 
-    # Default values for a word the user has never reviewed
-    ease_factor = 2.5
-    repetitions = 0
-    previous_interval = 1
-    if progress:
-        ease_factor = progress['ease_factor']
-        repetitions = progress['repetitions']
-        try:
-            last_rev = datetime.strptime(progress['last_reviewed'].split(' ')[0], '%Y-%m-%d').date()
-            next_rev = datetime.strptime(progress['next_review'].split(' ')[0], '%Y-%m-%d').date()
-            previous_interval = (next_rev - last_rev).days
-        except (ValueError, TypeError):
-            previous_interval = 1
-
-    is_correct = user_input.strip().lower() == word_info['english_word'].strip().lower()
-    quality = 5 if is_correct else 0
-
-    new_ease_factor = max(1.3, ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
+    # --- Check Answer ---
+    is_correct = False
+    correct_answer_type = 'incorrect' # incorrect, correct, alternative
+    primary_answer = word_info['english_word'].strip().lower()
     
-    # Initialize session lists if they don't exist
-    if 'reviewed_word_ids' not in session:
-        session['reviewed_word_ids'] = []
-    if 'correct_word_ids' not in session:
-        session['correct_word_ids'] = []
-    if 'incorrect_word_ids' not in session:
-        session['incorrect_word_ids'] = []
+    if user_input == primary_answer:
+        is_correct = True
+        correct_answer_type = 'correct'
+    else:
+        alternatives = word_info['alternative_translations']
+        if alternatives:
+            # Split alternatives by semicolon and strip whitespace
+            alternative_list = [alt.strip().lower() for alt in alternatives.split(';')]
+            if user_input in alternative_list:
+                is_correct = True
+                correct_answer_type = 'alternative'
 
-    # Add word_id to the reviewed list
-    if word_id not in session['reviewed_word_ids']:
-        session['reviewed_word_ids'].append(word_id)
+    # --- Update Progress (SM-2 Algorithm) ---
+    quality = 5 if is_correct else 0
+    
+    ease_factor = progress['ease_factor'] if progress else 2.5
+    repetitions = progress['repetitions'] if progress else 0
+    
+    new_ease_factor = max(1.3, ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
 
     if is_correct:
         new_repetitions = repetitions + 1
-        if new_repetitions <= 1: new_interval = 1
-        elif new_repetitions == 2: new_interval = 6
-        else: new_interval = int(round(previous_interval * new_ease_factor))
-        session['correct_answers'] = session.get('correct_answers', 0) + 1
-        if word_id not in session['correct_word_ids']:
-            session['correct_word_ids'].append(word_id)
-        if word_id in session['incorrect_word_ids']:
-            session['incorrect_word_ids'].remove(word_id) # Remove from incorrect if now correct
+        if new_repetitions <= 1:
+            new_interval = 1
+        elif new_repetitions == 2:
+            new_interval = 6
+        else:
+            # Calculate previous interval for existing progress
+            previous_interval = 1
+            if progress and progress['last_reviewed'] and progress['next_review']:
+                 try:
+                    last_rev = datetime.strptime(progress['last_reviewed'].split(' ')[0], '%Y-%m-%d').date()
+                    next_rev = datetime.strptime(progress['next_review'].split(' ')[0], '%Y-%m-%d').date()
+                    previous_interval = (next_rev - last_rev).days
+                 except (ValueError, TypeError):
+                    previous_interval = 1 # Fallback
+            new_interval = int(round(previous_interval * new_ease_factor))
     else:
         new_repetitions = 0
         new_interval = 1
-        session['incorrect_answers'] = session.get('incorrect_answers', 0) + 1
-        if word_id not in session['incorrect_word_ids']:
-            session['incorrect_word_ids'].append(word_id)
-        if word_id in session['correct_word_ids']:
-            session['correct_word_ids'].remove(word_id) # Remove from correct if now incorrect
 
+    # --- Session Tracking ---
+    if 'reviewed_word_ids' not in session: session['reviewed_word_ids'] = []
+    if 'correct_word_ids' not in session: session['correct_word_ids'] = []
+    if 'incorrect_word_ids' not in session: session['incorrect_word_ids'] = []
+
+    if word_id not in session['reviewed_word_ids']: session['reviewed_word_ids'].append(word_id)
+
+    if is_correct:
+        session['correct_answers'] = session.get('correct_answers', 0) + 1
+        if word_id not in session['correct_word_ids']: session['correct_word_ids'].append(word_id)
+        if word_id in session['incorrect_word_ids']: session['incorrect_word_ids'].remove(word_id)
+    else:
+        session['incorrect_answers'] = session.get('incorrect_answers', 0) + 1
+        if word_id not in session['incorrect_word_ids']: session['incorrect_word_ids'].append(word_id)
+        if word_id in session['correct_word_ids']: session['correct_word_ids'].remove(word_id)
+
+    # --- Database Update ---
     today = datetime.now().date()
     new_next_review = today + timedelta(days=new_interval)
 
@@ -476,11 +503,13 @@ def submit_review():
 
     conn.commit()
     conn.close()
-
-    # Manually mark the session as modified since we are changing mutable types (lists)
     session.modified = True
 
-    return jsonify({'success': True, 'is_correct': is_correct, 'correct_answer': word_info['english_word']})
+    return jsonify({
+        'success': True, 
+        'result': correct_answer_type, # 'correct', 'alternative', or 'incorrect'
+        'correct_answer': word_info['english_word']
+    })
 
 @app.route('/session_summary')
 def session_summary():
@@ -647,13 +676,17 @@ def edit_word(word_id):
     
     conn = get_db_connection()
     if request.method == 'POST':
-        # ... (validation logic) ...
         english_word = request.form['english_word'].strip()
         arabic_translation = request.form['arabic_translation'].strip()
+        vocalized_arabic = request.form.get('vocalized_arabic', '').strip()
+        alternative_translations = request.form.get('alternative_translations', '').strip()
         book_name = request.form.get('book_name', 'Uncategorized').strip()
         try:
-            conn.execute('UPDATE words SET english_word = ?, arabic_translation = ?, book_name = ? WHERE id = ?',
-                         (english_word, arabic_translation, book_name, word_id))
+            conn.execute('''
+                UPDATE words 
+                SET english_word = ?, arabic_translation = ?, vocalized_arabic = ?, alternative_translations = ?, book_name = ? 
+                WHERE id = ?
+            ''', (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name, word_id))
             conn.commit()
             flash('Word updated successfully!', 'success')
             return redirect(url_for('index'))

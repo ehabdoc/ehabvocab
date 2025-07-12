@@ -116,8 +116,16 @@
                 <input type="text" id="english_word" name="english_word" value="{{ word.english_word }}" required maxlength="100">
             </div>
             <div class="form-group">
-                <label for="arabic_translation">الترجمة العربية:</label>
+                <label for="arabic_translation">الترجمة العربية (بدون تشكيل):</label>
                 <input type="text" id="arabic_translation" name="arabic_translation" value="{{ word.arabic_translation }}" required maxlength="100">
+            </div>
+            <div class="form-group">
+                <label for="vocalized_arabic">الترجمة العربية (بالتشكيل):</label>
+                <input type="text" id="vocalized_arabic" name="vocalized_arabic" value="{{ word.vocalized_arabic or '' }}" maxlength="100">
+            </div>
+            <div class="form-group">
+                <label for="alternative_translations">ترجمات إنجليزية بديلة (مفصولة بفاصلة منقوطة):</label>
+                <input type="text" id="alternative_translations" name="alternative_translations" value="{{ word.alternative_translations or '' }}" maxlength="255">
             </div>
             <div class="form-group">
                 <label for="book_name">الكتاب/القسم:</label>
