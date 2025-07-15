@@ -59,7 +59,7 @@ def create_words_table(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS words (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            english_word TEXT NOT NULL UNIQUE,
+            english_word TEXT NOT NULL,
             arabic_translation TEXT NOT NULL,
             vocalized_arabic TEXT,
             alternative_translations TEXT,
@@ -331,14 +331,9 @@ def import_words_from_csv():
                         app.logger.warning(f'Skipping row {i+1}: Arabic translation "{arabic_translation}" is invalid: {ara_error}')
                         continue
 
-                    try:
-                        cursor.execute("INSERT INTO words (english_word, arabic_translation, book_name) VALUES (?, ?, ?)",
+                    cursor.execute("INSERT INTO words (english_word, arabic_translation, book_name) VALUES (?, ?, ?)",
                                        (english_word, arabic_translation, book_name))
-                        imported_count += 1
-                    except sqlite3.IntegrityError:
-                        cursor.execute("UPDATE words SET arabic_translation = ?, book_name = ? WHERE english_word = ?",
-                                       (arabic_translation, book_name, english_word))
-                        updated_count += 1
+                    imported_count += 1
             conn.commit()
             flash(f'Import complete: {imported_count} imported, {updated_count} updated, {skipped_count} skipped.', 'success')
         except Exception as e:
