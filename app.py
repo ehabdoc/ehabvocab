@@ -311,11 +311,15 @@ def import_words_from_csv():
         try:
             # If reset is checked, wipe tables first
             if reset_database:
-                app.logger.info("Resetting database: Deleting all words and user progress.")
-                cursor.execute("DELETE FROM user_word_progress")
-                cursor.execute("DELETE FROM words")
-                # Reset the auto-increment counter for the words table
-                cursor.execute("DELETE FROM sqlite_sequence WHERE name='words'")
+                app.logger.info("Resetting database: Dropping and recreating tables.")
+                # Drop tables in reverse order of creation to respect foreign keys
+                cursor.execute("DROP TABLE IF EXISTS user_word_progress")
+                cursor.execute("DROP TABLE IF EXISTS words")
+                conn.commit()
+                # Recreate them to ensure IDs start from 1
+                create_words_table(cursor)
+                create_user_word_progress_table(cursor)
+                conn.commit()
                 flash('Database has been reset. All words and user progress deleted.', 'warning')
 
             # Now, import the words from the CSV
@@ -340,8 +344,7 @@ def import_words_from_csv():
                         app.logger.warning(f'Skipping row {i+1}: English or Vocalized Arabic word is empty.')
                         continue
                     
-                    # Since we are doing a clean import (especially after a reset), we just insert.
-                    # The old logic for updating is removed to simplify and meet the new requirement.
+                    # Simplified insert logic
                     cursor.execute("SELECT COUNT(*) FROM words")
                     total_words = cursor.fetchone()[0] + imported_count
                     book_name = f'Book {(total_words // 600) + 1}'
