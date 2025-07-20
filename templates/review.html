@@ -52,6 +52,12 @@
         border-color: #f5c2c7;
         display: block;
     }
+    .feedback-message.alternative {
+        color: #055160;
+        background-color: #cff4fc;
+        border-color: #b6effb;
+        display: block;
+    }
     .correct-answer-display {
         font-size: 1.2em;
         color: #6c757d;
@@ -146,8 +152,8 @@
                     feedbackMessageDiv.textContent = 'Correct! 🎉';
                     feedbackMessageDiv.className = 'feedback-message correct';
                 } else if (data.result === 'alternative') {
-                    feedbackMessageDiv.textContent = 'Correct, but not the target word. 😊';
-                    feedbackMessageDiv.className = 'feedback-message wrong'; // Or a new 'alternative' class
+                    feedbackMessageDiv.textContent = 'That is a correct alternative. Good job!';
+                    feedbackMessageDiv.className = 'feedback-message alternative';
                 } else { // incorrect
                     feedbackMessageDiv.textContent = 'Not quite. Keep trying! 😊';
                     feedbackMessageDiv.className = 'feedback-message wrong';

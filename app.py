@@ -344,10 +344,8 @@ def import_words_from_csv():
                         app.logger.warning(f'Skipping row {i+1}: English or Vocalized Arabic word is empty.')
                         continue
                     
-                    # Simplified insert logic
-                    cursor.execute("SELECT COUNT(*) FROM words")
-                    total_words = cursor.fetchone()[0] + imported_count
-                    book_name = f'Book {(total_words // 600) + 1}'
+                    # Simplified insert logic based on row index for correct book assignment
+                    book_name = f'Book {(i // 600) + 1}'
 
                     cursor.execute("""
                         INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
@@ -672,8 +670,16 @@ def session_word_list():
         conn = get_db_connection()
         # Using placeholders to prevent SQL injection
         placeholders = ','.join('?' for _ in word_ids)
-        query = f'SELECT id, english_word, arabic_translation, alternative_translations FROM words WHERE id IN ({placeholders}) ORDER BY english_word'
-        words = conn.execute(query, word_ids).fetchall()
+        query = f'''
+            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
+            FROM words w
+            LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
+            WHERE w.id IN ({placeholders})
+            ORDER BY w.english_word
+        '''
+        # We need to pass user_id first for the LEFT JOIN, then the list of word_ids
+        params = [session['user_id']] + word_ids
+        words = conn.execute(query, params).fetchall()
         conn.close()
     
     return render_template('word_list.html', words=words, title=title)
