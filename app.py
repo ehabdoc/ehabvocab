@@ -428,26 +428,28 @@ def review():
 def submit_review():
     """Processes a review and updates the user's personal progress using a robust SM-2 algorithm."""
     if 'user_id' not in session:
+        app.logger.error("Unauthorized attempt to submit review: No user_id in session.")
         return jsonify({'success': False, 'message': 'Not logged in'}), 401
 
     user_id = session['user_id']
     data = request.get_json()
     word_id = data.get('word_id')
-    user_input = data.get('user_input', '').strip().lower()
+    app.logger.info(f"--- Review Submission Started for user:{user_id}, word:{word_id} ---")
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    word_info = cursor.execute('SELECT english_word, alternative_translations FROM words WHERE id = ?', (word_id,)).fetchone()
-    if not word_info:
-        conn.close()
-        return jsonify({'success': False, 'message': 'Word not found'}), 404
-
     progress = cursor.execute('SELECT * FROM user_word_progress WHERE user_id = ? AND word_id = ?', (user_id, word_id)).fetchone()
+    if progress:
+        app.logger.info(f"Found existing progress: Reps={progress['repetitions']}, Ease={progress['ease_factor']}, Interval={progress['interval_days']}")
+    else:
+        app.logger.info("No existing progress found for this word. Creating new.")
 
-    # --- Check Answer ---
+    word_info = cursor.execute('SELECT english_word, alternative_translations FROM words WHERE id = ?', (word_id,)).fetchone()
+    
     is_correct = False
     correct_answer_type = 'incorrect'
+    user_input = data.get('user_input', '').strip().lower()
     primary_answer = word_info['english_word'].strip().lower()
     
     if user_input == primary_answer:
@@ -455,21 +457,17 @@ def submit_review():
         correct_answer_type = 'correct'
     else:
         alternatives = word_info['alternative_translations']
-        if alternatives:
-            alternative_list = [alt.strip().lower() for alt in alternatives.split(';')]
-            if user_input in alternative_list:
-                is_correct = True
-                correct_answer_type = 'alternative'
-
-    # --- Update Progress (SM-2 Algorithm) ---
-    quality = 5 if is_correct else 0
+        if alternatives and user_input in [alt.strip().lower() for alt in alternatives.split(';')]:
+            is_correct = True
+            correct_answer_type = 'alternative'
     
-    # Fetch existing progress or set defaults
+    app.logger.info(f"Answer check: User input='{user_input}', Correct answer='{primary_answer}', Result='{correct_answer_type}'")
+
+    quality = 5 if is_correct else 0
     ease_factor = progress['ease_factor'] if progress else 2.5
     repetitions = progress['repetitions'] if progress else 0
     interval_days = progress['interval_days'] if progress else 1
 
-    # Recalculate ease factor
     new_ease_factor = max(1.3, ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
 
     if is_correct:
@@ -478,38 +476,40 @@ def submit_review():
             new_interval = 1
         elif new_repetitions == 2:
             new_interval = 6
-        else: # new_repetitions > 2
+        else:
             new_interval = int(round(interval_days * new_ease_factor))
     else:
         new_repetitions = 0
-        new_interval = 1 # Reset interval on failure
+        new_interval = 1
+    
+    app.logger.info(f"SRS Calculation: Quality={quality}, Old Reps={repetitions}, New Reps={new_repetitions}, Old Interval={interval_days}, New Interval={new_interval}, Old Ease={ease_factor}, New Ease={new_ease_factor}")
 
     # --- Session Tracking ---
-    if 'reviewed_word_ids' not in session: session['reviewed_word_ids'] = []
-    if 'correct_word_ids' not in session: session['correct_word_ids'] = []
-    if 'incorrect_word_ids' not in session: session['incorrect_word_ids'] = []
+    session.setdefault('reviewed_word_ids', [])
+    session.setdefault('correct_word_ids', [])
+    session.setdefault('incorrect_word_ids', [])
+    app.logger.info(f"Session state before update: Correct IDs={session['correct_word_ids']}, Incorrect IDs={session['incorrect_word_ids']}")
 
     if word_id not in session['reviewed_word_ids']:
         session['reviewed_word_ids'].append(word_id)
 
     if is_correct:
-        session['correct_answers'] = session.get('correct_answers', 0) + 1
         if word_id not in session['correct_word_ids']:
             session['correct_word_ids'].append(word_id)
-        # If it was previously incorrect in this session, remove it
         if word_id in session['incorrect_word_ids']:
             session['incorrect_word_ids'].remove(word_id)
-    else: # Incorrect
-        session['incorrect_answers'] = session.get('incorrect_answers', 0) + 1
+    else:
         if word_id not in session['incorrect_word_ids']:
             session['incorrect_word_ids'].append(word_id)
-        # If it was previously correct in this session, remove it
         if word_id in session['correct_word_ids']:
             session['correct_word_ids'].remove(word_id)
+    
+    app.logger.info(f"Session state after update: Correct IDs={session['correct_word_ids']}, Incorrect IDs={session['incorrect_word_ids']}")
 
     # --- Database Update ---
     today = datetime.now().date()
     new_next_review = today + timedelta(days=new_interval)
+    app.logger.info(f"Updating database: Next Review Date will be {new_next_review.isoformat()}")
 
     if progress:
         cursor.execute('''
@@ -526,6 +526,7 @@ def submit_review():
     conn.commit()
     conn.close()
     session.modified = True
+    app.logger.info(f"--- Review Submission Finished for user:{user_id}, word:{word_id} ---")
 
     return jsonify({
         'success': True, 
