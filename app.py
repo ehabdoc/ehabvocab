@@ -425,7 +425,7 @@ def review():
 
 @app.route('/submit_review', methods=['POST'])
 def submit_review():
-    """Processes a review and updates the user's personal progress."""
+    """Processes a review and updates the user's personal progress using a corrected SM-2 algorithm."""
     if 'user_id' not in session:
         return jsonify({'success': False, 'message': 'Not logged in'}), 401
 
@@ -446,7 +446,7 @@ def submit_review():
 
     # --- Check Answer ---
     is_correct = False
-    correct_answer_type = 'incorrect' # incorrect, correct, alternative
+    correct_answer_type = 'incorrect'
     primary_answer = word_info['english_word'].strip().lower()
     
     if user_input == primary_answer:
@@ -455,7 +455,6 @@ def submit_review():
     else:
         alternatives = word_info['alternative_translations']
         if alternatives:
-            # Split alternatives by semicolon and strip whitespace
             alternative_list = [alt.strip().lower() for alt in alternatives.split(';')]
             if user_input in alternative_list:
                 is_correct = True
@@ -471,20 +470,19 @@ def submit_review():
 
     if is_correct:
         new_repetitions = repetitions + 1
-        if new_repetitions <= 1:
+        if new_repetitions == 1:
             new_interval = 1
         elif new_repetitions == 2:
             new_interval = 6
-        else:
-            # Calculate previous interval for existing progress
-            previous_interval = 1
-            if progress and progress['last_reviewed'] and progress['next_review']:
-                 try:
-                    last_rev = datetime.strptime(progress['last_reviewed'].split(' ')[0], '%Y-%m-%d').date()
-                    next_rev = datetime.strptime(progress['next_review'].split(' ')[0], '%Y-%m-%d').date()
-                    previous_interval = (next_rev - last_rev).days
-                 except (ValueError, TypeError):
-                    previous_interval = 1 # Fallback
+        else: # new_repetitions > 2
+            try:
+                last_rev = datetime.strptime(progress['last_reviewed'].split(' ')[0], '%Y-%m-%d').date()
+                next_rev = datetime.strptime(progress['next_review'].split(' ')[0], '%Y-%m-%d').date()
+                previous_interval = (next_rev - last_rev).days
+                if previous_interval < 1: previous_interval = 1
+            except (AttributeError, ValueError, TypeError):
+                previous_interval = 6 # Fallback if dates are weird or progress is None
+            
             new_interval = int(round(previous_interval * new_ease_factor))
     else:
         new_repetitions = 0
@@ -528,7 +526,7 @@ def submit_review():
 
     return jsonify({
         'success': True, 
-        'result': correct_answer_type, # 'correct', 'alternative', or 'incorrect'
+        'result': correct_answer_type,
         'correct_answer': word_info['english_word']
     })
 
