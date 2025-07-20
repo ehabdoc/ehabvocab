@@ -1,18 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Import CSV</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Import Words from CSV</h1>
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="csv_file" accept=".csv" required>
-            <button type="submit">Upload and Import</button>
-        </form>
-        <a href="{{ url_for('index') }}">Back to Home</a>
+{% extends "base.html" %}
+
+{% block title %}Import CSV{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Import Words from CSV</h1>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="csv_file" class="form-label">Select CSV File</label>
+                            <input type="file" class="form-control" name="csv_file" id="csv_file" accept=".csv" required>
+                        </div>
+
+                        <div class="form-check mb-3 p-3 border border-danger rounded">
+                            <input class="form-check-input" type="checkbox" name="reset_database" id="resetDatabaseCheck">
+                            <label class="form-check-label" for="resetDatabaseCheck">
+                                <strong>Reset database before import</strong>
+                            </label>
+                            <p class="text-danger small mt-1">
+                                Warning: This will permanently delete all existing words and all user review progress before importing the new file. This is required for re-sequencing word IDs.
+                            </p>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Upload and Import</button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('index') }}">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

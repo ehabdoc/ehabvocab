@@ -282,13 +282,18 @@ def index():
 
 @app.route('/import_csv', methods=['GET', 'POST'])
 def import_words_from_csv():
-    """Page for admins to import words from a CSV file into the global list."""
+    """
+    Page for admins to import words from a CSV file.
+    Includes an option to reset the database for a clean import.
+    """
     if not session.get('is_admin'):
         flash('You must be an admin to import words.', 'error')
         return redirect(url_for('index'))
 
     if request.method == 'POST':
         file = request.files.get('csv_file')
+        reset_database = request.form.get('reset_database') == 'on'
+
         if not file or file.filename == '':
             flash('No file selected', 'error')
             return redirect(request.url)
@@ -302,16 +307,25 @@ def import_words_from_csv():
 
         conn = get_db_connection()
         cursor = conn.cursor()
-        imported_count, updated_count, skipped_count = 0, 0, 0
         
         try:
+            # If reset is checked, wipe tables first
+            if reset_database:
+                app.logger.info("Resetting database: Deleting all words and user progress.")
+                cursor.execute("DELETE FROM user_word_progress")
+                cursor.execute("DELETE FROM words")
+                # Reset the auto-increment counter for the words table
+                cursor.execute("DELETE FROM sqlite_sequence WHERE name='words'")
+                flash('Database has been reset. All words and user progress deleted.', 'warning')
+
+            # Now, import the words from the CSV
+            imported_count, skipped_count = 0, 0
             with open(filepath, mode='r', encoding='utf-8') as f:
                 csv_reader = csv.reader(f)
-                # Skip header row if it exists
                 try:
-                    next(csv_reader)
+                    next(csv_reader)  # Skip header
                 except StopIteration:
-                    pass # Ignore empty files
+                    pass  # Ignore empty file
 
                 for i, row in enumerate(csv_reader):
                     if len(row) < 3:
@@ -321,52 +335,37 @@ def import_words_from_csv():
 
                     english_word, vocalized_arabic, synonyms = row[0].strip(), row[1].strip(), row[2].strip()
 
-                    # Basic validation
                     if not english_word or not vocalized_arabic:
                         skipped_count += 1
                         app.logger.warning(f'Skipping row {i+1}: English or Vocalized Arabic word is empty.')
                         continue
                     
-                    # Check if word exists
-                    cursor.execute("SELECT id FROM words WHERE english_word = ?", (english_word,))
-                    existing_word = cursor.fetchone()
+                    # Since we are doing a clean import (especially after a reset), we just insert.
+                    # The old logic for updating is removed to simplify and meet the new requirement.
+                    cursor.execute("SELECT COUNT(*) FROM words")
+                    total_words = cursor.fetchone()[0] + imported_count
+                    book_name = f'Book {(total_words // 600) + 1}'
 
-                    if existing_word:
-                        # Update existing word
-                        word_id = existing_word['id']
-                        cursor.execute("""
-                            UPDATE words 
-                            SET vocalized_arabic = ?, alternative_translations = ?
-                            WHERE id = ?
-                        """, (vocalized_arabic, synonyms, word_id))
-                        updated_count += 1
-                    else:
-                        # Insert new word
-                        # For new words, we'll use vocalized_arabic as the main arabic_translation
-                        # and assign a book name automatically.
-                        cursor.execute("SELECT COUNT(*) FROM words")
-                        total_words = cursor.fetchone()[0]
-                        book_name = f'Book {(total_words // 600) + 1}'
-
-                        cursor.execute("""
-                            INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
-                            VALUES (?, ?, ?, ?, ?)
-                        """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
-                        imported_count += 1
+                    cursor.execute("""
+                        INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
+                        VALUES (?, ?, ?, ?, ?)
+                    """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
+                    imported_count += 1
 
             conn.commit()
-            flash(f'Import complete: {imported_count} new words added, {updated_count} words updated, {skipped_count} rows skipped.', 'success')
+            flash(f'Import complete: {imported_count} new words added, {skipped_count} rows skipped.', 'success')
+
         except Exception as e:
-            conn.rollback() # Rollback changes on error
+            conn.rollback()
             flash(f'An error occurred: {e}', 'error')
             app.logger.error(f"Error during CSV import: {e}")
         finally:
             conn.close()
-            # Clean up the uploaded file
             if os.path.exists(filepath):
                 os.remove(filepath)
 
         return redirect(url_for('index'))
+        
     return render_template('import_csv.html')
 
 @app.route('/review')
@@ -609,7 +608,7 @@ def word_list():
     if list_type == 'reviewed':
         title = "Total Words Reviewed"
         cursor.execute('''
-            SELECT w.id, w.english_word, w.arabic_translation
+            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
             WHERE p.user_id = ?
@@ -619,7 +618,7 @@ def word_list():
     elif list_type == 'due_today':
         title = "Words Due for Review Today"
         cursor.execute('''
-            SELECT w.id, w.english_word, w.arabic_translation
+            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
             WHERE p.user_id = ? AND p.next_review <= date('now')
@@ -629,7 +628,7 @@ def word_list():
     elif list_type == 'mastered':
         title = "Words Mastered"
         cursor.execute('''
-            SELECT w.id, w.english_word, w.arabic_translation
+            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
             WHERE p.user_id = ? AND p.repetitions >= 5
@@ -670,7 +669,7 @@ def session_word_list():
         conn = get_db_connection()
         # Using placeholders to prevent SQL injection
         placeholders = ','.join('?' for _ in word_ids)
-        query = f'SELECT id, english_word, arabic_translation FROM words WHERE id IN ({placeholders}) ORDER BY english_word'
+        query = f'SELECT id, english_word, arabic_translation, alternative_translations FROM words WHERE id IN ({placeholders}) ORDER BY english_word'
         words = conn.execute(query, word_ids).fetchall()
         conn.close()
     
