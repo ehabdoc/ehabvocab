@@ -14,7 +14,7 @@
                         <ul class="list-group list-group-flush">
                             {% for word in words %}
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ word.english_word }}</span>
+                                    <span>#{{ word.id }} - {{ word.english_word }}</span>
                                     <span class="text-muted">{{ word.arabic_translation }}</span>
                                 </li>
                             {% endfor %}

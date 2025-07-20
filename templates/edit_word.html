@@ -98,7 +98,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>تعديل الكلمة: {{ word.english_word }}</h1>
+        <h1>تعديل الكلمة: #{{ word.id }} - {{ word.english_word }}</h1>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -111,6 +111,10 @@
         {% endwith %}
 
         <form method="POST">
+            <div class="form-group">
+                <label for="word_id">Word ID:</label>
+                <input type="text" id="word_id" name="word_id" value="{{ word.id }}" disabled>
+            </div>
             <div class="form-group">
                 <label for="english_word">الكلمة الإنجليزية:</label>
                 <input type="text" id="english_word" name="english_word" value="{{ word.english_word }}" required maxlength="100">
