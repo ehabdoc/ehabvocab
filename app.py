@@ -427,9 +427,10 @@ def review():
 @app.route('/submit_review', methods=['POST'])
 def submit_review():
     """Processes a review and updates the user's personal progress using a robust SM-2 algorithm."""
-    # 1. --- Authorization and Input Validation ---
+    print("\n--- [START] ---")
+    print("--- 1. Authorization and Input Validation ---")
     if 'user_id' not in session:
-        app.logger.error("Unauthorized review submission: No user_id in session.")
+        print("ERROR: No user_id in session. Aborting.")
         return jsonify({'success': False, 'message': 'Not logged in'}), 401
 
     user_id = session['user_id']
@@ -437,59 +438,62 @@ def submit_review():
     word_id = data.get('word_id')
     user_input = data.get('user_input', '').strip().lower()
 
-    app.logger.info(f"--- Review Submission Started: UserID={user_id}, WordID={word_id}, Input='{user_input}' ---")
+    print(f"Review Submission Details: UserID={user_id}, WordID={word_id}, Input='{user_input}'")
 
     if not all([word_id, isinstance(word_id, int)]):
-        app.logger.error(f"Invalid input: WordID is missing or not an integer. Data received: {data}")
+        print(f"ERROR: Invalid input. WordID is missing or not an integer. Data: {data}")
         return jsonify({'success': False, 'message': 'Invalid input'}), 400
 
-    # 2. --- Database Fetch ---
+    print("--- 2. Database Fetch ---")
     conn = get_db_connection()
     cursor = conn.cursor()
-    app.logger.info("Database connection established.")
+    print("Database connection established.")
 
     word_info = cursor.execute('SELECT english_word, alternative_translations FROM words WHERE id = ?', (word_id,)).fetchone()
     if not word_info:
-        app.logger.error(f"Word with ID {word_id} not found in the database.")
+        print(f"ERROR: Word with ID {word_id} not found.")
         conn.close()
         return jsonify({'success': False, 'message': 'Word not found'}), 404
+    
+    print(f"Word Info Found: English='{word_info['english_word']}', Alternatives='{word_info['alternative_translations']}'")
 
     progress = cursor.execute('SELECT * FROM user_word_progress WHERE user_id = ? AND word_id = ?', (user_id, word_id)).fetchone()
     if progress:
-        app.logger.info(f"Existing progress found: Reps={progress['repetitions']}, Ease={progress['ease_factor']}, Interval={progress['interval_days']}")
+        print(f"Existing progress found: Reps={progress['repetitions']}, Ease={progress['ease_factor']:.2f}, Interval={progress['interval_days']} days")
     else:
-        app.logger.info("No existing progress for this word. Will create a new record.")
+        print("No existing progress for this word. This is a NEW word for this user.")
 
-    # 3. --- Answer Evaluation ---
+    print("--- 3. Answer Evaluation ---")
     is_correct = False
     correct_answer_type = 'incorrect'
     primary_answer = word_info['english_word'].strip().lower()
     
+    print(f"User Input: '{user_input}', Primary Answer: '{primary_answer}'")
     if user_input == primary_answer:
         is_correct = True
         correct_answer_type = 'correct'
-        app.logger.info("Answer is CORRECT (primary match).")
+        print("RESULT: CORRECT (Primary match)")
     else:
         alternatives = word_info['alternative_translations']
         if alternatives:
             alt_list = [alt.strip().lower() for alt in alternatives.split(';')]
-            app.logger.info(f"Checking against alternatives: {alt_list}")
+            print(f"Checking against alternatives: {alt_list}")
             if user_input in alt_list:
                 is_correct = True
                 correct_answer_type = 'alternative'
-                app.logger.info("Answer is CORRECT (alternative match).")
+                print("RESULT: CORRECT (Alternative match)")
         else:
-            app.logger.info("No alternatives to check against.")
+            print("No alternatives to check against.")
 
     if not is_correct:
-        app.logger.info("Answer is INCORRECT.")
+        print("RESULT: INCORRECT")
 
-    # 4. --- SM-2 Algorithm Calculation ---
+    print("--- 4. SM-2 Algorithm Calculation ---")
     quality = 5 if is_correct else 0
     ease_factor = progress['ease_factor'] if progress else 2.5
     repetitions = progress['repetitions'] if progress else 0
     interval_days = progress['interval_days'] if progress else 1
-    app.logger.info(f"SRS Input: Quality={quality}, OldEase={ease_factor}, OldReps={repetitions}, OldInterval={interval_days}")
+    print(f"SRS Input: Quality={quality}, OldEase={ease_factor:.2f}, OldReps={repetitions}, OldInterval={interval_days}")
 
     new_ease_factor = max(1.3, ease_factor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)))
 
@@ -500,19 +504,18 @@ def submit_review():
         elif new_repetitions == 2:
             new_interval = 6
         else:
-            # Round to nearest integer, ensure minimum of 1 day
             new_interval = max(1, int(round(interval_days * new_ease_factor)))
     else:
         new_repetitions = 0
         new_interval = 1 # Reset interval on failure
     
-    app.logger.info(f"SRS Output: NewEase={new_ease_factor:.4f}, NewReps={new_repetitions}, NewInterval={new_interval}")
+    print(f"SRS Output: NewEase={new_ease_factor:.4f}, NewReps={new_repetitions}, NewInterval={new_interval}")
 
-    # 5. --- Session State Update ---
+    print("--- 5. Session State Update ---")
     session.setdefault('reviewed_word_ids', [])
     session.setdefault('correct_word_ids', [])
     session.setdefault('incorrect_word_ids', [])
-    app.logger.info(f"Session state BEFORE update: Correct={session.get('correct_word_ids')}, Incorrect={session.get('incorrect_word_ids')}")
+    print(f"Session state BEFORE: Correct={session.get('correct_word_ids')}, Incorrect={session.get('incorrect_word_ids')}")
 
     if word_id not in session['reviewed_word_ids']:
         session['reviewed_word_ids'].append(word_id)
@@ -521,20 +524,20 @@ def submit_review():
         if word_id not in session['correct_word_ids']:
             session['correct_word_ids'].append(word_id)
         if word_id in session['incorrect_word_ids']:
-            session['incorrect_word_ids'].remove(word_id) # A correct answer overrides a previous incorrect one in the same session
+            session['incorrect_word_ids'].remove(word_id)
     else:
         if word_id not in session['incorrect_word_ids']:
             session['incorrect_word_ids'].append(word_id)
         if word_id in session['correct_word_ids']:
-            session['correct_word_ids'].remove(word_id) # An incorrect answer overrides a previous correct one
+            session['correct_word_ids'].remove(word_id)
 
-    session.modified = True # Ensure session changes are saved
-    app.logger.info(f"Session state AFTER update: Correct={session.get('correct_word_ids')}, Incorrect={session.get('incorrect_word_ids')}")
+    session.modified = True
+    print(f"Session state AFTER: Correct={session.get('correct_word_ids')}, Incorrect={session.get('incorrect_word_ids')}")
 
-    # 6. --- Database Update ---
+    print("--- 6. Database Update ---")
     today = datetime.now().date()
     new_next_review = today + timedelta(days=new_interval)
-    app.logger.info(f"Updating database. Next review date: {new_next_review.isoformat()}")
+    print(f"Updating database. Next review date: {new_next_review.isoformat()}")
 
     if progress:
         cursor.execute('''
@@ -542,18 +545,18 @@ def submit_review():
             SET last_reviewed = ?, next_review = ?, repetitions = ?, ease_factor = ?, interval_days = ?
             WHERE user_id = ? AND word_id = ?
         ''', (today.isoformat(), new_next_review.isoformat(), new_repetitions, new_ease_factor, new_interval, user_id, word_id))
-        app.logger.info("DB command: UPDATE user_word_progress.")
+        print("DB command: UPDATE user_word_progress.")
     else:
         cursor.execute('''
             INSERT INTO user_word_progress (user_id, word_id, last_reviewed, next_review, repetitions, ease_factor, interval_days)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         ''', (user_id, word_id, today.isoformat(), new_next_review.isoformat(), new_repetitions, new_ease_factor, new_interval))
-        app.logger.info("DB command: INSERT INTO user_word_progress.")
+        print("DB command: INSERT INTO user_word_progress.")
 
     conn.commit()
     conn.close()
-    app.logger.info("Database transaction committed and connection closed.")
-    app.logger.info(f"--- Review Submission Finished: UserID={user_id}, WordID={word_id} ---")
+    print("Database transaction committed and connection closed.")
+    print("--- [END] ---")
 
     return jsonify({
         'success': True, 
