@@ -28,3 +28,9 @@
 .btn-green-4:hover { background-color: #70b973; border-color: #55a958; color: #fff; }
 .btn-green-5:hover { background-color: #55a958; border-color: #3c9d40; color: #fff; }
 .btn-green-6:hover { background-color: #3c9d40; border-color: #277c2a; color: #fff; }
+
+/* Add padding to the navbar to give the larger icon some space */
+.navbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
