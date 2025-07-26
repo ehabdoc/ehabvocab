@@ -247,39 +247,33 @@ def index():
                                total_pages=total_pages, search_query=search_query)
     else:
         user_id = session['user_id']
-        book_filter = request.args.get('book_name')
 
-        # Calculate new words
-        new_words_query = """
-            SELECT COUNT(w.id)
+        # Get book statistics (name and count of words to review)
+        query = """
+            SELECT 
+                w.book_name,
+                COUNT(w.id) AS words_to_review
             FROM words w
             LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
-            WHERE p.word_id IS NULL
+            WHERE p.word_id IS NULL OR p.next_review <= date('now')
+            GROUP BY w.book_name
+            ORDER BY w.book_name ASC;
         """
-        params = [user_id]
-        if book_filter:
-            new_words_query += " AND w.book_name = ?"
-            params.append(book_filter)
-        new_words_count = cursor.execute(new_words_query, tuple(params)).fetchone()[0]
+        cursor.execute(query, (user_id,))
+        books_with_counts = cursor.fetchall()
 
-        # Calculate due words
-        due_words_query = """
-            SELECT COUNT(p.word_id)
-            FROM user_word_progress p
-            JOIN words w ON p.word_id = w.id
-            WHERE p.user_id = ? AND p.next_review <= date('now')
-        """
-        params = [user_id]
-        if book_filter:
-            due_words_query += " AND w.book_name = ?"
-            params.append(book_filter)
-        due_words_count = cursor.execute(due_words_query, tuple(params)).fetchone()[0]
+        # Also get the total counts for the "All Books" buttons
+        new_words_query = "SELECT COUNT(w.id) FROM words w LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ? WHERE p.word_id IS NULL"
+        due_words_query = "SELECT COUNT(p.word_id) FROM user_word_progress p JOIN words w ON p.word_id = w.id WHERE p.user_id = ? AND p.next_review <= date('now')"
+        
+        new_words_count = cursor.execute(new_words_query, (user_id,)).fetchone()[0]
+        due_words_count = cursor.execute(due_words_query, (user_id,)).fetchone()[0]
 
         conn.close()
-        return render_template('index.html', book_names=book_names,
+        return render_template('index.html', 
+                               books_with_counts=books_with_counts,
                                new_words_count=new_words_count,
-                               due_words_count=due_words_count,
-                               selected_book=book_filter)
+                               due_words_count=due_words_count)
 
 @app.route('/import_csv', methods=['GET', 'POST'])
 def import_words_from_csv():

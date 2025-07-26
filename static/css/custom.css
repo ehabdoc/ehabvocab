@@ -13,3 +13,18 @@
 
 /* We also need to add the font to the project. Let's import it from Google Fonts. */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+/* Custom button styles for book selection */
+.btn-green-1 { background-color: #E8F5E9; border-color: #C8E6C9; color: #333; }
+.btn-green-2 { background-color: #C8E6C9; border-color: #A5D6A7; color: #333; }
+.btn-green-3 { background-color: #A5D6A7; border-color: #81C784; color: #333; }
+.btn-green-4 { background-color: #81C784; border-color: #66BB6A; color: #fff; }
+.btn-green-5 { background-color: #66BB6A; border-color: #4CAF50; color: #fff; }
+.btn-green-6 { background-color: #4CAF50; border-color: #388E3C; color: #fff; }
+
+.btn-green-1:hover { background-color: #d7edd8; border-color: #b7d9b8; color: #333; }
+.btn-green-2:hover { background-color: #b7d9b8; border-color: #94c996; color: #333; }
+.btn-green-3:hover { background-color: #94c996; border-color: #70b973; color: #333; }
+.btn-green-4:hover { background-color: #70b973; border-color: #55a958; color: #fff; }
+.btn-green-5:hover { background-color: #55a958; border-color: #3c9d40; color: #fff; }
+.btn-green-6:hover { background-color: #3c9d40; border-color: #277c2a; color: #fff; }

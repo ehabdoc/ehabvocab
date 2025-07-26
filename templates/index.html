@@ -92,9 +92,12 @@
 
         <!-- Book Selection Buttons -->
         <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
-            {% for book in book_names %}
+            {% for book in books_with_counts %}
             <div class="col">
-                <a href="{{ url_for('review', book_name=book) }}" class="btn btn-secondary btn-lg w-100">{{ book }}</a>
+                <a href="{{ url_for('review', book_name=book.book_name) }}" class="btn btn-green-{{ loop.index }} btn-lg w-100 d-flex justify-content-between align-items-center">
+                    {{ book.book_name }}
+                    <span class="badge bg-light text-dark ms-2">{{ book.words_to_review }}</span>
+                </a>
             </div>
             {% endfor %}
         </div>
