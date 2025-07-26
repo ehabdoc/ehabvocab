@@ -1,0 +1,15 @@
+/* Custom styles for ehabvocab */
+
+.navbar-brand-custom {
+    font-family: 'Montserrat', sans-serif; /* A modern, clean font */
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* Standard property */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* We also need to add the font to the project. Let's import it from Google Fonts. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
