@@ -278,7 +278,7 @@ def index():
 @app.route('/import_csv', methods=['GET', 'POST'])
 def import_words_from_csv():
     """
-    Page for admins to import words from a CSV file.
+    Page for admins to import words from separate CSV files for each column.
     Includes an option to reset the database for a clean import.
     """
     if not session.get('is_admin'):
@@ -286,69 +286,89 @@ def import_words_from_csv():
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        file = request.files.get('csv_file')
+        english_file = request.files.get('english_file')
+        arabic_file = request.files.get('arabic_file')
+        synonyms_file = request.files.get('synonyms_file')
         reset_database = request.form.get('reset_database') == 'on'
 
-        if not file or file.filename == '':
-            flash('No file selected', 'error')
-            return redirect(request.url)
-        if not file.filename.endswith('.csv'):
-            flash('Invalid file type. Please upload a .csv file.', 'error')
+        if not all([english_file, arabic_file, synonyms_file]):
+            flash('All three files are required.', 'error')
             return redirect(request.url)
 
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
+        if not (english_file.filename.endswith('.csv') and
+                arabic_file.filename.endswith('.csv') and
+                synonyms_file.filename.endswith('.csv')):
+            flash('Invalid file type. Please upload .csv files only.', 'error')
+            return redirect(request.url)
+
+        # Secure filenames and save files
+        english_filename = secure_filename(english_file.filename)
+        arabic_filename = secure_filename(arabic_file.filename)
+        synonyms_filename = secure_filename(synonyms_file.filename)
+
+        english_filepath = os.path.join(app.config['UPLOAD_FOLDER'], english_filename)
+        arabic_filepath = os.path.join(app.config['UPLOAD_FOLDER'], arabic_filename)
+        synonyms_filepath = os.path.join(app.config['UPLOAD_FOLDER'], synonyms_filename)
+
+        english_file.save(english_filepath)
+        arabic_file.save(arabic_filepath)
+        synonyms_file.save(synonyms_filepath)
 
         conn = get_db_connection()
         cursor = conn.cursor()
-        
+
         try:
-            # If reset is checked, wipe tables first
             if reset_database:
                 app.logger.info("Resetting database: Dropping and recreating tables.")
-                # Drop tables in reverse order of creation to respect foreign keys
                 cursor.execute("DROP TABLE IF EXISTS user_word_progress")
                 cursor.execute("DROP TABLE IF EXISTS words")
                 conn.commit()
-                # Recreate them to ensure IDs start from 1
                 create_words_table(cursor)
                 create_user_word_progress_table(cursor)
                 conn.commit()
-                flash('Database has been reset. All words and user progress deleted.', 'warning')
+                flash('Database has been reset.', 'warning')
 
-            # Now, import the words from the CSV
+            # Read data from all files
+            with open(english_filepath, mode='r', encoding='utf-8') as ef, \
+                 open(arabic_filepath, mode='r', encoding='utf-8') as af, \
+                 open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
+                
+                english_words = [row[0].strip() for row in csv.reader(ef) if row]
+                arabic_translations = [row[0].strip() for row in csv.reader(af) if row]
+                synonyms_list = [row[0].strip() for row in csv.reader(sf) if row]
+
+            # Process the data
+            min_length = min(len(english_words), len(arabic_translations), len(synonyms_list))
+            if min_length == 0:
+                flash('One or more files are empty.', 'error')
+                return redirect(request.url)
+
             imported_count, skipped_count = 0, 0
-            with open(filepath, mode='r', encoding='utf-8') as f:
-                csv_reader = csv.reader(f)
-                try:
-                    next(csv_reader)  # Skip header
-                except StopIteration:
-                    pass  # Ignore empty file
+            
+            for i in range(min_length):
+                english_word = english_words[i]
+                vocalized_arabic = arabic_translations[i]
+                synonyms = synonyms_list[i]
 
-                for i, row in enumerate(csv_reader):
-                    if len(row) < 3:
-                        skipped_count += 1
-                        app.logger.warning(f'Skipping row {i+1}: not enough columns.')
-                        continue
+                if not english_word or not vocalized_arabic:
+                    skipped_count += 1
+                    app.logger.warning(f'Skipping row {i+1}: English or Vocalized Arabic word is empty.')
+                    continue
+                
+                book_name = f'Book {(i // 600) + 1}'
 
-                    english_word, vocalized_arabic, synonyms = row[0].strip(), row[1].strip(), row[2].strip()
-
-                    if not english_word or not vocalized_arabic:
-                        skipped_count += 1
-                        app.logger.warning(f'Skipping row {i+1}: English or Vocalized Arabic word is empty.')
-                        continue
-                    
-                    # Simplified insert logic based on row index for correct book assignment
-                    book_name = f'Book {(i // 600) + 1}'
-
-                    cursor.execute("""
-                        INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
-                        VALUES (?, ?, ?, ?, ?)
-                    """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
-                    imported_count += 1
+                cursor.execute("""
+                    INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
+                    VALUES (?, ?, ?, ?, ?)
+                """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
+                imported_count += 1
 
             conn.commit()
+            
+            total_processed = imported_count + skipped_count
+            if total_processed < max(len(english_words), len(arabic_translations), len(synonyms_list)):
+                flash(f'Warning: Files have different lengths. Processed {total_processed} rows based on the shortest file.', 'warning')
+
             flash(f'Import complete: {imported_count} new words added, {skipped_count} rows skipped.', 'success')
 
         except Exception as e:
@@ -357,8 +377,13 @@ def import_words_from_csv():
             app.logger.error(f"Error during CSV import: {e}")
         finally:
             conn.close()
-            if os.path.exists(filepath):
-                os.remove(filepath)
+            # Clean up uploaded files
+            if os.path.exists(english_filepath):
+                os.remove(english_filepath)
+            if os.path.exists(arabic_filepath):
+                os.remove(arabic_filepath)
+            if os.path.exists(synonyms_filepath):
+                os.remove(synonyms_filepath)
 
         return redirect(url_for('index'))
         

@@ -8,12 +8,22 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h1 class="card-title text-center mb-4">Import Words from CSV</h1>
+                    <h1 class="card-title text-center mb-4">Import Word Data</h1>
                     
                     <form method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label for="csv_file" class="form-label">Select CSV File</label>
-                            <input type="file" class="form-control" name="csv_file" id="csv_file" accept=".csv" required>
+                            <label for="english_file" class="form-label">English Words File (.csv)</label>
+                            <input type="file" class="form-control" name="english_file" id="english_file" accept=".csv" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="arabic_file" class="form-label">Arabic Translations File (.csv)</label>
+                            <input type="file" class="form-control" name="arabic_file" id="arabic_file" accept=".csv" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="synonyms_file" class="form-label">Synonyms File (.csv)</label>
+                            <input type="file" class="form-control" name="synonyms_file" id="synonyms_file" accept=".csv" required>
                         </div>
 
                         <div class="form-check mb-3 p-3 border border-danger rounded">

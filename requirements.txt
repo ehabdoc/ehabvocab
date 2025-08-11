@@ -4,3 +4,4 @@ werkzeug
 gunicorn
 whitenoise
 nltk
+requests
