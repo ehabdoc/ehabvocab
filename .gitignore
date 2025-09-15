@@ -17,3 +17,7 @@ instance/
 
 # Uploads folder
 uploads/
+
+# Data files
+words_with_new_synonyms.csv
+words_with_synonyms.csv
