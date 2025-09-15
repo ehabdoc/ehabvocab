@@ -3,6 +3,7 @@
 import sys
 import nltk
 from nltk.corpus import wordnet
+import csv
 
 def download_nltk_data():
     try:
@@ -25,19 +26,19 @@ def get_synonyms(word):
 
 def process_file(input_path):
     download_nltk_data()
-    output_path = input_path.replace('.txt', '_with_synonyms.txt')
+    output_path = input_path.replace('.csv', '_with_synonyms.csv')
     
-    with open(input_path, 'r', encoding='utf-8') as f_in, open(output_path, 'w', encoding='utf-8') as f_out:
-        for line in f_in:
-            line = line.strip()
-            if not line:
-                continue
-            
-            parts = line.split(',', 1)
-            if len(parts) != 2:
-                continue
-                
-            english_word, arabic_translation = parts
+    with open(input_path, 'r', encoding='utf-8') as f_in, open(output_path, 'w', encoding='utf-8', newline='') as f_out:
+        reader = csv.reader(f_in)
+        writer = csv.writer(f_out)
+        
+        header = next(reader)
+        if 'Synonyms' not in header:
+            header.append('Synonyms')
+        writer.writerow(header)
+        
+        for row in reader:
+            english_word = row[0]
             synonyms = get_synonyms(english_word)
             
             if not synonyms:
@@ -45,11 +46,23 @@ def process_file(input_path):
             else:
                 synonyms_str = ';'.join(synonyms)
                 
-            f_out.write(f"{english_word},{arabic_translation},{synonyms_str}\n")
+            if 'Synonyms' in header:
+                synonyms_index = header.index('Synonyms')
+                if len(row) > synonyms_index:
+                    row[synonyms_index] = synonyms_str
+                else:
+                    row.append(synonyms_str)
+            else:
+                row.append(synonyms_str)
+                
+            writer.writerow(row)
             
     print(f"Processing complete. Output saved to: {output_path}")
 
 if __name__ == "__main__":
-    input_file = r"C:\Users\EHAB\ehabvocab\Alternatives (1).txt"
+    if len(sys.argv) < 2:
+        print("Usage: python add_synonyms.py <input_file>")
+        sys.exit(1)
+    input_file = sys.argv[1]
     process_file(input_file)
 
