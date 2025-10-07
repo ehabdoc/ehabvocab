@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 import csv
 import os
+import shutil
 from werkzeug.utils import secure_filename
 from validators import is_valid_username, is_valid_password, is_valid_word, is_valid_book_name, is_valid_review_input, clean_string
 
@@ -278,8 +279,11 @@ def index():
 @app.route('/import_csv', methods=['GET', 'POST'])
 def import_words_from_csv():
     """
-    Page for admins to import words from separate CSV files for each column.
-    Includes an option to reset the database for a clean import.
+    Page for admins to import words from separate CSV files.
+    - To add new words, provide 'English' and 'Arabic' files. 'Synonyms' is optional.
+    - To update synonyms, provide only the 'Synonyms' file. 
+      This file must contain two columns: the English word to identify the record, 
+      and the new synonyms.
     """
     if not session.get('is_admin'):
         flash('You must be an admin to import words.', 'error')
@@ -291,35 +295,45 @@ def import_words_from_csv():
         synonyms_file = request.files.get('synonyms_file')
         reset_database = request.form.get('reset_database') == 'on'
 
-        if not all([english_file, arabic_file, synonyms_file]):
-            flash('All three files are required.', 'error')
+        # --- File Handling ---
+        files_present = {
+            'english': english_file and english_file.filename,
+            'arabic': arabic_file and arabic_file.filename,
+            'synonyms': synonyms_file and synonyms_file.filename
+        }
+
+        # Determine the operation type
+        is_new_word_operation = files_present['english'] and files_present['arabic']
+        is_synonym_update_operation = files_present['synonyms'] and not files_present['english'] and not files_present['arabic']
+
+        if not is_new_word_operation and not is_synonym_update_operation:
+            flash('Invalid file combination. To add new words, upload English and Arabic files. To update synonyms, upload only the Synonyms file.', 'error')
             return redirect(request.url)
-
-        if not (english_file.filename.endswith('.csv') and
-                arabic_file.filename.endswith('.csv') and
-                synonyms_file.filename.endswith('.csv')):
-            flash('Invalid file type. Please upload .csv files only.', 'error')
-            return redirect(request.url)
-
-        # Secure filenames and save files
-        english_filename = secure_filename(english_file.filename)
-        arabic_filename = secure_filename(arabic_file.filename)
-        synonyms_filename = secure_filename(synonyms_file.filename)
-
-        english_filepath = os.path.join(app.config['UPLOAD_FOLDER'], english_filename)
-        arabic_filepath = os.path.join(app.config['UPLOAD_FOLDER'], arabic_filename)
-        synonyms_filepath = os.path.join(app.config['UPLOAD_FOLDER'], synonyms_filename)
-
-        english_file.save(english_filepath)
-        arabic_file.save(arabic_filepath)
-        synonyms_file.save(synonyms_filepath)
 
         conn = get_db_connection()
         cursor = conn.cursor()
 
         try:
             if reset_database:
-                app.logger.info("Resetting database: Dropping and recreating tables.")
+                # --- Automatic Backup ---
+                conn.close() # Close connection before copying
+                backup_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'backups')
+                if not os.path.exists(backup_folder):
+                    os.makedirs(backup_folder)
+                
+                timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                backup_path = os.path.join(backup_folder, f'vocab_app.db.bak.{timestamp}')
+                
+                try:
+                    shutil.copy2(DB_PATH, backup_path)
+                    flash(f'Database backup created at {backup_path}', 'info')
+                except Exception as e:
+                    flash(f'Error creating backup: {e}', 'danger')
+                    return redirect(request.url)
+
+                # Re-establish connection and reset
+                conn = get_db_connection()
+                cursor = conn.cursor()
                 cursor.execute("DROP TABLE IF EXISTS user_word_progress")
                 cursor.execute("DROP TABLE IF EXISTS words")
                 conn.commit()
@@ -328,62 +342,93 @@ def import_words_from_csv():
                 conn.commit()
                 flash('Database has been reset.', 'warning')
 
-            # Read data from all files
-            with open(english_filepath, mode='r', encoding='utf-8') as ef, \
-                 open(arabic_filepath, mode='r', encoding='utf-8') as af, \
-                 open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
+            # --- Scenario 1: Add New Words ---
+            if is_new_word_operation:
+                # Secure filenames and save
+                english_filename = secure_filename(english_file.filename)
+                arabic_filename = secure_filename(arabic_file.filename)
+                english_filepath = os.path.join(app.config['UPLOAD_FOLDER'], english_filename)
+                arabic_filepath = os.path.join(app.config['UPLOAD_FOLDER'], arabic_filename)
+                english_file.save(english_filepath)
+                arabic_file.save(arabic_filepath)
+
+                synonyms_filepath = None
+                if files_present['synonyms']:
+                    synonyms_filename = secure_filename(synonyms_file.filename)
+                    synonyms_filepath = os.path.join(app.config['UPLOAD_FOLDER'], synonyms_filename)
+                    synonyms_file.save(synonyms_filepath)
+
+                # Read data from files
+                with open(english_filepath, mode='r', encoding='utf-8') as ef, \
+                     open(arabic_filepath, mode='r', encoding='utf-8') as af:
+                    english_words = [row[0].strip() for row in csv.reader(ef) if row]
+                    arabic_translations = [row[0].strip() for row in csv.reader(af) if row]
                 
-                english_words = [row[0].strip() for row in csv.reader(ef) if row]
-                arabic_translations = [row[0].strip() for row in csv.reader(af) if row]
-                synonyms_list = [row[0].strip() for row in csv.reader(sf) if row]
+                synonyms_list = []
+                if synonyms_filepath:
+                    with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
+                        synonyms_list = [row[0].strip() for row in csv.reader(sf) if row]
 
-            # Process the data
-            min_length = min(len(english_words), len(arabic_translations), len(synonyms_list))
-            if min_length == 0:
-                flash('One or more files are empty.', 'error')
-                return redirect(request.url)
-
-            imported_count, skipped_count = 0, 0
-            
-            for i in range(min_length):
-                english_word = english_words[i]
-                vocalized_arabic = arabic_translations[i]
-                synonyms = synonyms_list[i]
-
-                if not english_word or not vocalized_arabic:
-                    skipped_count += 1
-                    app.logger.warning(f'Skipping row {i+1}: English or Vocalized Arabic word is empty.')
-                    continue
+                # Process the data
+                min_length = min(len(english_words), len(arabic_translations))
+                imported_count, skipped_count = 0, 0
                 
-                book_name = f'Book {(i // 600) + 1}'
+                for i in range(min_length):
+                    english_word = english_words[i]
+                    vocalized_arabic = arabic_translations[i]
+                    synonyms = synonyms_list[i] if i < len(synonyms_list) else ''
+                    
+                    if not english_word or not vocalized_arabic:
+                        skipped_count += 1
+                        continue
+                    
+                    book_name = f'Book {(i // 600) + 1}'
+                    cursor.execute("""
+                        INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
+                        VALUES (?, ?, ?, ?, ?)
+                    """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
+                    imported_count += 1
+                
+                conn.commit()
+                flash(f'New words import complete: {imported_count} added, {skipped_count} skipped.', 'success')
 
-                cursor.execute("""
-                    INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
-                    VALUES (?, ?, ?, ?, ?)
-                """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
-                imported_count += 1
+            # --- Scenario 2: Update Synonyms ---
+            elif is_synonym_update_operation:
+                synonyms_filename = secure_filename(synonyms_file.filename)
+                synonyms_filepath = os.path.join(app.config['UPLOAD_FOLDER'], synonyms_filename)
+                synonyms_file.save(synonyms_filepath)
 
-            conn.commit()
-            
-            total_processed = imported_count + skipped_count
-            if total_processed < max(len(english_words), len(arabic_translations), len(synonyms_list)):
-                flash(f'Warning: Files have different lengths. Processed {total_processed} rows based on the shortest file.', 'warning')
-
-            flash(f'Import complete: {imported_count} new words added, {skipped_count} rows skipped.', 'success')
+                updated_count, not_found_count = 0, 0
+                with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
+                    reader = csv.reader(sf)
+                    for row in reader:
+                        if len(row) < 2: continue
+                        english_word, synonyms = row[0].strip(), row[1].strip()
+                        
+                        # Find the word and update it
+                        cursor.execute("SELECT id FROM words WHERE english_word = ?", (english_word,))
+                        word_record = cursor.fetchone()
+                        
+                        if word_record:
+                            cursor.execute("UPDATE words SET alternative_translations = ? WHERE id = ?", (synonyms, word_record['id']))
+                            updated_count += 1
+                        else:
+                            not_found_count += 1
+                
+                conn.commit()
+                flash(f'Synonym update complete: {updated_count} words updated, {not_found_count} words not found.', 'success')
 
         except Exception as e:
             conn.rollback()
             flash(f'An error occurred: {e}', 'error')
-            app.logger.error(f"Error during CSV import: {e}")
         finally:
             conn.close()
-            # Clean up uploaded files
-            if os.path.exists(english_filepath):
-                os.remove(english_filepath)
-            if os.path.exists(arabic_filepath):
-                os.remove(arabic_filepath)
-            if os.path.exists(synonyms_filepath):
-                os.remove(synonyms_filepath)
+            # Clean up all possible uploaded files
+            for f in [english_file, arabic_file, synonyms_file]:
+                if f and f.filename:
+                    filepath = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
+                    if os.path.exists(filepath):
+                        os.remove(filepath)
 
         return redirect(url_for('index'))
         
