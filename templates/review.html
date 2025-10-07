@@ -93,6 +93,7 @@
         <div id="feedback-area" style="display: none;">
             <div id="feedback_message" class="feedback-message"></div>
             <p class="correct-answer-display">The correct answer is: <strong id="correct_english_word">{{ word.english_word }}</strong></p>
+            <div id="alternatives_display" class="alert alert-info mt-2" style="display: none;"></div>
             <button class="btn btn-success w-100 mt-3 btn-xl" id="next_word_btn">Next Word</button>
         </div>
 
@@ -142,15 +143,21 @@
         .then(data => {
             if (data.success) {
                 const feedbackMessageDiv = document.getElementById('feedback_message');
-                const correctAnswerDisplay = document.getElementById('correct_english_word');
-                const reviewArea = document.getElementById('review-area');
                 const feedbackArea = document.getElementById('feedback-area');
+                const alternativesDisplay = document.getElementById('alternatives_display');
 
                 correctAnswerDisplay.textContent = data.correct_answer;
+                alternativesDisplay.style.display = 'none'; // Hide by default
+                alternativesDisplay.innerHTML = '';
+
 
                 if (data.result === 'correct') {
                     feedbackMessageDiv.textContent = 'Correct! 🎉';
                     feedbackMessageDiv.className = 'feedback-message correct';
+                    if (data.show_alternatives) {
+                        alternativesDisplay.innerHTML = `<strong>Synonyms:</strong> ${data.show_alternatives}`;
+                        alternativesDisplay.style.display = 'block';
+                    }
                 } else if (data.result === 'alternative') {
                     feedbackMessageDiv.textContent = 'That is a correct alternative. Good job!';
                     feedbackMessageDiv.className = 'feedback-message alternative';

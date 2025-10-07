@@ -540,7 +540,7 @@ def submit_review():
     else:
         alternatives = word_info['alternative_translations']
         if alternatives:
-            alt_list = [alt.strip().lower() for alt in alternatives.split(';')]
+            alt_list = [alt.strip().lower() for alt in alternatives.split(',')]
             print(f"Checking against alternatives: {alt_list}")
             if user_input in alt_list:
                 is_correct = True
@@ -622,11 +622,16 @@ def submit_review():
     print("Database transaction committed and connection closed.")
     print("--- [END] ---")
 
-    return jsonify({
-        'success': True, 
+    response_data = {
+        'success': True,
         'result': correct_answer_type,
         'correct_answer': word_info['english_word']
-    })
+    }
+
+    if correct_answer_type == 'correct' and word_info['alternative_translations']:
+        response_data['show_alternatives'] = word_info['alternative_translations']
+
+    return jsonify(response_data)
 
 @app.route('/session_summary')
 def session_summary():
