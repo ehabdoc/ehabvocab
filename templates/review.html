@@ -143,6 +143,8 @@
         .then(data => {
             if (data.success) {
                 const feedbackMessageDiv = document.getElementById('feedback_message');
+                const correctAnswerDisplay = document.getElementById('correct_english_word');
+                const reviewArea = document.getElementById('review-area');
                 const feedbackArea = document.getElementById('feedback-area');
                 const alternativesDisplay = document.getElementById('alternatives_display');
 
