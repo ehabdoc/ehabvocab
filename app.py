@@ -60,8 +60,7 @@ def create_words_table(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS words (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            english_word TEXT NOT NULL,
-            arabic_translation TEXT NOT NULL,
+            english_word TEXT NOT NULL UNIQUE,
             vocalized_arabic TEXT,
             alternative_translations TEXT,
             book_name TEXT DEFAULT 'Uncategorized'
@@ -224,7 +223,7 @@ def index():
             params.append(book_filter)
         
         if search_query:
-            conditions.append('(english_word LIKE ? OR arabic_translation LIKE ?)')
+            conditions.append('(english_word LIKE ? OR vocalized_arabic LIKE ?)')
             params.extend([f'%{search_query}%', f'%{search_query}%'])
 
         where_clause = ''
@@ -364,10 +363,12 @@ def import_words_from_csv():
                     english_words = [row[0].strip() for row in csv.reader(ef) if row]
                     arabic_translations = [row[0].strip() for row in csv.reader(af) if row]
                 
-                synonyms_list = []
+                synonyms_map = {}
                 if synonyms_filepath:
                     with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
-                        synonyms_list = [row[0].strip() for row in csv.reader(sf) if row]
+                        reader = csv.reader(sf)
+                        # Assumes a two-column CSV: english_word,synonyms
+                        synonyms_map = {row[0].strip(): row[1].strip() for row in reader if len(row) >= 2}
 
                 # Process the data
                 min_length = min(len(english_words), len(arabic_translations))
@@ -376,7 +377,8 @@ def import_words_from_csv():
                 for i in range(min_length):
                     english_word = english_words[i]
                     vocalized_arabic = arabic_translations[i]
-                    synonyms = synonyms_list[i] if i < len(synonyms_list) else ''
+                    # Look up synonyms from the map
+                    synonyms = synonyms_map.get(english_word, '')
                     
                     if not english_word or not vocalized_arabic:
                         skipped_count += 1
@@ -384,9 +386,9 @@ def import_words_from_csv():
                     
                     book_name = f'Book {(i // 600) + 1}'
                     cursor.execute("""
-                        INSERT INTO words (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name) 
-                        VALUES (?, ?, ?, ?, ?)
-                    """, (english_word, vocalized_arabic, vocalized_arabic, synonyms, book_name))
+                        INSERT INTO words (english_word, vocalized_arabic, alternative_translations, book_name) 
+                        VALUES (?, ?, ?, ?)
+                    """, (english_word, vocalized_arabic, synonyms, book_name))
                     imported_count += 1
                 
                 conn.commit()
@@ -451,7 +453,7 @@ def review():
     book_names = [row['book_name'] for row in cursor.fetchall()]
 
     base_query = """
-        SELECT w.id, w.english_word, w.arabic_translation, w.vocalized_arabic, w.book_name
+        SELECT w.id, w.english_word, w.vocalized_arabic, w.book_name
         FROM words w
         LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
     """
@@ -710,7 +712,7 @@ def word_list():
     if list_type == 'reviewed':
         title = "Total Words Reviewed"
         cursor.execute('''
-            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
+            SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
             WHERE p.user_id = ?
@@ -720,7 +722,7 @@ def word_list():
     elif list_type == 'due_today':
         title = "Words Due for Review Today"
         cursor.execute('''
-            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
+            SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
             WHERE p.user_id = ? AND p.next_review <= date('now')
@@ -730,7 +732,7 @@ def word_list():
     elif list_type == 'mastered':
         title = "Words Mastered"
         cursor.execute('''
-            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
+            SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
             WHERE p.user_id = ? AND p.repetitions >= 5
@@ -772,7 +774,7 @@ def session_word_list():
         # Using placeholders to prevent SQL injection
         placeholders = ','.join('?' for _ in word_ids)
         query = f'''
-            SELECT w.id, w.english_word, w.arabic_translation, w.alternative_translations, p.next_review
+            SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
             WHERE w.id IN ({placeholders})
@@ -807,7 +809,6 @@ def edit_word(word_id):
     conn = get_db_connection()
     if request.method == 'POST':
         english_word = clean_string(request.form['english_word'])
-        arabic_translation = clean_string(request.form['arabic_translation'])
         vocalized_arabic = clean_string(request.form.get('vocalized_arabic', ''))
         alternative_translations = clean_string(request.form.get('alternative_translations', ''))
         book_name = clean_string(request.form.get('book_name', 'Uncategorized'))
@@ -825,7 +826,7 @@ def edit_word(word_id):
             conn.close()
             return render_template('edit_word.html', word=current_word)
 
-        is_valid_ara, ara_error = is_valid_word(arabic_translation)
+        is_valid_ara, ara_error = is_valid_word(vocalized_arabic)
         if not is_valid_ara:
             flash(f'Arabic translation invalid: {ara_error}', 'error')
             conn.close()
@@ -840,9 +841,9 @@ def edit_word(word_id):
         try:
             conn.execute('''
                 UPDATE words
-                SET english_word = ?, arabic_translation = ?, vocalized_arabic = ?, alternative_translations = ?, book_name = ?
+                SET english_word = ?, vocalized_arabic = ?, alternative_translations = ?, book_name = ?
                 WHERE id = ?
-            ''', (english_word, arabic_translation, vocalized_arabic, alternative_translations, book_name, word_id))
+            ''', (english_word, vocalized_arabic, alternative_translations, book_name, word_id))
             conn.commit()
             flash('Word updated successfully!', 'success')
             return redirect(url_for('index'))

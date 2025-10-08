@@ -190,8 +190,7 @@
 
             const currentWord = vocabularyWords[currentWordIndex];
             englishWordDisplay.textContent = currentWord.english_word;
-            arabicTranslationDisplay.textContent = currentWord.arabic_translation;
-            wordCard.classList.remove('show-translation'); // إخفاء الترجمة للكلمة الجديدة
+                            arabicTranslationDisplay.textContent = currentWord.vocalized_arabic;            wordCard.classList.remove('show-translation'); // إخفاء الترجمة للكلمة الجديدة
         }
 
         function toggleTranslation() {

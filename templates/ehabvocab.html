@@ -107,23 +107,14 @@
                 .then(data => {
                     if (data.english_word) {
                         document.getElementById('word-of-the-day-english').textContent = data.english_word;
-                        document.getElementById('word-of-the-day-arabic').textContent = data.arabic_translation;
-                    } else {
-                        document.getElementById('word-of-the-day-english').textContent = 'No words available';
-                    }
-                });
-        });
-    </script>
-</body>
-
-    <script>
+                document.getElementById('word-of-the-day-arabic').textContent = data.vocalized_arabic;
         document.addEventListener('DOMContentLoaded', function() {
             fetch('/word_of_the_day')
                 .then(response => response.json())
                 .then(data => {
                     if (data.english_word) {
                         document.getElementById('word-of-the-day-english').textContent = data.english_word;
-                        document.getElementById('word-of-the-day-arabic').textContent = data.arabic_translation;
+                        document.getElementById('word-of-the-day-arabic').textContent = data.vocalized_arabic;
                     } else {
                         document.getElementById('word-of-the-day-english').textContent = 'No words available';
                     }

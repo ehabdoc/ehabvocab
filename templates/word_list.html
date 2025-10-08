@@ -17,8 +17,7 @@
     <div class="d-flex justify-content-between align-items-start">
         <div>
             <strong class="me-2">#{{ word.id }} - {{ word.english_word }}</strong>
-            <span class="text-muted">{{ word.arabic_translation }}</span>
-            {% if word.alternative_translations %}
+                                    <span class="text-muted">{{ word.vocalized_arabic }}</span>            {% if word.alternative_translations %}
                 <div class="small text-secondary mt-1">
                     Alternatives: <em>{{ word.alternative_translations }}</em>
                 </div>
