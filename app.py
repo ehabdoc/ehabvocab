@@ -368,11 +368,11 @@ def import_words_from_csv():
                     with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
                         reader = csv.reader(sf)
                         # Assumes a two-column CSV: english_word,synonyms
-                        synonyms_map = {row[0].strip(): row[1].strip() for row in reader if len(row) >= 2}
+                        # Replace semicolons with commas to standardize the delimiter
+                        synonyms_map = {row[0].strip(): row[1].strip().replace(';', ',') for row in reader if len(row) >= 2}
 
                 # Process the data
-                min_length = min(len(english_words), len(arabic_translations))
-                imported_count, skipped_count = 0, 0
+                added_count, updated_count, skipped_count = 0, 0, 0
                 
                 for i in range(min_length):
                     english_word = english_words[i]
@@ -385,14 +385,29 @@ def import_words_from_csv():
                         continue
                     
                     book_name = f'Book {(i // 600) + 1}'
-                    cursor.execute("""
-                        INSERT INTO words (english_word, vocalized_arabic, alternative_translations, book_name) 
-                        VALUES (?, ?, ?, ?)
-                    """, (english_word, vocalized_arabic, synonyms, book_name))
-                    imported_count += 1
+
+                    # Check if the word already exists
+                    cursor.execute("SELECT id FROM words WHERE english_word = ?", (english_word,))
+                    existing_word = cursor.fetchone()
+
+                    if existing_word:
+                        # Update existing word
+                        cursor.execute("""
+                            UPDATE words 
+                            SET vocalized_arabic = ?, alternative_translations = ?, book_name = ?
+                            WHERE id = ?
+                        """, (vocalized_arabic, synonyms, book_name, existing_word['id']))
+                        updated_count += 1
+                    else:
+                        # Insert new word
+                        cursor.execute("""
+                            INSERT INTO words (english_word, vocalized_arabic, alternative_translations, book_name) 
+                            VALUES (?, ?, ?, ?)
+                        """, (english_word, vocalized_arabic, synonyms, book_name))
+                        added_count += 1
                 
                 conn.commit()
-                flash(f'New words import complete: {imported_count} added, {skipped_count} skipped.', 'success')
+                flash(f'Import complete: {added_count} added, {updated_count} updated, {skipped_count} skipped.', 'success')
 
             # --- Scenario 2: Update Synonyms ---
             elif is_synonym_update_operation:
@@ -405,7 +420,8 @@ def import_words_from_csv():
                     reader = csv.reader(sf)
                     for row in reader:
                         if len(row) < 2: continue
-                        english_word, synonyms = row[0].strip(), row[1].strip()
+                        # Replace semicolons with commas to standardize the delimiter
+                        english_word, synonyms = row[0].strip(), row[1].strip().replace(';', ',')
                         
                         # Find the word and update it
                         cursor.execute("SELECT id FROM words WHERE english_word = ?", (english_word,))
