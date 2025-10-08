@@ -60,7 +60,7 @@ def create_words_table(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS words (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            english_word TEXT NOT NULL UNIQUE,
+            english_word TEXT NOT NULL,
             vocalized_arabic TEXT,
             alternative_translations TEXT,
             book_name TEXT DEFAULT 'Uncategorized'
