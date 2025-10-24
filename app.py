@@ -358,26 +358,25 @@ def import_words_from_csv():
                     synonyms_file.save(synonyms_filepath)
 
                 # Read data from files
-                with open(english_filepath, mode='r', encoding='utf-8') as ef, \
-                     open(arabic_filepath, mode='r', encoding='utf-8') as af:
+                with open(english_filepath, mode='r', encoding='utf-8') as ef:
                     english_words = [row[0].strip() for row in csv.reader(ef) if row]
+                with open(arabic_filepath, mode='r', encoding='utf-8') as af:
                     arabic_translations = [row[0].strip() for row in csv.reader(af) if row]
                 
                 synonyms_list = []
                 if synonyms_filepath:
                     with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
-                        # Assumes a single-column CSV for synonyms when adding new words.
-                        # Standardize separators just in case.
                         synonyms_list = [row[0].strip().replace(';', ',') if row else '' for row in csv.reader(sf)]
 
                 # Process the data
-                added_count, updated_count, skipped_count = 0, 0, 0
+                added_count, skipped_count = 0, 0
                 
-                min_length = min(len(english_words), len(arabic_translations))
+                # Determine the number of words to process based on the shortest list
+                min_length = min(len(english_words), len(arabic_translations), len(synonyms_list) if synonyms_list else len(english_words))
+                
                 for i in range(min_length):
                     english_word = english_words[i]
                     vocalized_arabic = arabic_translations[i]
-                    # Get synonym from the list by index
                     synonyms = synonyms_list[i] if i < len(synonyms_list) else ''
                     
                     if not english_word or not vocalized_arabic:
