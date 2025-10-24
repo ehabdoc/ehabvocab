@@ -374,6 +374,7 @@ def import_words_from_csv():
                 # Process the data
                 added_count, updated_count, skipped_count = 0, 0, 0
                 
+                min_length = min(len(english_words), len(arabic_translations))
                 for i in range(min_length):
                     english_word = english_words[i]
                     vocalized_arabic = arabic_translations[i]
