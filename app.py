@@ -826,7 +826,8 @@ def edit_word(word_id):
     if request.method == 'POST':
         english_word = clean_string(request.form['english_word'])
         vocalized_arabic = clean_string(request.form.get('vocalized_arabic', ''))
-        alternative_translations = clean_string(request.form.get('alternative_translations', ''))
+        # Standardize to comma-separated, allowing admins to use semicolons as well
+        alternative_translations = clean_string(request.form.get('alternative_translations', '')).replace(';', ',')
         book_name = clean_string(request.form.get('book_name', 'Uncategorized'))
 
         # Fetch the current word data to re-render the form if validation fails
