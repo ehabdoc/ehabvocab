@@ -1,0 +1,3600 @@
+agree,concur,assent,consent,approve
+alcohol,ethanol,spirits,liquor
+arrive,reach,come,get to
+August,
+boat,vessel,craft
+breakfast,meal,morning meal
+camera,photographic device,camcorder
+capital,metropolis,main city
+hold,grasp,grab,clutch
+duck,waterfowl
+enjoy,relish,savor,appreciate
+invite,call,ask,request
+love,like,adore,cherish
+month,period,time
+travel,journal,journey,commute
+typical,model,standard,representative
+visit,call on,drop by
+weather,climate,atmosphere
+week,seven days
+wine,fermented grape juice
+adventure,exploit,venture
+approach,come near,draw near
+cautiously,carefully,prudently
+chemical substance,compound,element
+create,establish,found,build
+evil,wicked,malicious,villainous
+experiment,test,trial,attempt
+kill,murder,slay,eliminate
+laboratory,lab,research facility
+laughter,giggle,chuckle
+high,tall,elevated,lofty
+nervous,tense,anxious,stressed
+noise,sound,racket,clamor
+project,plan,scheme,initiative
+frighten,scare,terrify,intimidate
+secret,mystery,confidentiality
+shout,yell,scream,cry out
+smell,sniff,inhale
+terrible,horrible,awful,dreadful
+worse,poorer,inferior
+alien,extraterrestrial,space being
+between,among,middle
+chart,graph,diagram
+cloud,nebula
+describe,depict,portray,characterize
+never,not ever,at no time
+fail,flunk,fall short
+degree,level,grade,rank
+instead of,rather than,in place of
+library,book collection,archive
+photograph,picture,image,snapshot
+planet,world,celestial body
+report,account,statement,summary
+several,multiple,various
+shape,form,figure,appearance
+solve,resolve,settle,fix
+suddenly,abruptly,unexpectedly
+assume,presume,suppose,presume
+understand,comprehend,grasp,perceive
+view,scene,sight,landscape
+suitable,appropriate,proper,fitting
+avoid,evade,shun,dodge
+behave,act,conduct oneself
+calm,quiet,peaceful,tranquil
+worried,anxious,nervous,concerned
+satisfied,content,pleased,gratified
+expect,anticipate,forecast,predict
+repeatedly,freqently,regularly,often
+habit,custom,practice,routine
+guide,lead,direct,advise
+issue,matter,case,topic
+nothing,naught,nil,zero
+patient,tolerant,enduring,forbearing
+positive,optimistic,constructive,affirmative
+punish,penalize,sanction,discipline
+represent,portray,act,depict
+shake,tremble,vibrate,jolt
+publish,spread,distribute,broadcast
+stroll,walk,saunter,amble
+Translation_Missing,Synonym_Missing
+active,energetic,lively,dynamic
+adult,mature,grown-up
+age,lifespan,years
+bad,poor,negative,inferior
+balance,equilibrium,stability,poise
+bicycle,bike,cycle
+choose,select,pick,opt
+doctor,physician,medic,practitioner
+during,throughout,amid
+football,soccer,foot ball
+fun,enjoyable,entertaining,amusing  
+game,play,match,contest  
+heart,core,center,cardiac  
+golf,sport  
+increase,rise,grow,expand  
+life,existence,living  
+kilometer,kilometre,km  
+usually,mostly,generally,commonly  
+abundance,plenty,wealth,profusion  
+weight,mass,heaviness,load
+detached,separated,disconnected,isolated
+feature,characteristic,trait,attribute
+bilingual,dual-language,multilingual
+completely,entirely,totally,fully
+rush,charge,dash,hurry
+disgust,nausea,revulsion,aversion
+elegant,stylish,graceful,sophisticated
+foreign,alien,external,overseas
+gap,chasm,abyss,void
+mirror,reflector,looking glass
+natural,normal,innate,organic
+these days,current times,presently
+participant,attendee,contributor,member
+rituals,ceremonies,customs,traditions
+spoken,oral,verbal,vocal
+sport,exercise,athletics,physical activity
+surprised,astonished,amazed,shocked
+tense,nervous,anxious,strained
+entirely,completely,wholly,fully
+mysterious,ambiguous,vague,unclear
+allow,permit,authorize,enable
+announce,declare,proclaim,state
+next to,beside,alongside,adjacent
+challenge,difficulty,test,obstacle
+claim,assert,allege,state
+case,situation,condition,state
+contribute,participate,help,assist
+difference,discrepancy,disagreement,variation
+divide,split,separate,distribute
+expert,specialist,professional,authority
+famous,renowned,well-known,celebrated
+power,strength,force,energy
+harm,damage,injury,pain
+put,place,set,lay
+peace,harmony,truce,calm
+prince,leader,ruler,noble
+protect,defend,guard,safeguard
+feel,sense,perceive,experience
+surprising,unexpected,astonishing,shocking
+therefore,thus,so,hence
+accept,agree,approve,consent
+arrange,organize,sort,set up
+attend,be present,participate,show up
+chase,pursue,hunt,follow
+contrast,difference,disparity,divergence
+encourage,support,motivate,inspire
+familiar,usual,common,customary
+hold,grip,catch,clutch
+hang,suspend,attach,comment
+huge,enormous,massive,immense
+necessary,essential,required,mandatory
+pattern,style,type,form
+suggest,propose,recommend,advocate
+purpose,goal,objective,intent
+launch,release,set free,fire
+require,need,demand,necessitate
+satisfied,content,pleased,gratified
+one,single,individual,sole
+tear,rip,shred,split
+theory,concept,idea,hypothesis
+animal,creature,beast
+bus,coach,shuttle
+cat,feline,pussycat
+order,matter,command,issue
+depend,rely,count on,trust
+dog,canine,puppy
+door,entrance,gate,portal
+friend,companion,ally,partner
+hear,listens,perceive sound
+help,assist,support,aid
+horse,steed,stallion,mare
+hospital,clinic,medical center
+leg,limb,shank
+medical,clinical,health-related
+open,unlock,start,unfold
+pull,withdraw,drag,tug
+rabbit,bunny,hare
+school,academy,institution
+see,view,observe,notice
+service,assistance,aid,help
+benefit,advantage,profit,usefulness
+sure,certain,confident,positive
+opportunity,chance,occasion,possibility
+effect,influence,impact,result
+basic,fundamental,primary,essential
+distant,far,remote,faraway
+focus,concentrate,emphasize,center
+job,role,duty,position
+grass,herb,greenery,vegetation
+guard,protect,watch,defend
+image,picture,photo,portrait
+immediate,instant,urgent,prompt
+basic,fundamental,primary,essential
+proud,pleased,satisfied,content
+stay,remain,continue,reside
+rest,relax,repose,take a break
+detached,separated,disconnected,isolated
+site,location,place,position
+tail,appendage,caudal
+problem,issue,difficulty,challenge
+announce,declare,proclaim,advertise,publicize
+aware,conscious,alert,mindful
+battery,cell,power source
+black,dark,ebony,jet
+city,town,municipality,urban area
+clean,wash,sanitize,scrub
+country,nation,state,land
+develop,improve,enhance,advance
+electric,electrical,powered
+in the end,finally,eventually,ultimately
+fact,reality,truth,certainty
+glass,crystal,pane
+history,past,chronicle,record
+nature,character,essence,disposition
+never,not ever,at no time
+people,persons,individuals,humans
+plastic,polymer,synthetic material
+problem,issue,difficulty,challenge
+street,road,avenue,roadway
+think,consider,ponder,reflect
+alone,solitary,solo,single
+apartment,flat,residence
+article,essay,paper,write-up
+artist,painter,creator,illustrator
+position,stance,attitude,location
+beauty,attractiveness,loveliness,elegance
+compare,contrast,evaluate,assess
+judge,rule,govern,decide
+magazine,journal,periodical
+matter,material,substance,content
+meal,dish,repast
+method,way,technique,approach
+neighbor,neighbour,resident
+professional,expert,skilled,experienced
+profit,gain,earnings,revenue
+quality,caliber,standard,grade
+area,space,region,surface
+degree,step,grade,level
+symbol,code,emblem,sign
+thin,slim,lean,skinny
+accounting,audit,calculation,bookkeeping
+attract,lure,draw,entice
+assume,presume,suppose,presume
+borrow,lend (contextual opposite),take temporarily
+client,customer,agent,customer
+downtown,city center,central area,urban core
+boring,dull,tedious,monotonous
+embarrass,humiliate,discomfit,disconcert
+fare,payment,charge,fee
+previous,former,prior,earlier
+establish,create,found,set up
+invest,capitalize,finance,put money into
+loan,credit,mortgage,advance
+practical,functional,realistic,workable
+quarter,one-fourth,25 percent
+salary,wage,pay,earnings
+scholarship,grant,fellowship,financial aid
+temporary,provisional,transient,short-term
+treasure,wealth,hoard,fortune
+urge,encourage,prompt,advocate
+coach,trainer,instructor,mentor
+control,manage,govern,regulate
+description,depiction,account,explanation
+direct,immediate,straightforward,straight
+exam,test,assessment,quiz
+example,instance,sample,case
+boundary,limit,edge,border
+local,regional,native,domestic
+magical,enchanting,mystical,spellbinding
+mail,post,correspondence
+novel,story,narrative,tale
+plan,blueprint,scheme,design
+poet,verse writer,bard
+print,publish,produce,press
+scene,view,sight,landscape
+paper,sheet,leaf,document
+silly,stupid,foolish,absurd
+store,shop,outlet,market
+suffer,endure,experience,undergo
+technology,technique,method,skill
+through,across,via,by means of
+breathe,inhale,exhale
+attribute,feature,characteristic,quality
+consume,use,expend,devour
+provoke,arouse,stimulate,excite
+extremely,very,highly,exceedingly
+fear,fright,dread,terror
+lucky,fortunate,blessed,privileged
+happen,occur,take place,transpire
+length,height,extent,duration
+error,mistake,fault,blunder
+notice,observe,remark,perceive
+opportunity,chance,occasion,opening
+award,prize,recognition,accolade
+race,competition,contest,run
+realize,perceive,understand,comprehend
+respond,reply,react,answer
+risk,danger,hazard,peril
+wonder,question,ponder,inquire
+after,later,following,subsequent
+art,craft,skill,technique,talent
+book,volume,publication,text
+clothes,clothing,apparel,garments
+society,community,group,population
+December,
+dinner,supper,evening meal
+end,finish,conclude,terminate
+exchange,swap,trade,interchange
+family,household,relatives
+from,of,off
+green,verdant,lush
+house,home,residence,dwelling
+January,
+red,crimson,scarlet
+seven,7
+start,begin,commence,initiate
+together,jointly,collectively
+university,college,institute
+wear,put on,don
+year,annual,12 months
+estimate,appreciate,value,assess
+available,accessible,obtainable
+defeat,beat,overcome,conquer
+eastern,oriental,bright,radiant
+celebrate,commemorate,observe
+decide,determine,resolute,choose
+disappear,vanish,hide,conceal
+other,another,different
+fair,just,impartial,equitable
+flow,stream,pour,run
+forward,ahead,onward
+hill,mound,rise
+level,standard,degree,stage
+alone,sole,only,solitary
+pond,pool,reservoir
+response,reply,answer,reaction
+season,chapter,term,division
+solution,answer,resolution
+waste,squander,consume
+equal,alike,even,uniform
+always,constantly,forever,perpetually
+ask,inquire,question
+banana,
+bread,loaf
+cake,pastry
+island
+chicken,poultry
+chocolate,cocoa
+contain,include,hold,encompass
+delicious,tasty,yummy,savory
+diet,nutrition plan
+eat,consume,devour
+food,cuisine,meal
+fruit,produce
+great,grand,excellent,magnificent
+health,well-being,fitness
+recipe,instruction,direction
+restaurant,eatery,diner
+special,private,particular
+water,H2O
+alive,living,vibrant
+bone,skeleton
+bother,annoy,disturb,irritate
+captain,commander
+ending,conclusion,finale
+doubt,suspicion,uncertainty
+explore,discover,investigate
+happy,joyful,content,pleased
+however,nevertheless,nonetheless
+injustice,oppression,unfairness
+international,global,worldwide
+lawyer,attorney,counsel
+mention,recall,state,remember
+old,ancient,antique
+politics,policy,government
+social,communal,public
+speech,address,lecture
+crew,team,staff
+towards,about,approximately
+wood,timber,lumber
+achieve,realize,accomplish
+advise,recommend,suggest
+indeed,actually,really
+basic,fundamental,essential,primary
+a little,few,slightly
+consider,regard,deem
+destroy,ruin,wreck,devastate
+entertain,amuse,delight
+additional,extra,supplementary
+goal,aim,target,purpose
+lie,falsify,deceive
+meat,flesh
+opinion,view,belief,thought
+real,true,genuine,actual
+reflect,mirror,show
+consider,regard,deem
+serve,assist,help
+vegetables,greens
+war,conflict,battle
+deserve,merit,earn
+appear,show,emerge,manifest
+rule,principle,law,regulation
+brain,mind,intellect
+profession,occupation,job,career
+employee,worker,staff,personnel
+effort,exertion,endeavor,work
+enter,go in,come in,penetrate
+excellent,outstanding,superb,exceptional
+hero,champion,protagonist,warrior
+hurry,rush,accelerate,speed up
+inform,notify,report,communicate
+later,afterwards,subsequently
+leave,depart,exit,go away
+locate,determine position,identify place
+nurse,caregiver,medical attendant
+operation,process,procedure,surgery
+pain,ache,discomfort,soreness
+refuse,decline,reject,deny
+despite,in spite of,although,notwithstanding
+varied,diverse,mixed,different
+actual,real,practical,factual
+amaze,astonish,surprise,impress
+fees,charges,costs,tariffs
+relieve,ease,comfort,soothe
+connect,contact,link,communicate
+customer,client,consumer,buyer
+deliver,convey,transport,send
+earn,win,gain,acquire
+gateway,portal,entrance,door
+include,contain,comprise,encompass
+manage,run,operate,control
+puzzle,riddle,enigma,mystery
+happen,occur,take place,transpire
+opposite,reverse,contrary,inverse
+dish,plate,course,serving
+receive,get,accept,obtain
+reward,prize,award,compensation
+put,place,set,lay
+steal,rob,thieve,pilfer
+thief,robber,burglar
+advance,progress,move forward,proceed
+sporty,athletic,sports-related,physical
+average,medium,moderate,intermediate
+behavior,conduct,manner,actions
+behind,after,at the back of
+course,path,track,program
+reduce,decrease,lower,diminish
+match,correspond,agree,fit
+member,part,component,limb
+mental,intellectual,cognitive,rational
+rider,passenger,cavalier
+personality,character,individuality,identity
+poem,verse,ode,ballad
+column,pillar,post,shaft
+remove,take away,eliminate,erase
+safety,security,protection,assurance
+shoot,fire,open fire,discharge
+appear,seem,look,show
+swim,float,paddle
+network,net,web,grid
+mass,block,bundle,cluster
+Translation_Missing,Synonym_Missing
+shout,cheer,call,chant
+complex,complicated,intricate,difficult
+critical,analytical,judgmental,discerning
+direction,trend,orientation,course
+event,incident,occurrence,happening
+practice,train,exercise,drill
+friendship,companionship,amity,comradeship
+guide,instructor,counselor,advisor
+lack,deficiency,shortage,insufficiency
+perform,carry out,execute,conduct
+pressure,stress,tension,force
+perhaps,maybe,possibly,conceivably
+general,public,common,universal
+smart,intelligent,clever,bright
+hit,strike,beat,punch
+support,back,endorse,assist
+term,expression,phrase,word
+unite,join,combine,merge
+link,connect,tie,attach
+environment,surroundings,setting,habitat
+factory,plant,manufacturing unit,workshop
+feature,advantage,benefit,attribute
+example,instance,case,sample
+include,contain,comprise,encompass
+medicine,drug,medication,remedy
+mixture,blend,combination,compound
+organize,arrange,regulate,manage
+period,phase,interval,duration
+live,reside,dwell,inhabit
+produce,generate,manufacture,create
+extent,range,scope,degree
+get to know,meet,recognize,identify
+regular,organized,systematic,orderly
+sign,symbol,mark,indicator
+edge,end,tip,side
+tradition,custom,convention,practice
+garbage,trash,waste,rubbish
+wide,broad,spacious,extensive
+advice,guidance,recommendation,counsel,suggestion
+straight,direct,immediately,continuously
+attention,focus,concentration,awareness,alertness
+attract,draw,appeal,entice,lure
+climb,scale,ascend
+fall,drop,collapse,tumble
+final,ultimate,conclusive,definitive
+further,farthest,more distant,remote
+hint,suggest,imply,indicate
+preserve,maintain,keep,conserve,protect
+neither,nor,not this nor that
+otherwise,or else,if not
+physical,bodily,corporeal
+prove,confirm,establish,verify
+interact,engage,respond
+ride,board,get on,mount
+fall,happen,occur,take place
+society,community,assembly,group
+standard,criterion,measure,benchmark
+suggest,propose,recommend
+in fact,actually,really
+bite,nip
+coast,shore,beach
+deal,transaction,bargain
+desert,wilderness
+effective,efficient,potent
+examine,inspect,check,investigate
+wrong,incorrect,erroneous,mistaken
+discover,find,uncover
+gift,present,offering
+hunger,starvation,appetite
+imagine,envision,conceive
+trip,journey,excursion,tour
+puzzle,mystery,enigma,riddle
+completely,entirely,totally,fully
+instead of,rather than,in place of
+specific,defined,particular,precise
+spider,arachnid
+tour,round,trip,excursion
+trip,journey,excursion,tour
+team,group,squad,band
+barely,hardly,scarcely
+boring,dull,tedious,monotonous
+cancel,annul,revoke,abolish
+passage,pass,aisle,corridor
+garbage,trash,waste,rubbish
+machine,device,apparatus,tool
+list,menu,catalog,inventory
+magic,sorcery,enchantment,witchcraft
+message,letter,note,communication
+notice,observe,remark,perceive
+own,possess,have,hold
+predict,forecast,prophesy,anticipate
+professor,lecturer,instructor,academic
+rush,dash,charge,surge
+schedule,timetable,chart,plan
+participate,share,join,engage
+theater,stage,playhouse
+storm,tempest,cyclone,hurricane
+during,within,in the course of
+burden,load,responsibility,weight
+give up,surrender,relinquish,yield
+make,manufacture,create,produce
+dive,plunge,submerge
+fragile,brittle,delicate,breakable
+half,semi,part
+innocence,purity,blamelessness
+drive,lead,steer,command
+meeting,gathering,assembly,conference
+merge,integrate,combine,unite
+moderate,balanced,temperate,reasonable
+dominate,overwhelm,overpower,prevail
+batch,payment,push,group
+perception,awareness,understanding,comprehension
+settle,resolve,equalize,adjust
+tremble,shake,quiver,shiver
+social,communal,public
+speed,velocity,rate,pace
+talkative,chatterbox,garrulous,loquacious
+usual,customary,habitual,normal
+above,over,on top,higher than
+in front,before,ahead
+quantity,amount,volume,number
+belief,faith,conviction,opinion
+center,centre,hub,focus
+common,frequent,widespread,prevalent
+cost,charge,expense,require
+explain,clarify,illustrate,elucidate
+different,varied,diverse,distinct
+evidence,proof,guide,indicator
+truth,honesty,sincerity,veracity
+term,expression,phrase,jargon
+independent,autonomous,self-reliant
+inside,internal,within
+jail,prison,penitentiary,detention
+mister,mr.,sir,lord
+memory,remembrance,recollection
+pocket,pouch,compartment
+fitting,suitable,appropriate,proper
+discount,reduction,deduction,cut
+because,since,as,for
+east,orient
+expensive,costly,pricey,high-priced
+flower,bloom,blossom
+garden,park
+holiday,vacation,break,leave
+many,much,numerous,countless,plenty
+million,mega
+mountain,peak,summit
+place,location,spot,area,site
+popular,folk,common
+skate,slide,glide
+like,similar,alike,as
+group,set,collection,total
+tower,spire
+town,village,small town
+train,railway
+walk,go,move,stroll
+Translation_Missing,Synonym_Missing
+world,universe,globe,earth
+anxious,worried,nervous,uneasy
+bad,poor,negative,unpleasant
+form,consist,compose,make up
+want,desire,wish,long for
+eager,enthusiastic,excited,keen
+family,household,relatives
+intent,purpose,aim,goal
+natural scenery,landscape,view
+raise,lift,hoist,elevate
+load,carry,upload,charge
+lung,pulmonary organ
+movement,motion,action
+pace,tempo,speed,rhythm
+polite,well-mannered,courteous,refined
+own,possess,have,hold
+quickly,fast,rapidly,speedily
+notice,observe,perceive,detect
+search,look for,seek,inquire
+shine,glitter,sparkle,gleam
+pour,spill,decant
+arrow,shaft,dart
+battle,fight,combat,war
+bow,arc,arch
+brave,courageous,fearless,valiant
+leader,chief,head,boss
+flaw,defect,blemish,shortcoming
+enemy,foe,opponent,adversary
+entrance,entry,access,doorway
+Translation_Missing,Synonym_Missing
+intend,plan,mean
+laughter,laugh,smile
+trunk,stem,torso
+military,soldier,army
+obey,comply,follow,observe
+secure,ensure,guarantee,protect
+stable,steady,fixed,firm
+trust,believe,have confidence
+bend,twist,curve,warp
+unless,except if
+weapon,arm,arms,tool
+chest,bust,breast,thorax
+confidence,trust,faith,belief
+consequence,result,outcome,effect
+disaster,tragedy,calamity,catastrophe
+bother,disturb,annoy,irritate
+appreciate,estimate,value,respect
+honor,respect,celebrate,recognize
+inspire admiration,impress,amaze,astonish
+narrow,tight,cramped,confined
+pale,pallid,faint
+rough,coarse,harsh,uneven
+satisfy,please,content,gratify
+shout,yell,scream,cry out
+sensitive,touchy,delicate,responsive
+shadow,shade,darkness
+power,strength,force,energy
+complete,finish,complement,fulfill
+terror,fear,horror,dread
+threat,intimidation,menace,warning
+victim,sacrifice,target
+predecessor,ancestor,forebear
+angle,corner,intersection
+boot,footwear
+border,limit,edge,boundary
+congratulate,commend,celebrate
+frame,framework,structure
+paradise,heaven,garden
+unbelievable,incredible,amazing,extraordinary
+legend,myth,fable,tale
+praise,commend,applaud,compliment
+continue,proceed,carry on,persist
+pure,clean,unmixed,clear
+near,close,neighboring,adjacent
+ancient,old,antique,aged
+silent,quiet,mute,still
+drown,sink,submerge
+best,better,superior,finest
+surround,enclose,encircle,encompass
+thick,dense,heavy,bulky
+wrap,envelop,cover,coat
+also,too,as well,likewise,additionally
+automatically,spontaneously,instinctively
+busy,occupied,engaged,active
+Translation_Missing,Synonym_Missing
+cleans,washes,sanitizes,purifies
+closes,shuts,seals,locks
+discusses,debates,deliberates,considers
+feels,senses,perceives,experiences
+listens,hears,pays attention
+meets,encounters,gathers,assembles
+music,tunes,songs,melodies
+normal,ordinary,regular,usual,common
+quiet,calm,peaceful,serene,tranquil
+relaxes,rests,unwinds,looses up
+sleeps,rests,naps
+effort,exertion,strain,endeavor
+studies,learns,examines,analyzes
+speaks,talks,converses,communicates
+works,operates,functions,performs
+writes,composes,records,notes
+basis,fundament,foundation,base,root
+biology,life science
+cage,enclosure,pen,coop
+colleague,peer,associate,coworker
+colony,settlement,outpost
+debates,argues,disputes,discusses
+leaves,exits,departs,abandons
+frustrates,thwarts,defeats,discourages
+realistic,practical,pragmatic,reasonable
+enchants,captivates,fascinates,bewitches
+task,mission,duty,assignment,job
+however,nevertheless,nonetheless,still
+profession,occupation,career,job,trade
+across the seas,over the seas,across the oceans
+convinces,persuades,assures,induces
+path,way,route,road,track
+ruins,remains,vestiges,remnants
+scientist,scholar,expert,researcher
+important,significant,crucial,vital
+volcano,volcanic mountain
+wide,broad,extensive,spacious
+bush,shrub,plant
+able,capable,competent,qualified
+cheats,deceives,defrauds,tricks
+focuses,concentrates,centers,emphasizes
+infer,deduce,conclude,derive
+confident,assured,certain,positive
+big,large,huge,enormous,giant
+transfers,moves,conveys,relocates
+confirmed,verified,assured,certain
+joy,happiness,delight,pleasure
+destination,face,front,aspect
+edge,brink,margin,verge
+instructions,directions,guidelines,orders
+passage,pass,aisle,corridor
+seeks refuge,resorts to,turns to,appeals to
+shade,shadow,cover
+succeeds,triumphs,prevails,achieves
+suspects,doubts,questions,thinks
+valley,glen,dale
+against,versus,opposite,contrary
+beach,shore,coast,bank
+destroys,damages,ruins,wrecks
+discovers,finds,detects,uncovers
+emotion,feeling,sentiment,passion
+repairs,fixed,mends,restores
+gets to know,recognizes,identifies,meets
+island,isle
+ocean,sea,large body of water
+perhaps,maybe,possibly,conceivably
+nice,kind,gentle,pleasant,friendly
+prevents,stops,prohibits,blocks
+rock,stone,boulder
+saves,rescues,delivers,protects
+smiles,grins,beams
+steps,walks,takes steps,moves
+still,yet,continues,remains
+taste,flavor,savor
+throws,casts,hurls
+wave,surge,undulation
+citizen,resident,inhabitant
+council,assembly,board,committee
+announces,declares,proclaims,states
+huge,enormous,massive,gigantic
+exceptional,extraordinary,unusual,special
+fog,mist,haze
+funeral,burial,obsequies
+giant,colossus,titan,behemoth
+impression,impact,feeling,perception
+intention,aim,purpose,plan
+angry,mad,furious,irate
+must,have to,should,ought to
+resists,opposes,withstands,defies
+reveals,uncovers,discloses,exposes
+get rid of,eliminate,dispose of,remove
+sword,blade,cutlass
+story,tale,narrative,account
+hunts,fishes,catches,traps
+trial,hearing,prosecution,litigation
+violent,brutal,harsh,fierce,aggressive
+acceptance,approval,consent,agreement,admission
+astronomy,astrophysics,celestial science
+blame,accuse,condemn,criticize,reproach
+chemistry,chemical science
+despite,in spite of,although,notwithstanding
+dinosaur,prehistoric reptile
+present,display,show,exhibit,offer
+fame,reputation,renown,popularity,celebrity
+prediction,forecast,prognosis,projection
+genius,brilliant,intelligent,exceptional,talented
+kind,nice,gentle,friendly,pleasant
+geography,earth science,topography
+intervene,interfere,mediate,intercede
+lightly,gently,softly,delicately
+director,manager,administrator,supervisor,head
+row,line,queue
+Translation_Missing,Synonym_Missing
+hatred,resentment,spite,malice,animosity
+wonderful,excellent,amazing,marvelous,superb
+wet,damp,moist,soaked
+mistreat,abuse,maltreat,wrong
+bear expenses,pay costs,cover expenses
+bake,cook,roast
+beans,legumes
+candle,taper
+convert,transfer,change,transform
+debt,liability,obligation
+reduce,decrease,lessen,diminish
+error,mistake,fault,blunder
+box,case,container,chest
+generous,noble,kind,benevolent
+component,element,ingredient,part
+insist,persist,persevere
+chaos,disorder,confusion,turmoil
+mineral,metal,ore
+monitor,observe,watch,surveil
+oppose,object,resist,disagree
+negative,adverse,unfavorable
+quantity,amount,volume,number
+sue,prosecute,litigate
+enough,sufficient,adequate
+worry,anxiety,concern,nervousness
+army,forces,military
+billion,thousand million
+carve,sculpt,engrave
+consult,advise,seek advice
+emergency,urgent,unexpected,contingency
+luck,fortune,chance
+guarantee,ensure,secure,assure
+primary,initial,first,preliminary
+strong,intense,severe,powerful
+lend,loan,advance
+peak,summit,top,apex
+possibility,capability,potential,feasibility
+pride,glory,honor,dignity
+evidence,proof,guide,indicator
+stop,cease,halt,discontinue
+turn,rotate,spin,revolve
+tiny,minuscule,microscopic,minute
+tutor,private teacher,instructor
+clear,obvious,evident,apparent
+blind,sightless,visually impaired
+calculate,count,reckon,compute
+chat,talk,converse
+commit,adhere,stick,abide
+compose,author,write,create
+student dormitory,dorm,residence hall
+exhaust,tire,overwork,fatigue
+warm,heated,cozy
+ignore,disregard,neglect,overlook
+clear,obvious,evident,apparent
+physics,physical science
+part,portion,segment,section
+remind,recall,mention
+secretary,assistant,clerk
+strong,intense,severe,powerful
+talent,gift,ability,skill
+thesis,dissertation,paper
+uniform,outfit,attire
+vision,sight,view,perception
+absorb,suck up,soak up
+president,chief,head,leader
+charitable,philanthropic,benevolent
+committee,board,panel
+contract,decade,agreement
+crew,team,staff
+dedicate,devote,commit
+dig,excavate,burrow
+have dinner,eat dinner,dine
+donate,give,contribute
+doubled,twofold,duplicated
+flavor,taste,savor
+institution,organization,foundation
+generation,age group,cohort
+handle,grip,knob
+layer,stratum,coat
+clay,mud,earth
+soft,smooth,tender
+soil,dirt,earth,ground
+unique,exceptional,singular,distinctive
+academy,institution,school,college,university
+old,ancient,aged,antique,vintage
+board,plank,panel,tablet
+century,horn,age,era
+guide,manual,instruction,handbook
+concert,performance,show,recital
+boycott,protest,refusal,rejection
+dictionary,lexicon,glossary,wordbook
+exists,is present,is found,occurs
+flat,level,even,plane
+nobleman,aristocrat,gentleman
+hidden,concealed,secret,covered
+perhaps,maybe,possibly,conceivably
+officer,commander,official,supervisor
+original,genuine,authentic,real
+knocks,taps,bangs,raps
+operation,process,procedure,activity
+publishes,distributes,releases,broadcasts
+stage,theater,platform,arena
+wealth,riches,fortune,assets
+goal,aim,target,objective
+attaches,inserts,includes,adds
+bets,wagers,gambles,stakes
+car,cart,wagon,vehicle
+traditional,conventional,customary,classic
+moves,transfers,relocates,shifts
+confirms,asserts,affirms,verifies
+criticizes,judges,disapproves,evaluates
+differs,varies,disagrees,contrasts
+expense,cost,expenditure,charge
+official,formal,authorized,legitimate
+height,elevation,altitude,rise
+invents,creates,designs,develops
+beginner,novice,newbie,learner
+work,job,task,employment
+mechanical,automated,technical,engineered
+basic,fundamental,primary,essential
+moves,transfers,relocates,shifts
+sign,signal,indication,gesture
+honest,truthful,sincere,trustworthy
+ability,capability,capacity,power
+plant,crop,vegetation,flora
+animation,cartoon,motion graphics
+ceiling,roof,covering,top
+convinces,persuades,assures,influences
+curious,inquisitive,inquiring,interested
+delays,postpones,defers,reschedules
+diaries,journals,daily records,logs
+element,component,ingredient,part
+faith,belief,trust,confidence
+grain,seed,pill,bean
+greets,salutes,waves,welcomes
+achieves,accomplishes,realizes,fulfills
+joy,happiness,delight,pleasure
+poster,sticker,label,placard
+monk,priest,clergyman,brother
+strange,weird,odd,unusual
+stops,ceases,halts,pauses
+priest,cleric,minter,minister
+profession,job,occupation,career
+ball,sphere,orb,globe
+bottom,lower,underneath,beneath
+company,corporation,business,firm
+Translation_Missing,Synonym_Missing
+few,little,scarce,limited
+line,stroke,mark,stripe
+pet,domestic animal,companion animal
+product,item,goods,produce
+responsible,accountable,liable,in charge
+sells,markets,offers,retails
+snake,serpent,reptile
+stands,stops,remains,halts
+strange,weird,odd,unusual
+tea,brew,infusion
+tests,examines,tries,assesses
+tongue,language,speech
+they,them,those
+type,kind,sort,category
+very,extremely,highly,greatly
+waits,awaits,holds on,lingers
+achieves,accomplishes,completes,executes
+agrees,consents,approves,accepts
+approximate,estimated,rough,near
+barrier,obstacle,fence,block
+discovers,finds,uncovers,detects
+duty,obligation,responsibility,task
+primary,initial,elementary,basic
+failure,defeat,collapse,breakdown
+gradual,incremental,progressive,step-by-step
+migrant,immigrant,emigrant,settler
+inserts,inputs,enters,introduces
+moment,instant,second,minute
+poverty,need,impoverishment,destitution
+pretends,feigns,simulates,acts
+rank,status,position,grade
+estimation,appreciation,evaluation,assessment
+cools,chills,refrigerates,refreshes
+rent,lease,hire,letting
+retires,withdraws,steps down,quits
+statistic,data,figure,metric
+accident,mishap,collision,crash,incident
+astronaut,cosmonaut,space traveler,space explorer
+awake,alert,conscious,aware
+courage,bravery,valour,heroism,fortitude
+float,drift,hover,stay afloat
+grant,give,offer,provide,bestow
+gravity,attraction,pull,gravitation
+jewel,gem,precious stone,gemstone
+mining worker,mineral worker,mine laborer
+mineral,ore,metallic element
+participate,take part,join,engage
+permission,consent,authorization,approval
+pour,flow,spill,stream
+raw,unprocessed,crude,natural
+satellite,spacecraft,orbiter
+Translation_Missing,Synonym_Missing
+exceed,overcome,surpass,transcend
+expand,extend,stretch,enlarge
+telescope,spyglass,optic instrument
+underground,beneath the surface,subterranean
+warning,alert,notice,caution
+arrest,detain,capture,apprehend
+award,prize,recognition,honor
+lineage,descendants,offspring,ancestry
+bucket,pail,container
+competition,contest,race,tournament
+condemn,denounce,criticize,reproach
+festival,carnival,celebration,event
+garage,carport,parking area
+journalist,reporter,correspondent,newsman
+puppy,pup,young dog
+qualify,be eligible,advance,meet requirements
+repair,fix,mend,restore
+resume,continue,restart,renew
+steal,rob,thieve,pilfer
+slip,slide,skid,glide
+to some extent,to a degree,partially
+stable,steady,secure,settled
+tissue,paper napkin,handkerchief
+courtyard,patio,yard,quadrangle
+best,superior,fine,excellent
+card,pass,permit,tag
+mass,gathering,crowd,assembly
+day,24 hours,period
+plate,dish,course,layer
+plain,flatland,field,lowland
+try,test,experiment,attempt
+hotel,inn,lodge,hostel
+clock,watch,timepiece,hour
+light,illumination,brightness,glow
+market,bazaar,marketplace,exchange
+plan,design,organize,arrange
+price,cost,value,charge
+short,brief,concise,small
+shop,buy,purchase,trade
+station,stop,terminal,hub
+surprise,astonish,amaze,startle
+system,order,regime,structure
+taxi,cab,hire car
+two,pair,couple,duo
+bathroom,toilet,restroom,bath
+bend,lean,stoop,crouch
+chew,masticate,bite,grind
+disabled,handicapped,impaired,challenged
+wonderful,amazing,marvelous,excellent
+imagination,fantasy,vision,dream
+flag,banner,standard,ensign
+search,inspect,examine,investigate
+magazine,journal,periodical,publication
+liquid,fluid,solution
+wonder,be amazed,be surprised,marvel
+overcome,conquer,defeat,master
+remember,recall,recollect,remind
+regret,repent,feel sorry,be remorseful
+soul,spirit,ghost,essence
+enough,sufficient,adequate,ample
+surgery,operation,procedure
+difficult,hard,challenging,tough
+tube,pipe,cylinder,conduit
+value,worth,merit,importance
+atom,particle,grain
+beautiful,pretty,lovely,attractive
+presentation,show,display,exhibition
+comet,celestial body
+cover,coat,conceal,overlay
+despair,hopelessness,desperation
+form,shape,constitute,compose
+shard,splinter,fragment,piece
+galaxy,star system,cosmos
+depression,gloom,sadness,melancholy
+big,large,huge,enormous
+moon,satellite,lunar body
+emit,radiate,shine,glow
+roam,wander,range,stroll
+isolated,secluded,remote,solitary
+spectrum,range,ghost,apparition
+ball,sphere,globe,orb
+star,sun,celebrity
+status,position,rank,standing
+ugly,unattractive,unsightly,hideous
+accuse,charge,blame,allege,impute
+adjust,modify,alter,change,tweak
+entertain,amuse,delight,please
+coral,reef
+cotton,textile,fiber
+collide,crash,bump,hit
+surface,top,roof,face
+enroll,join,enlist,register
+hard,solid,firm,rigid,tough
+fuel,gasoline,petrol,energy
+great,grand,huge,immense,large
+tornado,cyclone,storm,whirlwind
+loss,damage,deficit,shortfall
+simple,easy,plain,straightforward
+coral reef,reef
+close,shut,seal,lock
+strict,stern,severe,harsh,rigorous
+ride the waves,surf
+mission,task,assignment,duty,job
+area,region,zone,district,territory
+apology,excuse,regret,remorse
+bold,daring,courageous,brave,fearless
+insect,bug,arthropod
+captivate,enchant,charm,enthrall
+taste,flavor,savor
+reveal,discover,uncover,expose
+guilty,culpable,blameworthy,offender
+rent,lease,hire
+innocent,blameless,harmless,naive
+language,tongue,dialect
+minister,secretary,official
+normal,ordinary,regular,common,usual
+permanent,constant,continuous,enduring,last
+memorize,save,keep,retain,store
+speak,pronounce,articulate,utter
+resemble,look like,imitate,mimic
+symptom,sign,display,exhibit
+tobacco
+twin,duplicate,double
+wizard,witch,sorceress,enchantress
+accompany,escort,attend,follow
+bare,naked,exposed,unclothed
+branch,twig,limb
+breath,respiration,inhalation,exhalation
+bridge,viaduct,overpass
+throw,cast,deliver,present
+dare,venture,challenge
+electronic,digital,online
+inn,lodge,hostel
+network,net,web,system
+philosophy,ideology,thought
+container,vessel,receptacle,bowl
+seed,kernel,grain
+sharp,acute,keen,pointed
+type,kind,sort,category,genre
+throw,cast,pose,propose
+tight,taut,strained,stretched
+hypothetical,assumed,presumed,theoretical
+weigh,measure
+whisper,murmur,mutter
+abstract,naked,bare,sheer
+annual,yearly,perennial
+clay,mud,earth
+fabric,textile,cloth
+curtain,drape,screen
+deserve,merit,earn,be worthy of
+feather,quill,plume
+fertile,fruitful,productive
+flood,inundation,deluge
+furniture,fixtures,appointments
+grave,tomb,sepulcher
+ideal,perfect,exemplary
+intelligence,smartness,cleverness,acumen
+get,obtain,acquire,receive
+religious,spiritual,holy
+romantic,love-related,passionate
+shell,conch
+beach,shore,coast
+wheel,tire
+wooden,timber
+device,equipment,apparatus,machine
+bowl,basin,tub
+broom,brush
+leaf,foliage
+closet,cabinet,wardrobe
+thin,slim,fine,delicate
+appear,show,emerge,manifest
+disability,handicap,impairment
+hole,opening,gap
+hook,claw,grappling hook
+jump,leap,hop,bound
+laundry,wash,clothes
+chase,pursue,hunt
+hesitant,reluctant,uncertain
+Translation_Missing,Synonym_Missing
+spine,vertebral column,backbone
+spot,stain,patch,mark
+tape,ribbon,strip,band
+swear,vow,pledge,declare
+swing,sway,oscillate,fluctuate
+feddan,acre,land measure,plot
+afterlife,hereafter,life after death,eternal life
+archaeology,study of antiquities,ancient studies
+room,chamber,space,compartment
+channel,canal,duct,conduit
+core,essence,heart,center
+corridor,passageway,hallway,aisle
+distinguished,notable,remarkable,prominent
+elite,select group,aristocracy,upper class
+engineer,design,construct,plan
+establish,found,set up,start
+gap,opening,void,space
+glory,honor,fame,renown
+inside,internal,within,interior
+lion,big cat,king of beasts
+role,turn,position,function
+royal,regal,monarchical,noble
+alone,solitary,only,single
+stairs,steps,staircase
+roof,top,surface,covering
+agreement,pact,treaty,contract
+arise,emerge,develop,grow
+benefactor,philanthropist,do-gooder,altruist
+blacksmith,smith,metalworker
+chimney,smokestack,flue
+compensate,reimburse,make up for,repay
+face,confront,encounter,deal with
+exceed,surpass,overcome,transcend
+form,constitute,shape,compose
+modest,humble,unassuming,down-to-earth
+iron,metal,steel
+ladder,stairs,staircase
+modest,humble,unassuming,down-to-earth
+occupy,employ,engage,use
+shark,predator
+preach,sermonize,advise
+flourish,thrive,prosper,grow
+boycott,protest,refusal
+contentment,satisfaction,pleasure,acceptance
+preserve,maintain,keep,conserve
+acquire,gain,earn,obtain
+embarrassing,awkward,uncomfortable
+arrogant,conceited,haughty,proud
+deceive,trick,cheat,mislead
+Translation_Missing,Synonym_Missing
+fake,forged,counterfeit,imitation
+hatred,dislike,aversion,antipathy
+cabin,hut,shack,cottage
+lowest,minimal,least,bottom
+inn,hostel,lodge,guesthouse
+neglect,ignore,disregard,overlook
+newcomer,novice,beginner,rookie
+corner,nook,angle
+overlook,face,look out on,view
+reply,respond,answer,retort
+silly,foolish,absurd,ridiculous
+satisfactory,acceptable,pleasing,adequate
+shepherd,herder,herdsman
+venture,risk,dare,explore
+wheat,cereal,grain
+alley,lane,passageway,narrow street
+axe,hatchet,cleaver
+cluster,bunch,bundle,group
+routine work,daily task,regular job
+fit,suitable,appropriate,proper
+shameful,disgraceful,embarrassing
+elbow,joint,bend
+grateful,thankful,appreciative
+bother,annoy,disturb,irritate
+joke,tease,banter,play
+loose,relaxed,slack
+insult,offend,disrespect,humiliate
+all night,throughout the night,overnight
+persist,persevere,continue,endure
+pine,pine tree,conifer
+scar,mark,blemish
+feeling,sensation,emotion,perception
+sled,sleigh,toboggan
+bother,annoy,disturb,irritate
+beloved,dear,loved one,darling
+define,identify,explain,describe
+graveyard,cemetery,burial ground
+creature,being,entity
+curse,bless (antonym),damn,condemn
+disguise,costume,mask,camouflage
+luxurious,luxury,deluxe,opulent
+flashlight,torch,hand lamp
+hood,cap,covering
+resident,inhabitant,occupant,dweller
+feed,nourish,supply,fuel
+pirate,buccaneer,privateer
+publication,broadcast,release,leaflet
+puzzle,riddle,enigma,mystery
+rot,decompose,decay,putrefy
+soon,shortly,near future,imminently
+skeleton,bony structure,bone framework
+spoil,rot,decay,go bad
+hungry,starve,crave,need food
+excitement,stimulation,arousal,thrill
+evil,wicked,malicious,villainous
+alert,notify,warn,advise,signal
+broadcast,transmit,air,telecast
+broadcast,bulletin,newsletter,report
+bump,protuberance,projection,bulge
+cut,chop,slice,carve
+closet,cabinet,wardrobe,locker
+console,comfort,support,soothe
+area,region,zone,district
+drawer,compartment,box
+endure,bear,tolerate,withstand
+execute,kill,put to death
+hold,grip,grasp,clutch
+background,back,rear,behind
+senator,legislator,parliamentarian
+skull,cranium
+move,stir,shift,activate
+peck,pick,nip
+enormous,huge,tremendous,vast
+under,beneath,below
+worm,larva
+abandon,desert,leave,forsake
+ambitious,aspiring,driven
+bark,yelp
+gulf,bay,inlet
+skillful,expert,adept,proficient
+chin,jaw
+complaint,grievance,protest
+deaf,unhearing
+enthusiastic,eager,excited,passionate
+mission,delegation,expedition
+horizon,skyline
+loyal,faithful,devoted
+mayor,chief,head
+mutual,reciprocal,shared
+overweight,obese,heavy
+shelter,refuge,asylum,sanctuary
+repeat,restore,reproduce,renew
+scratch,rub,itch
+senses,perceptions
+veterinarian,veterinary doctor,vet
+anniversary,commemoration
+account,bill,calculation
+shy,timid,reserved,bashful
+explode,burst,detonate
+carpenter,woodworker
+coal,charcoal
+sofa,couch,settee
+drip,drop,distill
+elegant,stylish,graceful,sleek
+fabric,cloth,textile
+highlands,uplands,plateaus
+ivory,tusk
+mill,grinder
+needle,pin
+polish,shine,gloss
+sew,stitch
+roof,canopy,shelter
+thread,string,yarn
+trim,prune,clip
+upward,up,above
+sworn,allegiant,faithful
+boast,brag,show off
+bounce,return,recoil
+bully,tormentor,intimidator
+carbohydrates,sugars,starches
+crawl,creep,inch
+defeat,beat,overcome
+disk,diskette,pill
+controlling,dominant,commanding
+complete,whole,total,entire
+mercy,compassion,kindness
+nod,signal,gesture
+opponent,adversary,rival
+fight,argue,quarrel
+competitor,contender,rival
+painful,sore,agonizing
+sting,bite
+strain,exert,tire
+torture,torment,punishment
+wrestle,struggle,grapple
+absence,nonattendance
+loudly,noisily,boisterously
+bald,hairless
+blanket,coverlet,quilt
+sneak,creep,slip
+divorce,separation
+imitate,mimic,copy
+infant,baby,newborn
+grab,snatch,seize
+nap,snooze
+nowhere,no place
+pat,stroke,tap
+comfort,relief,ease
+reproduce,breed,propagate
+rhyme,verse
+suck,sip
+urgent,immediate,pressing
+disappear,vanish,fade
+cart,wagon,carriage
+wrinkle,crease,fold
+architectural engineering,building design,construction engineering,structural engineering
+basket,container,bin,holder
+blossom,flower,flourish,bloom
+boat,vessel,craft,ship
+carpet,rug,mat
+cousin,relative,family member
+office,desk,workplace
+exhibition hall,display room,showroom
+guest,visitor,invitee
+host,emcee,presenter
+July,
+modern,new,current,recent
+museum,exhibition hall,gallery
+pink,rose-colored,rosy
+airplane,plane,aircraft
+refrigerator,fridge,cooler
+temperature,heat level,thermal degree
+cinema hall,movie theater,film theater
+upper,top,high,superior
+welcome,greet,receive
+expect,anticipate,forecast,predict
+barrel,drum,cask
+model,exhibitor,display
+informal,unofficial,casual
+caution,care,wariness,alertness
+opposite,reverse,contrary,inverse
+intentional,deliberate,purposeful,planned
+melt,dissolve,thaw
+explode,burst,detonate
+connect,link,attach,bind
+germ,bacterium,microbe,pathogen
+equipment,gear,tools,supplies
+blow,puff,breath,gust
+rag,cloth,tatter
+scatter,disperse,spread,distribute
+smell,scent,odor,fragrance
+steel,metal,iron alloy
+fast,quick,rapid,speedy
+throw,cast,launch,hurl
+victory,win,success,triumph
+on board,aboard,inside
+bitter,harsh,acrid
+bullet,projectile,slug
+devil,demon,fiend,evil spirit
+drift,slide,erode,wash away
+apply,enforce,implement,execute
+fountain,spring,water feature
+port,harbor,dock,wharf
+live,reside,dwell,inhabit
+walk,go,move,proceed
+millionaire,billionaire,wealthy person
+port,harbor,dock,wharf
+mayor,chief,head,leader
+frighten,scare,alarm,startle
+sweat,perspire
+trigger,lever
+unify,combine,merge,integrate
+ship,vessel,boat,craft
+cruise,sea voyage,sea trip
+worship,adore,revere
+trainee,intern,apprentice
+confirm,affirm,assert,verify
+bandage,dressing,wrap
+bleed,hemorrhage
+connect,link,associate,relate
+chef,cook
+crown,diadem,coronet
+departure,leaving,exit
+diligent,hardworking,industrious
+emperor,ruler,monarch
+fiber,filament,thread
+terrible,horrible,awful,dreadful
+impolite,rude,uncivil,discourteous
+kneel,bow,genuflect
+welfare,well-being,comfort,prosperity
+huge,enormous,massive,gigantic
+fear,panic,frighten,alarm
+priority,precedence,importance
+robe,gown,cloak,garment
+reprimand,scold,reproach,rebuke
+affair,matter,issue,concern
+association,society,organization,club
+bless,consecrate,approve
+pills,tablets,capsules
+cheerful,joyful,happy,elated
+country,state,nation
+exploit,use,take advantage of
+famine,hunger,starvation
+harvest,reaping,collecting
+cheerful,joyful,merry,playful
+nut,seed,kernel
+forgive,pardon,excuse
+pharaoh,ruler,king
+mature,ripe,developed
+grill,bake,roast,broil
+routine,habit,procedure
+plan,scheme,project,program
+thin,slim,lean,skinny
+stove,heater,cooker
+theft,robbery,stealing,burglary
+teenager,adolescent,youth,youngster
+talent,ability,skill,gift,aptitude
+Translation_Missing,Synonym_Missing
+obstructs,blocks,hinders,impedes,prevents
+journalism,press,media,newspapers
+jury,panel,tribunal
+justice,fairness,equity,impartiality
+freedom,liberty,independence,autonomy
+literary,artistic,creative
+pharmacy,drugstore,chemist
+pill,tablet,capsule,grain,seed
+assumes,presumes,supposes,takes for granted
+privacy,secrecy,confidentiality
+punishment,sanction,penalty,fine
+rational,sensible,wise,reasonable
+slice,strip,segment,section
+sadness,grief,sorrow,melancholy
+straw,reed,blade
+swells,expands,enlarges,bloats
+ordered,organized,arranged,ranked
+emotion,feeling,sentiment,passion
+agency,office,bureau,representation
+ash,cinder,residue
+detains,imprisons,restrains,holds back
+refuses,declines,rejects,denies
+revolts,rebels,erupts,riots
+fate,destiny,fortune,karma
+lava,magma,volcanic rock
+miserable,wretched,unhappy,sorrowful
+directs,guides,steers,manages
+arises,originates,develops,emerges
+rest,remainder,residue,leftover
+recovers,regains,retrieves,restores
+shallow,superficial,not deep
+slope,decline,descent,incline
+extends,stretches,spreads,prolongs
+myth,legend,fable,folklore
+compassion,sympathy,empathy,understanding
+shakes,trembles,vibrates,quivers
+wanders,roams,strolls,rambles
+shield,armor,protection,defense
+ignites,blazes,bursts into flames,catches fire
+resounds,echoes,reverberates
+cliff,bank,precipice,bluff
+flame,blaze,fire,flaming
+independence,autonomy,self-rule,self-governance
+invasion,raid,attack,assault
+knight,cavalier,horseman,warrior
+lightning,flash,bolt,electric discharge
+rebel,revolutionary,insurgent,dissident
+withdraws,retires,retreats,pulls back
+revolution,uprising,rebellion,insurrection
+spear,lance,pike,javelin
+Translation_Missing,Synonym_Missing
+peak,summit,top,apex
+thunder,rumble,boom
+forces,troops,army,military
+warrior,fighter,soldier,combatant
+withdraws,retires,retreats,pulls back
+surrenders,yields,gives up,submits
+seat,chair,bench,position
+chrysanthemum,flower,bloom
+conflict,dispute,disagreement,clash
+empty,vacant,hollow,void
+terror,fear,dread,horror
+incident,event,occurrence,happening
+fog,mist,haze
+thing,item,object,entity
+orphan,parentless
+conspires,plots,schemes
+carrier,bearer,holder,pregnant
+anger,wrath,fury,rage
+revenge,retaliation,retribution
+shame,disgrace,embarrassment
+sighs,breathes out,exhales
+sneaks,slips,infiltrates
+saves,stores,reserves
+leg,stem,shaft
+dinner,supper,evening meal
+fresh,tender,soft,juicy
+under,beneath,below
+cub,young animal,offspring
+dawn,daybreak,sunrise,morning
+dissatisfied,discontent,unhappy,displeased
+ease,simplicity,facility,effortlessness
+clear,obvious,evident,apparent
+hail,frozen rain,ice pellets
+howls,bays,cries
+jumps,leaps,hops,bounds
+wonderful,amazing,marvelous,splendid
+necessity,need,requirement,essential
+result,outcome,consequence,effect
+pile,heap,mound,stack
+deep,profound,intense
+seizes,takes over,captures,occupies
+squeezes,presses,wrings,extracts
+sublime,highest,noblest,loftiest
+wonderful,amazing,marvelous,splendid
+trait,feature,characteristic,attribute
+vital,essential,crucial,important
+attack,assault,charge,invade,raid
+breast,chest,mammary
+cancer,tumor,carcinoma
+cancerous,malignant,oncologic
+cell,unit,compartment
+cigarette,smoke,stogie
+code,cypher,algorithm,script
+treatment,therapy,cure,remedy
+destruction,devastation,ruin,damage
+Translation_Missing,Synonym_Missing
+wide,broad,spacious,extensive
+female,feminine
+in addition,besides,furthermore,moreover
+gene,genetic unit,hereditary factor
+inherit,receive,acquire
+link,bond,connection,tie
+male,masculine
+population,residents,inhabitants,citizens
+result,outcome,consequence,effect
+sugar,sucrose,glucose
+comprehend,understand,grasp,absorb
+circus,show,performance
+synchronize,coordinate,align,match
+cost,charge,expense,require
+dose,amount,quantity,portion
+dye,color,paint,tint
+extent,range,scope,degree
+gender,sex,type,kind
+headline,title,main heading,caption
+informal,unofficial,casual
+inquire,ask,question,query
+messenger,envoy,emissary,apostle
+stare,gaze,look,glare
+portrait,photo,picture,image
+take a position,pose,assume posture
+farm,plantation,field,agricultural land
+direct,guide,lead,steer
+tape,strip,band,ribbon
+tame,domesticated,docile
+tempt,entice,lure,attract
+ban,prohibit,forbid,disallow
+cautious,careful,prudent,alert
+admit,confess,acknowledge,accept
+cabin,hut,shack
+day,daytime,daylight
+desperate,hopeless,discouraged
+exhausting,tiring,arduous,stressful
+disappear,vanish,fade,dissolve
+fierce,savage,ferocious,aggressive
+gamble,bet,wager
+grass,herb,vegetation
+mow,cut,clip,trim
+illegal,unlawful,illicit,forbidden
+possibility,probability,chance,likelihood
+wallet,purse,holder,case
+rod,bar,shaft,stick
+rarely,seldom,uncommonly
+fly,soar,glide
+frightened,scared,afraid,terrified
+Translation_Missing,Synonym_Missing
+outside,abroad,overseas,foreign
+airline,aviation company,air carrier
+audience,crowd,spectators,public
+deal,transaction,bargain,agreement
+summary,brief,abstract,outline
+currency,money,coin,tender
+data,information,statistics,facts
+local,regional,community-based
+draft,outline,rough copy
+collect,gather,assemble,accumulate
+hobby,interest,pastime,activity
+income,revenue,earnings,profit
+jet,jet plane,aircraft
+maximum,utmost,extreme,highest
+official,formal,authorized,legitimate
+recommend,suggest,advise,endore
+indicate,point,refer,signal
+remote,distant,faraway,secluded
+insomnia,sleeplessness,restlessness
+size,volume,magnitude,extent
+spread,distribute,diffuse,propagate
+following,next,subsequent,ensuing
+derive,originate,stem,come from
+drown,sink,submerge,immerse
+lineage,descendants,offspring,ancestry
+part,portion,segment,section
+frost,freeze,ice
+illusion,delusion,mistake,misconception
+invade,attack,raid,assault
+lieutenant,officer,assistant,subordinate
+naval,maritime,marine,sea-related
+feature,advantage,benefit,attribute
+navy,naval forces,maritime forces
+polar,arctic,antarctic
+ray,beam,shaft,light
+resign,quit,step down,leave office
+suicide,self-killing
+tremble,shiver,shake,quiver
+implicit,tacit,implied,unspoken
+across,through,via,over
+change,alter,modify,transform,convert
+side,edge,flank,aspect,part
+autumn,fall,harvest season
+mix,blend,combine,stir,merge
+collapse,fell,crumble,fail,break down
+crush,grind,pulverize,press,squash
+bend,curve,lean,stoop,bow
+disgusting,revolting,nauseating,repulsive,offensive
+exchange,convert,dispose,spend,administer
+embrace,hug,clasp,hold,enfold
+envy,resent,begrudge,covet
+fireworks,pyrotechnics,firecrackers
+flour,powder,meal
+wick,candlewick,fuse
+ginger,root,spice
+jealous,envious,possessive,protective
+dough,paste,batter
+receipt,voucher,proof of purchase
+wipe,clean,erase,rub
+wire,cable,thread,cord
+admit,confess,acknowledge,accept
+ambassador,diplomat,envoy
+blond,fair,light-haired
+invade,attack,raid,conquer
+drag,pull,tow,haul
+exaggerate,overstate,overdo,amplify
+heritage,legacy,inheritance,culture
+insult,offend,disrespect,humiliate
+during,in the course of,in the meantime,while
+necklace,chain,pendant
+noble,aristocratic,honorable,dignified
+precious,valuable,priceless,expensive
+bias,prejudice,partiality,preconception
+rumor,gossip,hearsay,scandal
+mistake,error,fault,blunder
+scene,sight,view,setting
+pile,heap,stack,mound
+suspicious,dubious,doubtful,questionable
+candle,taper,light
+vase,flowerpot,urn
+hurt,pain,ache,injure
+polar,arctic,antarctic
+channel,canal,duct,pipe
+chemical,synthetic,compound
+goosebumps,chills,shivers
+congress,assembly,parliament
+dairy,milk products
+descend,go down,alight,land
+grocer,shopkeeper,merchant
+hesitate,waver,delay,fluctuate
+institution,foundation,organization,establishment
+hurry,rush,sprint,run
+merchant,trader,businessman,dealer
+sting,pierce,prick
+postpone,delay,defer,put off
+splash,spray,splatter
+stubborn,obstinate,headstrong,unyielding
+suburb,outskirts,residential area
+tide,ebb and flow,sea movement
+tragedy,disaster,catastrophe,calamity
+bomb,explosive,grenade
+certificate,diploma,degree,credential
+envelope,circumstance,situation,condition
+coffin,casket,sarcophagus
+adapt,adjust,acclimate,accommodate
+cash,criticism,review,analysis
+destroy,ruin,demolish,wreck
+frown,scowl,glare
+stare,gaze,glare,look intently
+glimpse,notice,spot,see briefly
+sorrow,grief,pain,distress
+groom,bridegroom
+license,permit,authorization
+microscope,telescope
+nuclear,atomic
+photograph,film,depict,portray
+turn,rotate,spin,revolve
+memento,souvenir,keepsake,remembrance
+submarine,underwater vessel
+track,trace,follow,pursue
+coastline,shoreline,coast,shore
+deter,discourage,restrain,prevent
+innovate,create,invent,devise
+distance,space,length,range
+experience,expertise,skill,knowledge
+break,fracture,crack,split
+headache,migraine,pain
+execute,implement,carry out,enforce
+insight,perception,awareness,understanding
+branch,twig,limb,shoot
+strength,power,force,energy
+optimism,hopefulness,positivity
+brilliant,skilled,expert,talented
+orbit,circuit,round
+edge,margin,brim,rim
+shoulder,upper arm
+push,pay,drive,propel
+husband,couple,spouse,partner
+push,pay,drive,propel
+endure,bear,tolerate,withstand
+responsible,accountable,liable,answerable
+addictive,habit-forming,compulsive
+agenda,schedule,program,plan
+formulate,create,compose,devise
+link,connect,attach,bind
+depression,melancholy,despair,sadness
+digital,electronic,computerized
+importance,significance,value,weight
+keyboard,keypad,typewriter keys
+isolation,loneliness,seclusion,solitude
+media,press,broadcasting,journalism
+platform,stage,podium,rostrum
+weak,frail,feeble,fragile
+existence,presence,being,occurrence
+expose,subject,make vulnerable,put at risk
+surge,increase,spike,upsurge
+survey,poll,inquiry,investigation
+target,aim,focus,seek
+direction,trend,orientation,course
+approve,agree,endorse,consent
+carbon,graphite,element
+carbon dioxide,CO2,greenhouse gas
+dust,particles,grime,powder
+issue,publish,release,emit
+enable,empower,allow,facilitate
+grind,crush,pulverize,mill
+cure,heal,treat,remedy
+merge,integrate,combine,unite
+pioneer,leader,forerunner,trailblazer
+in addition,moreover,furthermore,besides
+object,protest,oppose,disagree
+pollutant,contaminant,toxin,impurity
+powder,dust,flour,granules
+urge,encourage,prompt,motivate
+refuse,decline,reject,deny
+doubter,skeptic,cynic,questioner
+material,substance,matter,stuff
+largely,mainly,mostly,primarily
+ton,weight,measure
+transport,transfer,movement,conveyance
+align,coordinate,match,harmonize
+coal,carbon fuel,fuel
+yard,paddock,pen,enclosure
+betray,cheat,deceive,break trust
+bible,scripture,holy book
+catholic,universal,comprehensive
+cooperate,collaborate,work together,assist
+detain,hold,confine,imprison
+exit,output,way out,exit point
+exceptional,extraordinary,unusual,special
+flee,escape,run away,evade
+network,web,grid,system
+anger,enrage,madden,infuriate
+diocese,bishopric,church district
+passage,passageway,aisle,corridor
+priest,clergyman,ministry,minister
+periodical,journal,magazine,publication
+change,alter,modify,transform
+railway,railroad,train track
+tunnel,passage,underground passage
+comfortable,cozy,pleasant,easy
+education,teaching,instruction,learning
+encouragement,support,motivation,inspiration
+support,endorse,back,advocate
+equal,even,uniform,equivalent
+face,confront,encounter,deal with
+field,area,domain,realm
+enhance,strengthen,boost,improve
+direction,guidance,instruction,orientation
+carry,hold,bear,transport
+integration,inclusion,incorporation,assimilation
+inspire,motivate,encourage,stimulate
+abstract,mere,simple,pure
+position,post,office,role
+power,strength,force,energy
+responsibility,duty,accountability,obligation
+fly,soar,hover,glide
+tool,instrument,device,implement
+vocal,voice,audio,phonetic
+workplace,office,worksite,job site
+academic,scholarly,educational,university
+acceptance,admission,approval,consent
+group,set,collection,batch
+erase,obliterate,remove,wipe out
+cafe,coffeehouse,coffee shop
+board,plaque,panel,sign
+cinema,movie theater,film theater,movie house
+layer,stratum,level,sheet
+distinctive,unique,remarkable,notable
+main,primary,principal,chief
+movement,motion,action,gesture
+practice,exercise,training,drill
+realistic,practical,actual,feasible
+reflection,repercussion,echo,mirror image
+base,foundation,basis,rule
+touch,feel,contact,stroke
+sunlight,sunshine,solar light
+traditional,conventional,customary,classic
+on the contrary,in contrast,conversely,opposite
+presentation,display,exhibition,show
+anthem,song,hymn,chant
+behind,after,beyond,following
+determination,resolution,willpower,resolve,tenacity
+fighting,combat,battle,warfare,conflict
+common,joint,shared,mutual,collective
+descent,fall,drop,decline
+distinguish,identify,differentiate,discern,recognize
+pack,fill,load,assemble
+nation,community,people,society
+originally,fundamentally,basic,essentially
+spread,dissemination,distribution,propagation
+pray,worship,devote
+prisoner,inmate,detainee,captive
+sacrifice,offer,give up,forfeit
+silence,quiet,stillness,muteness
+therefore,thus,consequently,accordingly
+honor,respect,tribute,recognition
+victory,win,success,triumph
+wild,natural,untamed,uncultivated
+wound,injure,hurt,cut
+comprehend,understand,grasp,absorb
+attempt,try,effort,endeavor
+state,condition,situation,circumstance
+stop,cease,halt,discontinue
+danger,risk,threat,peril
+destructive,devastating,ruinous,damaging
+diversity,variety,multiplicity,difference
+earthquake,tremor,quake,seismic event
+endangered,threatened,at risk,imperiled
+extinction,disappearance,eradication
+forever,eternally,perpetually,always
+generally,overall,broadly,commonly
+genocide,mass killing,ethnic cleansing
+hit,strike,beat,attack
+lose,miss,forfeit,fail to keep
+original,authentic,genuine,primary
+percentage,proportion,fraction,rate
+cause,reason,motive,grounds
+Translation_Missing,Synonym_Missing
+urban,city,metropolitan,town
+burn,scorch,ignite,char
+verify,confirm,check,validate
+cashew,nut
+epilepsy,seizure,convulsion
+fat,oil,grease,lard
+earn,gain,acquire,win
+glucose,sugar,dextrose
+high,tall,elevated,lofty
+maintain,preserve,keep,retain
+known,famous,well-known,recognized
+liver,organ
+low,decreased,reduced,lowered
+management,administration,organization,governance
+metabolic,metabolism-related
+oil,fat,grease
+olive,olive fruit
+performance,execution,conduct,achievement
+strong,powerful,robust,sturdy
+starch,carbohydrate
+summary,abstract,overview,synopsis
+analytical,critical,logical
+area,region,zone,district
+single,unmarried,unwed
+cognitive,perceptual,mental
+collision,crash,impact,clash
+competent,effective,capable,efficient
+certificate,diploma,degree,credential
+excel,succeed,shine,outperform
+geology,earth science
+indivisible,inseparable,unitary
+mind,intellect,brain,reason
+function,duty,role,task
+careful,cautious,keen,attentive
+minimum,lowest,least,bottom
+psychology,study of mind
+radiant,radioactive,emitting
+relative,proportional,comparative
+sociology,social science
+theoretical,conceptual,abstract
+weak,fragile,frail,feeble
+director,manager,administrator,supervisor
+rich,wealthy,affluent,prosperous
+examine,inspect,audit,verify
+automate,robotize,mechanize
+bribe,corrupt,pay off
+corrupt,rotten,spoiled,decayed
+get rid of,dispose of,eliminate,remove
+headquarters,main office,central office
+incentive,motivation,stimulus,impetus
+infrastructure,foundation,base,framework
+legislate,enact,authorize,pass laws
+legal,legitimate,lawful,authorized
+play around,joke,tease,play
+goods,merchandise,products,commodities
+fragmentation,segmentation,partition,division
+revenue,income,earnings,proceeds
+garbage,trash,waste,rubbish
+aid,assistance,support,help
+deal,transaction,bargain,agreement
+violate,infringe,breach,transgress
+evaluate,assess,appraise,judge,rate
+amaze,astonish,surprise,astound,stun
+start,begin,commence,initiate,launch
+essence,core,substance,nature,heart
+extract,withdraw,remove,derive
+wonderful,amazing,marvelous,excellent,superb
+wheel,tire,roller
+motive,incentive,impulse,reason,stimulus
+inhibit,deter,discourage,restrain,hamper
+last,final,ultimate,concluding
+molecule,particle,atom
+continuous,ongoing,constant,uninterrupted,persistent
+precise,exact,accurate,minute
+proximity,closeness,nearness,vicinity
+advertisement,promotion,publicity,propaganda
+treatment,therapy,cure,remedy
+importance,significance,value,relevance
+later,subsequent,following,ensuing
+artificial,synthetic,man-made,fake
+final,ultimate,conclusive,definitive
+sharp,acute,intense,severe
+aggression,attack,assault,invasion
+biography,autobiography,life story
+enhance,strengthen,boost,improve,reinforce
+applaud,clap,cheer
+classical,traditional,classic,formal
+force,compel,oblige,coerce
+creation,creature,being,genesis
+dominance,control,hegemony,power
+wonderful,amazing,marvelous,excellent,superb
+inevitable,unavoidable,certain,necessary
+heritage,inheritance,legacy,bequest
+masterpiece,artifact,treasure,antique
+multiple,various,several,numerous
+show,display,exhibit,demonstrate
+bad reputation,notorious,infamous,disreputable
+total,overall,gross,aggregate
+bias,prejudice,partiality,preconception
+spontaneous,impromptu,unplanned,natural
+virtue,merit,goodness,morality
+side,aspect,part,facet
+origin,source,root,beginning
+task,mission,duty,assignment
+awareness,consciousness,perception,understanding
+bud,sprout,shoot
+coordinate,organize,arrange,manage
+balance,credit,reserve,stock
+refute,disprove,deny,contradict
+human,humanitarian,humane
+Translation_Missing,Synonym_Missing
+useful,beneficial,helpful,advantageous
+visual,optical,sight-related
+introduction,preface,preamble,prologue
+shelf,rack,ledge
+Renaissance,awakening,revival
+spatial,locational,geographical
+determine,define,set,establish
+link,connect,attach,tie
+undertake,commit,promise,guarantee
+wax,candle wax
+addict,dependent,habitual user
+archaeological,antique,historical
+archaeology,study of antiquities
+brainstorm,generate ideas,ideate
+budget,financial plan,allocation
+chaotic,anarchic,disorderly,turbulent
+cite,quote,refer to,mention
+agree,concur,consent,accord
+courtyard,patio,yard
+property,real estate,estate,asset
+fraud,deception,scam,trickery
+hydrogen
+integrity,honesty,probity,fairness
+view,glance,look,perspective
+umbrella,parasol,canopy
+prehistoric,ancient,prehistoric times
+supporter,advocate,proponent,backer
+improve,enhance,upgrade,refine
+restrict,limit,confine,bind
+team,squad,group,crew
+total,overall,gross,aggregate
+antibiotic,antibacterial,antimicrobial
+electric circuit,circuit
+complete,complement,finish,fulfill
+press,squeeze,push,compress
+database,data repository,data bank
+equivalent,equal,comparable,corresponding
+limited,restricted,confined,exclusive
+input,entry,data entry
+intimate,close,personal,friendly
+magnets
+metabolism
+thin layer,membrane,film
+stage,phase,step,period
+pinch,bite,sting
+dominant,prevailing,prevalent
+quantitative,numerical,measurable
+ratio,percentage,proportion,rate
+spiral,helical,corkscrew
+viral,virus-related
+acid,sour liquid,corrosive substance
+management,administration,control,supervision
+administrative,managerial,executive
+biotechnology,genetic engineering,biological technology
+cholesterol,lipid,fatty substance
+coalition,alliance,union,federation
+deceptive,misleading,tricky,fraudulent
+diabetes,sugar disease,metabolic disorder
+remove,eliminate,delete,eradicate
+erosion,wearing away,corrosion
+morals,ethics,principles,values
+frank,straightforward,candid,honest
+frame,structure,framework,outline
+manufacture,produce,make,fabricate
+mechanism,device,system,apparatus
+reduce,decrease,lessen,diminish
+nectar,sweet liquid
+idea,concept,notion,thought
+system,regime,order,structure
+direct,immediate,straightforward
+bankrupt,insolvent,ruined
+comply,obey,conform,follow
+employ,hire,use,engage
+fly,soar,glide
+extension,prolongation,expansion
+next,upcoming,approaching
+furnish,equip,decorate
+cleanliness,hygiene,sanitation
+healthy,sanitary,wholesome
+landlord,property owner,lessor
+rent,lease,hire
+mandatory,compulsory,obligatory
+repair,fix,mend,restore
+mortgage,property lien,real estate pledge
+personnel affairs,staff matters,employee relations
+plumbing,piping,pipework
+quotation,quote,citation,excerpt
+tenant,renter,lessee
+benefit,advantage,profit,usefulness
+according to,in accordance with,by virtue of
+adapt,adjust,acclimate,conform
+biological,organic,living
+cellular,cell-based,mobile (in modern context)
+dynamic,energetic,active
+imagination,fantasy,dream,vision
+inheritance,heritage,legacy
+internal,inward,domestic
+minimum,lowest,least
+pioneer,leader,forerunner
+describe,depict,portray,characterize
+special,private,particular,exclusive
+strict,severe,stern,rigorous
+sequence,series,chain
+similar,alike,resembling
+replace,substitute,exchange,swap
+surgeon,operator,doctor
+treatment,therapy,cure,remedy
+transfer,transport,move,convey
+transition,transfer,movement,shift
+plantation,farming,cultivation
+astrology,horoscopy
+spouse,partner,mate,husband,wife
+deviate,stray,swerve,veer
+distinguish,differentiate,discriminate,identify
+disable,disrupt,disable,paralyze
+equation,balance,adjustment
+err,mistake,blunder,misjudge
+wrong,erroneous,incorrect,culpable
+frightened,terrified,scared,petrified
+unintentional,inadvertent,accidental
+Translation_Missing,Synonym_Missing
+horizon,horizontal line
+sailor,seaman,mariner
+gathering,muster,assembly,concentration
+disturbance,annoyance,nuisance,disruption
+duration,continuity,permanence
+turn,rotate,spin,revolve
+calm,soothe,quiet,relax
+stuck,trapped,attached,adherent
+technology,technique,method
+silly,foolish,absurd,ridiculous
+Translation_Missing,Synonym_Missing
+Translation_Missing,Synonym_Missing
+uniform,attire,clothing
+obsession,fascination,mania,fixation
+indicate,point to,refer to,suggest
+enlarge,magnify,amplify,exaggerate
+surplus,excess,extra,additional
+feminine,female,womanly
+pyramidal sequence,pyramid sequence
+pillow,cushion,pad
+partner,associate,ally,companion
+dominant,prevailing,prevalent
+protocol,procedure,code
+reputable,respected,renowned,esteemed
+indicate,show,suggest,point to
+belt,strap,band
+style,method,approach,technique
+interlocking,interconnection,entanglement,intertwining
+arrogance,pride,conceit,haughtiness
+to the shore,onto the beach,to the coast
+contradict,oppose,dispute,challenge,deny
+peer,equal,match,counterpart,equivalent
+free from,without,devoid of,lacking,absent of
+branch,diverge,fork,split,spread
+embryo,fetus,offspring,seedling
+finally,eventually,ultimately,lastly,in the end
+newspaper,paper,journal,magazine,periodical
+homogeneous,uniform,consistent,similar,alike
+individual,person,member,unit,entity
+main,primary,principal,chief,major
+hinder,obstruct,impede,block,hamper
+dive,plunge,submerge,sink
+lengthen,extend,prolong,stretch,elongate
+announce,declare,proclaim,advertise,publicize
+surplus,excess,extra,additional,overflow
+escape,survive,avoid,evade,get away
+Translation_Missing,Synonym_Missing
+realize,verify,confirm,achieve,accomplish
+strong,powerful,robust,sturdy,mighty
+slaughterhouse,abattoir,killhouse
+arthritis,joint inflammation
+botany,plant science,plant biology
+credible,reliable,trustworthy,believable,authentic
+deceased,dead,late,passed away
+deception,trickery,fraud,dishonesty,cheating
+document,record,paper,certificate,contract
+feces,excrement,droppings,manure
+dusk,twilight,nightfall,sunset
+satisfy,please,content,gratify,fulfill
+polish,refine,smooth,shine,hone
+explain,interpret,clarify,elucidate,expound
+motive,incentive,impulse,reason,drive
+pneumonia,lung inflammation
+spiritual,mental,soulful,psychic
+psychotic,mental,insane,deranged
+range,spectrum,scope,extent,reach
+evil,wicked,villainous,malicious,sinister
+conflict,struggle,clash,battle,fight
+text,script,passage,writing
+artery,blood vessel
+deterioration,decline,degradation,decay
+deceptive,evasive,elusive,tricky,sly
+guarantee,ensure,secure,assure,warrant
+stimulate,motivate,encourage,activate,spur
+inseparable,indivisible,unbreakable,united
+invalid,false,void,untrue,wrong
+enlarge,magnify,amplify,exaggerate,expand
+mainstream,principal current,dominant trend
+microbe,germ,bacterium,pathogen
+secondary,subordinate,minor,auxiliary
+negligible,insignificant,minuscule,trivial
+paralysis,immobility,numbness
+plague,scourge,disaster,calamity
+prevail,dominate,reign,rule
+effort,endeavor,attempt,exertion
+tear,rip,rupture,laceration
+savage,brutal,ferocious,barbaric
+astonish,amaze,astound,surprise
+exposed to,susceptible to,vulnerable to
+defend,protect,advocate,champion
+even if,although,though,albeit
+delegate,authorize,empower,entrust
+civil,civilian,urban,civic
+commodity,goods,product,item
+communicate,connect,interact,correspond
+opening,opening up,opening act,opening ceremony
+reveal,uncover,disclose,expose
+dynamics,forces,mechanics,interactions
+record,register,log,note
+jealous,envious,resentful,spiteful
+celebratory,festive,ceremonial
+indicate,point,show,suggest
+lens,optical lens
+organize,arrange,regulate,coordinate
+morale,spirit,confidence,enthusiasm
+mood,temperament,disposition,attitude
+prophecy,prediction,forecast,vision
+senate,council of elders,upper house
+disorder,disturbance,disruption,conflict
+approve,endorse,authorize,agree
+coherent,consistent,solid,stable
+cooperate,collaborate,work together,team up
+collect,gather,assemble,accumulate
+inhibit,restrain,suppress,control
+diagnose,identify,determine,recognize
+enact,legislate,establish,pass
+union,alliance,federation,association
+total,overall,gross,aggregate
+human,humanitarian,humane
+needy,poor,impoverished,underprivileged
+beginnig,start,commencement,initiation
+undertake,commit,promise,guarantee
+prevent,stop,prohibit,block
+present,offer,submit,provide
+smallpox,variola
+convert,transform,change,alter
+transfer,transport,convey,move
+undertake,commit,promise,guarantee
+widespread,extensive,prevalent,common
+commit,adhere,obey,follow,abide by
+manage,run,operate,control,administer
+sympathetic,compassionate,understanding,caring
+pollute,contaminate,dirty,spoil
+deficiency,lack,shortage,insufficiency
+confirmation,assertion,verification,endorsement
+pandemic,epidemic,outbreak
+danger,risk,peril,threat,hazard
+inevitable,unavoidable,certain,necessary
+intestines,bowels,entrails
+show,display,reveal,exhibit,demonstrate
+crowded,packed,congested,full
+practitioner,professional,expert
+supply,provision,delivery,distribution
+renew,revive,refresh,restore,renovate
+reflect,mirror,show,indicate
+sterile,sanitized,disinfected,clean
+promote,upgrade,advance,elevate
+viable,feasible,workable,practicable
+voluntary,optional,discretionary
+airway,breathing passage,respiratory tract
+powerful,strong,mighty,capable
+arrival,coming,advent,appearance
+cycle,round,period,session
+final,ultimate,conclusive,last
+equal,match,equate,balance
+establish,found,set up,start
+ideology,belief system,doctrine
+inhale,breathe in,suck in
+require,necessitate,call for,demand
+lunar,moon-related
+novelty,newness,originality
+obsolete,outdated,old-fashioned,antiquated
+allocate,assign,dedicate,set aside
+psychiatric,mental health,psychological
+psychiatry,mental health medicine
+reflex,automatic response,involuntary reaction
+shift,turn,spell,period
+session,meeting,sitting
+tool,instrument,device,implement
+allocate,assign,dedicate,set aside
+appetizing,delicious,tasty,savory
+appoint,assign,designate,determine
+cavity,hollow,void
+clockwise,clock-wise,in the direction of the clock
+centralized,concentrated,unified
+kindness,politeness,courtesy,gentleness
+crispy,crunchy,crackling
+disagreement,conflict,difference,dispute
+generate,produce,create,manufacture
+element,component,ingredient,part
+exchange,swap,trade,reciprocity
+multicultural,multi-ethnic,diverse
+neglect,omission,overlooking,disregard
+oversee,supervise,manage,inspect
+penetrate,break through,infiltrate,pass through
+choose,select,pick,opt
+structure,framework,building,architecture
+visual,optical,sight-related
+wavy,rippled,undulating
+conversion,transfer,transformation,change
+stuff,fill,pad,pack
+postpone,delay,defer,put off
+export,send out,ship
+smoke,fumes,exhaust
+accustomed,used to,familiar,habitual
+justify,explain,defend,excuse
+despite,in spite of,although,notwithstanding
+production,output,manufacturing
+population density,crowding,overpopulation
+patent,invention right,exclusive right
+punish,sanction,discipline,penalize
+oil,petroleum,fuel
+area,region,zone,district
+junk,scrap,rubbish,trash
+sector,division,branch,segment
+participate,share,take part,join
+subsist,survive,get by,live minimally
+suspend,hang,attach,comment
+installation,assembly,composition,structure
+acrobat,performer,entertainer
+support,advocacy,backing,championing
+collective,group,communal,shared
+smooth,easy,fluent,effortless
+coordinate,organize,arrange,align
+diligent,hardworking,industrious,assiduous
+innovative,creative,original,inventive
+Mandarin language,Chinese dialect
+urban,city,metropolitan
+imitate,mimic,copy,emulate
+misled,deceived,deluded,confused
+train,practice,exercise,drill
+resourceful,clever,ingenious,inventive
+despise,disdain,scorn,look down on
+sensory,perceptual,feeling-related
+law,rule,regulation,statute
+technical,technological,specialized,mechanical
+experienced,veteran,seasoned,skilled
+evil,wicked,malicious,villainous
+vine,vineyard,grapevine
+fragrance,scent,aroma,perfume,bouquet
+drink,beverage,refreshment
+cluster,bunch,bundle,group
+merge,combine,integrate,unite
+condensed,concentrated,dense,compact
+modern,contemporary,current,up-to-date
+plant,sow,cultivate,grow
+divine,holy,sacred,celestial
+moist,wet,damp,humid
+smell,odor,aroma,scent
+palate,taste,roof of mouth
+paradise,heaven,utopia
+farm,plantation,ranch
+fast,quick,rapid,speedy
+adjusted,modified,altered,regulated
+calming,soothing,relaxing,tranquilizing
+fine,minute,precise,thin
+fabric,textile,cloth,material
+poisonous,toxic,venomous,harmful
+vary,differ,diversify,fluctuate
+admiral,commander,leader
+bow,arc,curve,arch
+personality,character,individuality,identity
+conscience,morality,ethics,awareness
+escape,flee,run away,evade
+fiery,flaming,blazing,burning
+meat,flesh,protein
+grapefruit,citrus fruit
+straw,chaff,hay
+terrified,frightened,scared,afraid
+kerosene,fuel,oil
+ring,loop,circle,band
+middle,midpoint,center,halfway
+paddle,oar,blade
+sour,acidic,tart
+wedge,peg,stake
+host,emcee,presenter,announcer
+thread,string,fiber,yarn
+fork,spike,prong,tine
+break,shatter,smash,destroy
+scold,reprimand,chide,rebuke
+audible,heard,perceptible
+wonderful,amazing,marvelous,excellent
+be cautious,be careful,beware,avoid
+boast,brag,show off,swagger
+aware,conscious,alert,mindful
+Translation_Missing,Synonym_Missing
+echo,reverberation,resonance
+final,ultimate,conclusive,last
+allusion,hint,insinuation,suggestion
+fool,idiot,stupid,silly
+enormous,huge,massive,tremendous
+indirect,oblique,mediated
+cucumber,pickle
+entertainment,amusement,fun,diversion
+ideal,perfect,exemplary,optimal
+specify,define,determine,identify
+change,replace,exchange,substitute
+comprehensive,complete,inclusive,extensive
+torture,punish,torment,afflict
+surprising,unexpected,astonishing,amazing
+torture,pain,agony,suffering
+killer,murderer,deadly,lethal
+beard,facial hair
+beast,monster,creature,animal
+chapel,small church
+suspended,hanging,attached
+deceive,trick,cheat,mislead
+consensus,agreement,unanimity
+conspiracy,plot,scheme,collusion
+coup,overthrow,upheaval,revolution
+pessimistic,negative,gloomy,cynical
+dome,cupola,arch
+cheer,shout,chant,call
+forum,conference,meeting,assembly
+magic,witchcraft,sorcery,enchantment
+bother,annoy,disturb,irritate
+illuminate,light up,brighten,enlighten
+ignite,light,kindle,set fire
+tune,melody,air
+moment,instant,second,minute
+cyberspace,virtual space,digital space
+free,liberate,release,emancipate
+article,essay,paper,write-up
+evaluate,assess,appraise,judge
+faint,pass out,lose consciousness
+global,worldwide,international,universal
+sports hall,gymnasium,arena
+illuminate,highlight,shine light on
+ignorant,uneducated,illiterate,uninformed
+index,table of contents,list,catalog
+lecture,talk,presentation,seminar
+moral,ethical,righteous,virtuous
+operate,run,manage,control
+Translation_Missing,Synonym_Missing
+modern,new,current,recent
+decision,resolution,determination,conclusion
+semester,term,academic session
+printed,published,press,impression
+strange,weird,odd,peculiar
+accustom,adapt,habituate,acclimate,condition
+alpha,beginning,first,primary
+provoke,arouse,stimulate,incite,excite
+eloquent,articulate,fluent,expressive,persuasive
+hum,buzz,drone,vibration
+collision,crash,impact,clash
+classification,categorization,grading,sorting
+cling,hold,grip,adhere
+compliance,obedience,conformity,adherence
+understand,comprehend,grasp,perceive
+gather,assemble,collect,congregate
+incubator,nursery,hatchery
+separate,divide,distribute,disperse
+embody,represent,personify,manifest
+experimental,trial,testing,prototype
+exclusion,elimination,rejection,removal
+gather,assemble,collect,congregate
+graze,pasture,browse
+intelligent,smart,clever,bright,brainy
+jungles,forests,woods
+account,calculation,bill,invoice
+architect,designer,planner
+hide,conceal,cover,mask
+crime,offense,felony,misdemeanor
+check,bill,note,certificate
+gratitude,thankfulness,appreciation
+homeland,nation,country,fatherland
+intervene,interfere,mediate,intercede
+landmark,feature,monument,site
+legal,lawful,juridical,legitimate
+unforgettable,memorable,indelible
+oblige,compel,require,force
+crime,offense,felony,misdemeanor
+announce,declare,proclaim,advertise
+gathering,assembly,meeting,congregation
+solve,resolve,settle,fix
+resource,supply,source,means
+judgment,ruling,verdict,decision
+volunteer,enlist,offer
+witness,spectator,observer
+arrival,access,entry,approach
+behavior,conduct,manner,demeanor
+continuous,ongoing,constant,persistent
+split,crack,fissure,tear
+device,equipment,apparatus,instrument
+surround,encompass,enclose,encircle
+grip,clutch,handful,clench
+stop,cease,halt,pause
+imminent,near,upcoming,impending
+influence,effect,impact,impression
+law,rule,regulation,statute
+position,situation,state,condition
+sweat,perspire
+replace,substitute,exchange,swap
+break,shatter,fracture,crack
+cunning,sly,crafty,devious
+lean,tend,incline,bias
+good,valid,fit,suitable
+copy,version,replica,duplicate
+absolutely,completely,totally,entirely
+side by side,together,alongside
+appetite,hunger,desire,craving
+help,assist,support,aide
+breeze,wind,air,current
+challenge,defy,confront,dare
+show,display,exhibit,present
+effective,efficient,potent,powerful
+weak,fragile,frail,feeble
+forgive,pardon,excuse,absolve
+vital,essential,crucial,important
+majestic,impressive,grand,formidable
+nor,nor yet,neither
+angry,mad,furious,irate
+pessimistic,negative,doubtful,cynical
+relation,relationship,connection,association
+slap,smack,hit,strike
+break,smash,shatter,destroy
+successful,prosperous,fruitful,effective
+payment,wage,salary,fee
+while,whereas,although,during
+alive,live,living,active
+classify,categorize,sort,arrange
+admit,acknowledge,confess,accept
+concept,idea,notion,understanding
+build,construct,erect,establish
+contract,agreement,pact,treaty
+diagram,chart,graph,illustration
+ferry,barge,boat
+useful,beneficial,helpful,advantageous
+isolate,separate,quarantine,segregate
+longing,yearning,desire,craving
+numerous,many,countless,multiple
+particle,small piece,bit,fragment
+contact,appeal,request,petition
+refuse,decline,abstain,refrain
+review,revision,check,assessment
+advanced,developed,evolved,progressive
+surrender,give up,yield,submit
+upright,erect,vertical,standing
+worthy of attention,noteworthy,significant,important
+alliance,coalition,union,federation,partnership  
+applause,clapping,cheering,ovation  
+armed,weaponized,armed-forces,equipped  
+authoritative,powerful,influential,dominant  
+courage,bravery,valour,heroism  
+celebration,festivity,commemoration,party  
+culture,civilization,customs,heritage  
+defense,protection,guard,security  
+detail,particular,feature,aspect  
+diverse,varied,multifarious,miscellaneous  
+charm,enchant,bewitch,fascinate  
+prepare,equip,assemble,organize  
+exception,exclusion,omission  
+type,kind,sort,category  
+influence,effect,impact,impression  
+tempt,entice,lure,attract  
+obstacle,hurdle,barrier,impediment  
+shelter,refuge,asylum,haven  
+supply,provide,equip,offer  
+arrogant,conceited,proud,haughty  
+alternative,substitute,replacement,option  
+street,road,avenue,way  
+belly,abdomen,stomach,tummy  
+attempt,try,effort,endeavor  
+give,grant,bestow,offer  
+conflict,struggle,clash,dispute  
+continent,landmass,mainland  
+current,stream,flow,trend  
+disrespect,insolence,rudeness,impoliteness  
+enthusiasm,zeal,passion,excitement  
+harsh,severe,strict,stern  
+tend,lean,incline,tilt  
+meanwhile,simultaneously,at the same time  
+mischief,naughtiness,wickedness,devilry  
+muscle,tendon,fiber  
+rescue,save,deliver,salvage  
+sequence,continuation,series,progression  
+terrain,topography,landscape,relief  
+shy,timid,reserved,bashful  
+violence,force,aggression,brutality  
+influence,affect,impact,impress  
+signature,sign,autograph  
+bead,pearl,gem  
+ferment,brew,leaven  
+charm,enchant,bewitch,fascinate  
+fate,destiny,fortune,karma  
+Translation_Missing,Synonym_Missing
+trumpet,horn,bugle  
+quick-tempered,irritable,short-tempered,hot-headed  
+fall behind,lag,retard,delay  
+nightmare,bad dream,terror  
+nutritious,healthy,wholesome,nourishing  
+protein,polypeptide  
+signature,sign,autograph  
+things,items,objects,stuff  
+unconscious,subconscious,automatic  
+truck,lorry,freight vehicle  
+warn,caution,advise,alert  
+exercise,training,practice,workout  
+hurry,accelerate,speed up,rush  
+brick,clay brick  
+crumble,disintegrate,break apart,fragment  
+dough,paste,batter  
+express,convey,articulate,communicate  
+grip,clutch,clench,handful  
+flexible,pliant,supple,adaptable  
+redden,blush,flush  
+hit,strike,affect,injure  
+mass,block,bundle,cluster  
+mixture,blend,compound,combination  
+reconcile,resolve,settle,mediate  
+destroy,ruin,demolish,wreck  
+Translation_Missing,Synonym_Missing
+shutter,bolt,latch  
+sift,strain,filter  
+slight,minor,small,faint  
+shine,glitter,sparkle,glow  
+spray,sprinkle,splash  
+old,ancient,antique,vintage  
+speak,pronounce,utter,articulate  
+despite,in spite of,although  
+apply,enforce,implement,execute  
+wait,await,expect,hold on  
+favorite,beloved,liked,adored  
+climate,environment,atmosphere  
+complain,grumble,protest  
+confuse,bewilder,perplex,disrupt  
+deserving,worthy,entitled,qualified  
+establish,found,set up,create  
+oven,furnace,kiln  
+reins,control,management,restraint  
+mature,ripen,develop,grow  
+measure,assess,evaluate,calculate  
+middle,center,midst,medium  
+misery,poverty,suffering,distress  
+incapable,helpless,unable,powerless  
+previous,former,prior,earlier  
+research,study,inquiry,investigation  
+Translation_Missing,Synonym_Missing
+diversity,variety,multiformity,multiplicity
+completely,entirely,fully,totally,wholly
+tie,bind,connect,link,fasten
+bruise,contusion,injury,mark
+habit,custom,practice,routine
+rebellious,defiant,disobedient,unruly
+predict,forecast,prophesy,foretell
+glimpse,flash,peek,glance
+collar,necklace,ring,band
+bad luck,misfortune,ill fortune,unluckiness
+negative,adverse,unfavorable,hostile
+for each,every,all
+plead,beg,implore,entreat
+tear,rip,shred,split
+for the sake of,because of,due to,on behalf of
+scrape,scratch,scalp,strip
+source,origin,root,fountain
+strict,severe,stern,harsh
+sew,stitch,join,mend
+blow,hit,strike,hit
+violent,aggressive,brutal,fierce
+sick,ill,unwell,ailing
+similar,alike,resembling,comparable
+terrify,frighten,scare,intimidate
+bath,take a bath,wash
+borders,limits,boundaries,edges
+criticize,review,judge,evaluate
+demography,population study
+diagnosis,identification,analysis
+decline,decrease,reduction,drop
+tightness,narrowness,constriction,stress
+fever,temperature,pyrexia
+dark,dull,gloomy,dim
+intestines,bowels,guts
+helmet,headgear,head protection
+grass,herb,weed,vegetation
+strict,rigid,hardline,stern
+miracle,wonder,marvel
+sadden,mourn,grieve,distress
+nonsense,rubbish,gibberish,drivel
+doctor,physician,medic,practitioner
+accent,dialect,tone,inflection
+barber,hairdresser
+basement,cellar,underground room
+empty,vacant,hollow,barren
+blink,wink,flutter
+band,group,ensemble,team
+humorous,funny,comical,comic
+complicate,complexify,entangle,confuse
+refuse,decline,reject,deny
+task,mission,duty,assignment
+glove,mitt,handwear
+ascetic,hermit,monk
+justly,fairly,equitably
+skin,hide,leather
+contemplate,ponder,reflect,consider
+reserve,book,block,hold
+text,script,passage,writing
+search,look for,seek,explore
+slap,smack,hit,strike
+ladder,stairs,staircase
+injured,wounded,hurt,affected
+passage,pass,pathway,corridor
+atmosphere,weather,air,mood
+author,writer,composer,creator
+breakdown,failure,malfunction,shutdown
+shipment,cargo,consignment,freight
+season,chapter,term,section
+tie,bind,connect,link,fasten
+stop,halt,cease,quit
+turn,flip,overturn,rotate
+unemployed,idle,inactive
+think,occur,come to mind,cross mind
+peas,legumes,pulses
+raisin,dried grape
+keep,retain,maintain,preserve
+state,declare,announce,express
+tray,platter,plate
+sad,regrettable,unfortunate
+clear,obvious,evident,apparent
+vomit,puke,throw up
+ambitious,aspiring,determined
+Translation_Missing,Synonym_Missing
+ankle,instep
+cabin,hut,shack
+calendar,schedule,timetable
+calorie,energy unit
+cave,grotto,den
+continuously,constantly,persistently,unceasingly
+delegation,envoy,representatives
+deadline,due date,cutoff date
+exert,make effort,try,strive
+avoid,evade,shun,eschew
+infatuated,in love,passionate,fond
+prevent,stop,prohibit,forbid
+drag,pull,tow,haul
+weaken,debilitate,reduce,diminish
+out of patience,impatient,losing patience
+middle,mid,center,midpoint
+nutrition,diet,feeding
+optimistic,hopeful,positive,confident
+background,backdrop,setting,context,environment  
+bait,lure,decoy,entice,trap  
+date,record,mark,chronicle  
+copper,metal,bronze  
+disease,illness,ailment,sickness,disorder  
+folklore,tradition,custom,heritage  
+infect,contaminate,transmit,spread  
+itch,scratch,irritation  
+literature,letters,writing,arts  
+thousand,grand,millennium  
+legend,myth,fable,tale  
+promote,upgrade,advance,elevate  
+connect,link,associate,relate  
+religion,faith,belief,creed  
+group,collection,set,batch  
+cashier,teller,banker  
+reliable,trustworthy,dependable,credible  
+talk,speak,inform,narrate  
+vein,blood vessel  
+poison,toxin,venom  
+charity,donation,gift,alms  
+trade,business,commerce,dealings  
+condemn,blame,denounce,accuse  
+warm,hot,heated,cozy  
+exhaust,deplete,use up,consume  
+economy,finance,budget,commerce  
+empire,kingdom,realm  
+goods,merchandise,products,commodities  
+notice,observe,realize,become aware  
+stop cars,halt vehicles,stop traffic  
+mock,ridicule,sarcasm,make fun  
+neutral,impartial,unbiased,objective  
+persecute,oppress,harass,bully  
+compassion,pity,sympathy,empathy  
+reduce,decrease,lessen,minimize  
+writer,author,scrivener,scribe  
+mood,temperament,disposition,attitude  
+throne,seat,chair  
+unit,unity,entity,one  
+victor,winner,champion,conqueror  
+fine,minute,precise,exact  
+analyze,examine,study,interpret  
+planet,celestial body  
+debate,argument,dispute,discussion  
+evolve,develop,progress,advance  
+worker,laborer,employee,operator  
+hereditary,inherited,genetic,congenital  
+genome,DNA,genetic material  
+compatible,matching,consistent,harmonious  
+educated,cultured,learned,knowledgeable  
+majority,most,bulk,greater part  
+mammalian,mammal  
+double,duplicate,increase twofold  
+offspring,descendants,progeny,children  
+insecticide,pesticide,bug spray  
+organize,arrange,regulate,coordinate  
+strengthen,enhance,boost,reinforce  
+affected,victim,injured,afflicted  
+vast,wide,extensive,expansive  
+plant,vegetative,botanical  
+vessel,container,recipient,holder  
+cooking,culinary,preparation  
+thick,dense,heavy,compact  
+dignity,honor,respect,pride  
+control,dominate,command,overcome  
+muddy,clayey,earthy  
+hostile,aggressive,antagonistic,unfriendly  
+wrong,incorrect,erroneous,mistaken  
+income,revenue,earnings,salary  
+also,likewise,similarly,too  
+machine,device,apparatus,instrument  
+medicine,drug,medication,remedy  
+ambiguous,vague,unclear,mysterious  
+suppress,quash,subdue,crush  
+peel,shell,strip  
+medical prescription,recipe,treatment  
+progress,advance,development,improvement  
+sandy,arid,dusty  
+lack,deficiency,shortage,insufficiency  
+skillful,expert,adept,proficient  
+airplane,plane,aircraft  
+famous,renowned,well-known,noted  
+mutism,silence,aphasia  
+decisive,critical,conclusive,final  
+respected,honored,esteemed,admired  
+moral,ethical,principled,virtuous  
+endangered,extinct,vanishing  
+strong,powerful,robust,sturdy  
+institute,academy,organization,center  
+jealousy,envious,resentment,envy  
+migrate,emigrate,relocate,move  
+raise,bring up,nurture,educate  
+on elevation,at height,above ground  
+principle,concept,foundation,basis  
+rural,countryside,rustic  
+isolated,secluded,remote,solitary  
+type,kind,sort,category  
+swamp,marsh,wetland,bog  
+cross,traverse,pass,go over  
+zoology,animal science,biology
+based on that,according to that,on that basis,therefore  
+anchor,mooring,fastening  
+cause,bring about,lead to,result in  
+context,situation,circumstance,setting  
+Translation_Missing,Synonym_Missing
+distort,deform,disfigure,misrepresent  
+pavement,sidewalk,platform,quay  
+energy,power,capacity,strength  
+repeated,recurring,frequent,periodic  
+gears,cogs,wheels  
+original,genuine,authentic,primary  
+fat,grease,lipid,oil  
+knowledge,awareness,understanding,information  
+delete,remove,erase,eliminate  
+compensate,make up for,reimburse,offset  
+interact,intervene,interfere,overlap  
+used,secondhand,pre-owned,utilized  
+skill,ability,expertise,competence  
+opening,hole,gap,aperture  
+tactic,strategy,approach,method  
+beneficial,useful,helpful,advantageous  
+plan view,top view,overhead view  
+capacity,volume,ability,space  
+compared,relative,contrasted,matched  
+comprehensive,complete,extensive,inclusive  
+preserve,save,maintain,protect  
+decisive,critical,conclusive,determining  
+cumulative,accumulative,progressive  
+deposit,leave,entrust,submit  
+distribute,allocate,dispense,spread  
+equator,midline,central line  
+strange,weird,odd,unusual  
+federal,national,central  
+formation,composition,structure,creation  
+frequency,hesitation,doubt,reluctance  
+goal,aim,target,intent  
+oxygen,air,element  
+rainforest,jungle,tropical forest  
+strategy,plan,tactic,approach  
+wooded,forested,tree-covered  
+benefit,advantage,profit,usefulness  
+define,identify,explain,describe  
+fear,dread,be afraid of,apprehend  
+expand,enlarge,grow,increase  
+basic,fundamental,essential,primary  
+terrifying,frightening,scary,horrifying  
+skeptical,doubtful,questioning,uncertain  
+remain,stay,left over,reside  
+living being,organism,creature  
+rephrase,reword,redraft,revise  
+pandemic,epidemic,outbreak  
+current,present,now,contemporary  
+random,arbitrary,haphazard,unplanned  
+chaos,disorder,turmoil,unrest  
+scribble,scrawl,doodle,smear  
+tomb,mausoleum,grave,sepulcher  
+isolation,seclusion,separation,detachment  
+loud,shouting,blatant,obvious  
+call for,require,demand,necessitate  
+worsen,deteriorate,decline,degrade  
+car,automobile,vehicle,auto  
+nominated,candidate,proposed,selected  
+secret,confidential,private,classified  
+corporate,partnership,collaborative,associative  
+improve,enhance,upgrade,refine  
+era,age,period,time  
+guiding principle,directive,policy,rule  
+merge,integrate,combine,unite  
+interact,respond,communicate,engage  
+period,interval,phase,duration  
+mobile,portable,nomadic,migratory  
+modify,adjust,alter,amend  
+balanced,equilibrium,stable,proportional  
+phenomenon,event,occurrence,manifestation  
+pollute,contaminate,dirty,spoil  
+mock,ridicule,make fun of,sarcasm  
+solar,sunny,sun-related  
+region,area,zone,district  
+championship,tournament,contest,competition  
+transport,transfer,movement,conveyance  
+bill,invoice,statement,receipt  
+limit,boundary,edge,threshold  
+chaos,disorder,turmoil,confusion  
+consistent,coherent,logical,uniform  
+cyclone,storm,hurricane,tornado  
+condemned to failure,doomed to fail,bound to fail  
+heir,inheritor,successor,legatee  
+military,armed forces,army,soldierly  
+organic,member-related,particular  
+insects,bugs,arthropods  
+push,shove,jostle,press  
+monitor,overseer,controller,supervisor  
+pure,sheer,absolute,utter  
+position,stance,attitude,location  
+telegram,message,dispatch,communication  
+fabric,textile,structure,composition  
+cyclone,storm,hurricane,tornado  
+cyclone,storm,hurricane,tornado  
+wail,cry,lament,bemoan  
+Translation_Missing,Synonym_Missing
+inverse,reverse,opposite,contrary,antithetical  
+alternative,substitute,replacement,option,choice  
+biodegradable,decomposable,breakable,decayable  
+canned,tinned,packaged,jarred  
+choke,suffocate,strangle,smother  
+comfortable,cozy,pleasant,relaxing  
+get rid of,dispose of,eliminate,remove  
+dolphin,porpoise  
+environmentally,ecologically,green  
+deadly,lethal,fatal,mortal  
+occurrence,event,happening,incident  
+local,native,indigenous,domestic  
+overuse,excessive use,abuse  
+pond,pool,reservoir,lake  
+recycle,reprocess,reuse  
+reusable,recyclable,renewable  
+stuffed,filled,packed  
+tragic,disastrous,catastrophic,sorrowful  
+use,utilize,employ,apply  
+whale,giant mammal  
+amateur,novice,beginner,inexperienced  
+mysterious,obscure,ambiguous,enigmatic  
+unknown,anonymous,unidentified,unfamiliar  
+achieve,accomplish,attain,realize  
+self-independence,autonomy,self-reliance  
+concession,surrender,yielding,giving up  
+decay,cavity,tooth decay,dental caries  
+live,reside,dwell,inhabit  
+illuminate,light up,enlighten,brighten  
+enrich,enhance,improve,augment  
+prosper,thrive,flourish,succeed  
+engineering,design,technology  
+shine,glitter,sparkle,glow  
+greed,avarice,cupidity  
+harmony,coherence,congruence,consistency  
+original,authentic,genuine,real  
+specialization,expertise,field,discipline  
+procession,parade,cortege  
+statue,sculpture,figure  
+virgin,pure,maiden  
+Translation_Missing,Synonym_Missing
+absent,missing,away  
+neighboring,adjacent,nearby  
+aluminum,aluminium,metal  
+applicable,relevant,suitable,pertinent  
+artificial,synthetic,man-made  
+bicycle,bike,cycle  
+medium,intermediary,moderate,average  
+bureaucracy,red tape,administration  
+prepare,arrange,set up,organize  
+integrate,merge,incorporate,combine  
+palm,comfort,rest  
+deduct,subtract,debit  
+consider,regard,deem,think  
+businessman,entrepreneur,executive  
+equally,evenly,fairly  
+financial,money-related,economic  
+privilege,advantage,benefit,perk  
+ideological,doctrinal,theoretical  
+robot,android,automaton  
+monastery,convent,abbey  
+abundant,plentiful,ample,rich  
+neighbor,adjoin,abut,next to  
+wide,broad,spacious,extensive  
+barren,arid,dry,infertile  
+cathedral,church,temple  
+crisis,emergency,critical situation  
+deprive,deny,disallow  
+dry,arid,parched  
+qualified,certified,competent  
+fast,abstain from food  
+complain,grumble,whine  
+internal,domestic,in-house  
+humidity,moisture,dampness  
+however,nevertheless,nonetheless,yet  
+section,part,division,segment  
+meadow,field,grassland,pasture  
+rough,rugged,tough,difficult  
+rare,uncommon,infrequent  
+estimate,guess,approximate  
+aquatic,watery,marine  
+ecosystem,environmental system,biome  
+strange,weird,odd,peculiar  
+Celsius,centigrade,temperature scale  
+rough,coarse,harsh,uneven  
+companion,friend,partner,ally  
+digest,break down,absorb  
+duration,period,length,time  
+environmental science,ecology,environmental studies  
+achievement,accomplishment,success,feat  
+infinite,endless,limitless,boundless  
+nucleus,core,center  
+parasitic,dependent,exploitative  
+prominent,outstanding,notable,conspicuous  
+repeated,recurring,freqent,iterative  
+reproductive,breeding,procreative  
+moderate,temperate,balanced,mild  
+tolerance,forbearance,acceptance,open-mindedness  
+submit,undergo,yield,comply  
+weak,frail,feeble,fragile
+old,ancient,antique,aged,vintage
+yellow brass,brass,alloy
+capitalism,free market,market economy
+component,element,part,constituent
+dependence,reliance,trust,confidence
+reduces,decreases,diminishes,lessens
+defect,flaw,blemish,imperfection
+imposes,enforces,dictates,mandates
+industry,manufacturing,business,production
+administrative,managerial,executive
+Middle Ages,medieval period,medieval times
+neglected,ignored,overlooked,disregarded
+directed,aimed,focused,targeted
+peninsula,landmass,projection
+awe,dignity,prestige,majesty
+ratio,percentage,proportion,fraction
+radical,extreme,fundamental,drastic
+refutes,disproves,denies,rebuts
+amazing,astonishing,stunning,incredible
+weaves,knits,braids,intertwines
+accountant,auditor,bookkeeper
+capitalist,investor,entrepreneur
+contempt,disdain,scorn,disrespect
+product,yield,crop,output
+dedicates,devotes,commits,consecrates
+ditch,trench,moat,canal
+project,plan,scheme,proposal
+finances,funds,sponsors,supports
+indifferent,unconcerned,careless,apathetic
+tells,narrates,recounts,relates
+magnifies,exalts,glorifies,enhances
+critical,monetary,cash,analytical
+precaution,care,caution,safeguard
+preparatory,introductory,initial,preliminary
+satisfies,fulfills,quenches,gratifies
+simplicity,ease,plainness,clarity
+plants,sows,cultivates,grows
+shovel,spade,digger
+tomatoes,tomato
+coming,next,upcoming,approaching
+anthropology,human science,study of humans
+claps,applauds,cheers
+appoints,assigns,designates,selects
+compatible,agreeing,consistent,harmonious
+efficiency,competence,capability,proficiency
+consults,confers,deliberates,discusses
+sequential,consecutive,successive,continuous
+raw,unprocessed,crude,natural
+cubic,cubed,square-shaped,block-shaped
+comments,remarks,annotations,notes
+ignorance,unawareness,illiteracy,naivety
+masculine,male,manly,virile
+monument,memorial,statue,tribute
+muscular,strong,brawny,powerful
+secular,worldly,non-religious,temporal
+establishes,evaluates,assesses,constructs
+overlooks,supervises,commands,oversees
+symmetry,balance,proportion,harmony
+tattoo,mark,ink
+university student,college student,undergraduate
+fulfills,meets,satisfies,responds
+pasture,grazing land,meadow
+consumption,use,expenditure
+standards,criteria,norms,benchmarks
+peel,skin,shell,rind
+authorizes,empowers,permits,entitles
+accompanies,escorts,attends,goes with
+external,foreign,outside,extraneous
+elbow,facility,institution,utility
+teaching staff,faculty,educational body
+pile,heap,mound,stack
+hemisphere,half sphere
+hunting dog,gun dog,retriever
+impersonal,unpersonal,objective,detached
+licks,laps,slurps
+ornamentation,decoration,embellishment,adornment
+pedestrians,walkers,foot travelers
+sanctuary,refuge,shelter,haven
+spectator,viewer,audience,observer
+shouts,yells,screams,cries
+accessory,add-on,attachment,ornament
+acquisition,gain,attainment,procurement
+cardboard,reinforced paper,stiff paper
+dilemma,problem,issue,predicament
+detailed,elaborate,comprehensive,thorough
+fine,minute,precise,thin
+facilitates,makes easy,simplifies,assists
+fleet,navy,squadron
+network,web,net,system
+imports,brings in,procures
+deduces,infer,concludes,derives
+blows,puffs,inflates,breathes
+innate,natural,inborn,inherent
+marble,stone,rock
+mast,pole,flagpole
+nausea,sickness,queasiness,vomiting
+marine,naval,maritime,sea-related
+pouch,pocket,satchel,bundle
+saturated,full,filled,imbued
+modernization,updating,renewal,upgrade
+lawyer,attorney,counsel,advocate,solicitor  
+chronic,persistent,long-lasting,enduring  
+discipline,self-control,restraint,orderliness  
+donor,benefactor,contributor,sponsor  
+colleague,peer,associate,coworker  
+gossip,rumor,tale,tattle  
+graduate,complete,finish,pass out  
+murals,wall paintings,wall art  
+guardian,custodian,trustee,protector  
+entangle,involve,implicate,embroil  
+relatives,kin,family members  
+judge,referee,arbiter,umpire  
+cut,sever,slice,interrupt  
+pillar,column,post,shaft  
+stab,thrust,pierce,impale  
+incentive,motivation,stimulus,impetus  
+doubt,suspicion,uncertainty,question  
+finish,end,terminate,conclude  
+topic,subject,theme,issue  
+tuition fees,school fees,education fees  
+aggressive,hostile,combative,offensive  
+forgiveness,pardon,mercy,clemency  
+courtyard,square,plaza,yard  
+hall,room,auditorium,chamber  
+prisoner,captive,hostage,detainee  
+fighting,combat,battle,conflict  
+common,prevalent,widespread,frequent  
+compound,complex,composite,assembled  
+legion,corps,division,regiment  
+scatter,disperse,distract,disband  
+Translation_Missing,Synonym_Missing
+enemy,foe,opponent,adversary  
+penetrate,infiltrate,break through,breach  
+contemplate,ponder,reflect,meditate  
+wound,injure,hurt,cut  
+provoke,incite,agitate,irritate  
+field,area,domain,scope  
+covenant,pact,agreement,era  
+rust,corrosion,oxidation  
+sacred,holy,divine,consecrated  
+aesthetic,beautiful,artistic,decorative  
+arrogant,proud,haughty,conceited  
+bias,prejudice,partiality,preconception  
+valley,glen,gorge  
+schedule,timetable,chart,plan  
+drill,auger,borer  
+executive,administrative,managerial  
+strain,stress,burden,pressure  
+slope,incline,gradient,hillside  
+bad,poor,negative,unfavorable  
+realize,perceive,understand,comprehend  
+main,primary,chief,principal  
+primitive,prehistoric,ancient,early  
+stereotype,cliché,archetype,standard image  
+sticky,tacky,adhesive,glutinous  
+white ants,termites  
+therefore,thus,consequently,accordingly  
+passage,pass,pathway,aisle  
+branch,twig,limb,shoot  
+welfare,prosperity,comfort,well-being  
+on behalf of,in place of,representing  
+flutter,flap,wave,quiver  
+glacial river,ice river  
+globe,earth,world,planet  
+horizontal,level,flat,even  
+humming,buzzing,murmuring  
+bark,peel,skin (of tree)  
+internal,domestic,inward,national  
+loaf,bread,roll  
+revelation,inspiration,divine message  
+turn,rotate,spin,revolve  
+overview,summary,general view,outline  
+examination,inspection,assessment,observation  
+previous,former,prior,earlier  
+provide,supply,offer,afford  
+recur,repeat,occur again,happen again  
+relevant,related,connected,pertinent  
+weather,climate,atmosphere  
+break down,malfunction,fail,stop working  
+Translation_Missing,Synonym_Missing
+fish pond,aquarium,fish basin  
+arbitrary,random,capricious,whimsical  
+autobiography,biography,life story  
+contractual,agreement-based,binding  
+kind,nice,gentle,pleasant  
+improve,enhance,upgrade,refine  
+isolate,separate,quarantine,segregate  
+attract attention,arouse interest,engage curiosity  
+lifespan,duration,lifetime  
+waste,lose,squander,mishandle  
+mischievous,naughty,troublesome,wicked  
+standard,criterion,measure,benchmark  
+wild man,savage,primitive person  
+overload,overburden,overcharge  
+kindness,charity,goodness,benevolence  
+explore,probe,investigate,examine  
+recipient,receiver,addressee  
+crawler,creeper,creeping animal  
+flourish,prosper,thrive,boom  
+final,ultimate,conclusive,last
+archaeological,historical,ancient,antique  
+advanced,progressive,developed,modern  
+effect,impact,influence,result,consequence  
+original,genuine,authentic,real  
+timeline,chronology,sequence  
+diplomatic,political,international  
+epic,saga,legend,heroic poem  
+excerpt,extract,selection,passage  
+fossil,relic,remains  
+humiliate,degrade,embarrass,disgrace  
+vocal,singing,melodic,musical  
+majesty,grandeur,magnificence,splendor  
+king,monarch,sovereign,ruler  
+to precede,to go before,to lead  
+fine,minute,precise,exact  
+to recruit,to enlist,to mobilize  
+recall,retrieval,recovery  
+to record,to register,to log  
+fame,celebrity,reputation,popularity  
+fang,tusk,fang tooth  
+to coexist,to live together,to coexist peacefully  
+imagine,visualize,conceive,think  
+suspect,doubtful,questionable,uncertain  
+I,me,myself  
+flexible,adaptable,supple,pliable  
+effort,endeavor,attempt,exertion  
+to engrave,to carve,to etch  
+to excavate,to drill,to explore  
+toothed,serrated,notched  
+place,location,spot,site  
+size,volume,magnitude,capacity  
+mold,template,pattern,form  
+candid,explicit,frank,straightforward  
+ocean,sea,marine,environment  
+plaster,stucco,mortar  
+shovel,spade,digger  
+skeletal,structural,framework  
+to stumble,to trip,to falter  
+thigh,leg  
+fierce,savage,ferocious,aggressive  
+attic,loft,garret  
+piece,part,segment,section  
+civil,civilian,urban  
+landing,descent,fall  
+noise,racket,clamor,uproar  
+unsatisfactory,displeasing,unacceptable  
+uproar,commotion,racket,disturbance  
+charming,attractive,alluring,enchanting  
+tasteful,discerning,sophisticated  
+therefore,thus,consequently,accordingly  
+essential,fundamental,core,central  
+boiling,overheating,ferment  
+ministry,department,office  
+ordeal,trial,tribulation,hardship  
+candid,explicit,frank,straightforward  
+exhaustion,fatigue,overwork,strain  
+specific,particular,appointed,designated  
+to snore,to breathe heavily  
+deeply,profoundly,intensely  
+bright,shining,luminous  
+crowded,packed,congested,busy  
+runner,messenger,courier  
+to distort,to deform,to disfigure  
+manners,etiquette,politeness,customs  
+exclusive,restricted,limited  
+charge,shipment,loading,freight  
+cloth,garment,dress,robe  
+insomnia,sleeplessness,restlessness  
+intuitive,instinctive,perceptive  
+responsible,in charge,accountable  
+to whisper,to murmur,to obsess  
+overboard,off the ship,from above the ship  
+installment,portion,part,share  
+privilege,advantage,distinction,exemption  
+to pay,to push,to drive  
+to mingle,to mix,to associate  
+Translation_Missing,Synonym_Missing
+tram,streetcar,trolley  
+to worry,to disturb,to upset  
+to twist,to sprain,to turn  
+to accumulate,to pile up,to amass  
+atmospheric,aerial,airborne  
+device,equipment,instrument,apparatus  
+avalanch,landslide,snow collapse  
+consistency,coherence,uniformity  
+to spend,to exchange,to manage  
+ring,loop,episode,link  
+healthy,sound,intact,unharmed  
+mortal,transient,temporary,ephemeral  
+omen,sign,presage,portent  
+cloudy,overcast,grey,dull  
+influential,effective,powerful,impressive  
+guard,watchman,sentry,protector  
+ruins,debris,rubble,wreckage  
+to isolate,to insulate,to quarantine  
+laterally,sideways,side  
+to sob,to weep,to cry  
+awake,alert,conscious  
+spot,stain,patch,area  
+education,upbringing,nurture,training
+bliss,joy,happiness,delight,pleasure
+major general,senior officer,high-ranking officer
+spasm,cramp,convulsion
+decorate,adorn,embellish,ornament
+collapsing,dilapidated,ruined,decaying
+summon,conjure,invoke,call forth
+farewell,goodbye,parting,leave-taking
+faucet,tap,spigot,valve
+filth,dirt,grime,uncleanness
+flaw,defect,blemish,shortcoming
+smile,grin,beam
+housekeeping,home management,domestic management
+hill,mound,rise
+narcotic,sedative,anesthetic
+reckless,daredevil,impulsive,crazy
+terracotta,earthenware,pottery
+seat,chair,bench,stool
+will,testament,bequest
+wood,timber,lumber
+valve,tap,faucet
+camouflage,disguise,concealment
+confront,face,encounter
+contemplate,ponder,reflect,meditate
+compete,contend,rival
+bed,cot,bunk
+recruit,enlist,draft
+borders,limits,boundaries,frontiers
+fighter,combatant,soldier,warrior
+pamphlet,booklet,leaflet
+hesitant,reluctant,uncertain,indecisive
+leafy,verdant,foliage-rich
+uniform,attire,clothing,garb
+claw,talon,nail
+wonderful,amazing,marvelous,splendid
+err,mislead,go astray
+essential,fundamental,core,crucial
+flame,blaze,fire
+area,space,surface,extent
+stay up,awake,watchfulness
+tired,exhausted,weary,fatigued
+middle,center,midst,medium
+behind the scenes,backstage,secretly
+billionaire,multi-millionaire,tycoon
+monster,beast,creature
+clumsy,awkward,bungling
+collide,crash,bump
+guilty,culpable,responsible
+evacuate,clear,remove
+flammable,inflammable,combustible
+riot,mob,uproar,chaos
+premature,early,untimely
+be upset,be annoyed,be displeased
+satire,invective,criticism
+examination,inspection,checkup,analysis
+separate,disconnect,detach,decide
+subject to,submit to,undergo
+witness,attend,observe
+noise,racket,uproar,commotion
+underestimate,disregard,belittle
+noise,racket,uproar,commotion
+speed up,hasten,accelerate
+again,anew,afresh
+flaw,defect,blemish,shortcoming
+depressed,gloomy,sad,melancholy
+be copied,be duplicated,be reproduced
+electromagnetic,electric magnetic
+electron,particle
+slip,slide,skid
+skillful,expert,adept,proficient
+innovation,invention,creation,originality
+innovator,creator,inventor,pioneer
+launch,release,set free
+meteorological observations,weather observations
+meteorology,weather science
+penetrate,break through,infiltrate
+persistent,persevering,determined
+payment,push,propulsion
+imitate,mimic,simulate
+stimulate,motivate,encourage
+stimulate,motivate,encourage
+in advance,ahead,forward
+confused,distorted,blurred
+century-related,centennial,hundred-year
+chatter,talk excessively,prattle
+concerto,musical composition
+intensify,concentrate,densify
+deteriorate,decline,worsen
+degree,grade,level,rank
+external,foreign,outside
+cardiac,heart-related
+hospitable,welcoming,cordial
+humor,comedy,wittiness
+palace,castle
+monastery,convent
+nursery,incubator
+extended,stretched,outstretched
+parcel,package,expulsion
+personal file,personal record
+wavy,zigzag,curvy
+zip up,close with zipper
+cancel,annul,revoke,abolish,nullify
+modify,alter,adjust,amend,revise
+aspire,strive,aim,seek,long for
+monitor,observe,supervise,watch,oversee
+charter,agreement,treaty,pact,contract
+constitution,law,code
+global,worldwide,international,universal
+publish,distribute,spread,broadcast,disseminate
+praise,compliment,commend,extol
+bad reputation,notorious,infamous,disreputable
+lame,limping,crippled
+ascend,climb,rise
+explosion,blast,detonation
+sick,ill,unwell,diseased
+enormous,huge,tremendous,vast,massive
+exploration,reconnaissance,survey,investigation
+regret,remorse,sorrow,repentance
+secrecy,confidentiality,privacy
+treat,handle,deal with,address
+coma,unconsciousness
+coward,fearful,timid
+Translation_Missing,Synonym_Missing
+serious,earnest,sincere
+ethnic,racial
+exclude,eliminate,reject,rule out
+direct,immediate,straightforward
+free,liberated,unrestricted
+imperial,empire-related,regal
+comprehensive,inclusive,complete,extensive
+legislative body,parliament,assembly,council
+linguistic,language-related
+monolingual,speaking one language
+nationality,citizenship
+national,patriotic,domestic
+sue,prosecute,litigate
+racist,racially biased,discriminatory
+dignified,solemn,serious,majestic
+solidarity,support,unity,cohesion
+tact,politeness,diplomacy,courtesy
+undermine,weaken,subvert,erode
+restrict,limit,confine,bind
+repository,storehouse,depository,warehouse
+imitate,mimic,emulate,simulate
+insult,abuse,offense,curse
+intestines,bowels,guts
+deep-rooted,entrenched,established
+frighten,scare,intimidate,terrify
+doorman,porter,gatekeeper
+moist,humid,damp
+no,not
+urge,encourage,prompt,incite
+ransom,bail,redemption
+restrain,control,curb,suppress
+saliva,spit
+spit,expect
+run,sprint,jog
+acrobatics,stunt,gymnastics
+tolerant,forgiving,open-minded,lenient
+vampire,bloodsucker
+yawn,gape
+neighboring,adjacent,next to
+claim,assert,allege
+bow,arc,arch
+collect,gather,assemble,accumulate
+victim,target,casualty
+establish,set up,found,reside
+ugly,unpleasant,disagreeable
+hectare,area,land measure
+escalate,intensify,increase,raise
+hospitality,entertainment,welcome
+palace,castle,mansion
+exceed,surpass,outnumber
+pleased,happy,glad,delighted
+pasture,meadow,grassland
+request,appeal,petition
+renew,revive,refresh,renovate
+review,revise,check,reconsider
+board,plank,tablet,panel
+balcony,veranda,terrace
+grass,turf,herb
+similar,alike,comparable
+telescope,binoculars,scope
+size,volume,magnitude
+include,comprise,contain,encompass
+photograph,depict,portray,illustrate
+double,dual,dual-purpose
+Fahrenheit,temperature scale
+achieve,accomplish,realize,attain
+garden,orchard,park
+raw,unprocessed,crude
+wilderness,wild,desert
+exceed,surpass,outperform
+departure,separation,parting
+sidewalk,pavement,platform
+abbreviation,summary,contraction
+tariff,fare,rate,charge
+thermometer,temperature gauge
+lean,tend,incline
+on the contrary,on the other hand,conversely
+location,place,site,position
