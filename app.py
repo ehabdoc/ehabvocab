@@ -657,9 +657,9 @@ def session_summary():
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
-    correct_count = session.get('correct_answers', 0)
-    incorrect_count = session.get('incorrect_answers', 0)
-    total_words_reviewed = correct_count + incorrect_count
+    correct_count = len(session.get('correct_word_ids', []))
+    incorrect_count = len(session.get('incorrect_word_ids', []))
+    total_words_reviewed = len(session.get('reviewed_word_ids', []))
 
     return render_template('session_summary.html',
                            correct_count=correct_count,
