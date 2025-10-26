@@ -366,7 +366,11 @@ def import_words_from_csv():
                 synonyms_list = []
                 if synonyms_filepath:
                     with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
-                        synonyms_list = [row[0].strip().replace(';', ',') if row else '' for row in csv.reader(sf)]
+                        # For each row, join all non-empty columns, replacing semicolons.
+                        synonyms_list = [
+                            ','.join(cell.strip().replace(';', ',') for cell in row if cell.strip()) if row else ''
+                            for row in csv.reader(sf)
+                        ]
 
                 # Process the data
                 added_count, skipped_count = 0, 0
@@ -406,8 +410,18 @@ def import_words_from_csv():
                     reader = csv.reader(sf)
                     for row in reader:
                         if len(row) < 2: continue
-                        # Replace semicolons with commas to standardize the delimiter
-                        english_word, synonyms = row[0].strip(), row[1].strip().replace(';', ',')
+                        english_word = row[0].strip()
+                        # Join all columns from the second one onwards, replacing semicolons and filtering out empty strings
+                        synonyms_list = []
+                        for s in row[1:]:
+                            s_stripped = s.strip()
+                            if s_stripped:
+                                # Replace internal semicolons before adding
+                                synonyms_list.append(s_stripped.replace(';', ','))
+                        
+                        if not synonyms_list: continue # Skip if there are no actual synonyms
+
+                        synonyms = ','.join(synonyms_list)
                         
                         # Find the word and update it
                         cursor.execute("SELECT id FROM words WHERE english_word = ?", (english_word,))
