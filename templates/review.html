@@ -94,6 +94,10 @@
             <div id="feedback_message" class="feedback-message"></div>
             <p class="correct-answer-display">The correct answer is: <strong id="correct_english_word">{{ word.english_word }}</strong></p>
             <div id="alternatives_display" class="alert alert-info mt-2" style="display: none;"></div>
+            <div id="example_display" class="alert alert-secondary mt-2" style="display: none;">
+                <strong>Example:</strong><br>
+                <em id="example_text"></em>
+            </div>
             <button class="btn btn-success w-100 mt-3 btn-xl" id="next_word_btn">Next Word</button>
         </div>
 
@@ -149,8 +153,17 @@
                 const alternativesDisplay = document.getElementById('alternatives_display');
 
                 correctAnswerDisplay.textContent = data.correct_answer;
-                alternativesDisplay.style.display = 'none'; // Hide by default
+                alternativesDisplay.style.display = 'none';
                 alternativesDisplay.innerHTML = '';
+
+                const exampleDisplay = document.getElementById('example_display');
+                const exampleText = document.getElementById('example_text');
+                if (data.example_en) {
+                    exampleText.textContent = data.example_en;
+                    exampleDisplay.style.display = 'block';
+                } else {
+                    exampleDisplay.style.display = 'none';
+                }
 
 
                 if (data.result === 'correct') {

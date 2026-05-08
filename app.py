@@ -531,7 +531,7 @@ def submit_review():
     cursor = conn.cursor()
     print("Database connection established.")
 
-    word_info = cursor.execute('SELECT english_word, alternative_translations FROM words WHERE id = ?', (word_id,)).fetchone()
+    word_info = cursor.execute('SELECT english_word, alternative_translations, example_en FROM words WHERE id = ?', (word_id,)).fetchone()
     if not word_info:
         print(f"ERROR: Word with ID {word_id} not found.")
         conn.close()
@@ -643,7 +643,8 @@ def submit_review():
     response_data = {
         'success': True,
         'result': correct_answer_type,
-        'correct_answer': word_info['english_word']
+        'correct_answer': word_info['english_word'],
+        'example_en': word_info['example_en']
     }
 
     if correct_answer_type == 'correct' and word_info['alternative_translations']:
