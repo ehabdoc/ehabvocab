@@ -1,7 +1,7 @@
 import sqlite3
 import os
+import sys
 from werkzeug.security import generate_password_hash
-import getpass
 
 # --- Configuration ---
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vocab_app.db')
@@ -13,12 +13,10 @@ def create_admin():
         print(f"Error: Database file not found at {DB_PATH}")
         return
 
-    admin_password = getpass.getpass(f"Enter password for {ADMIN_USERNAME}: ")
-    admin_password_confirm = getpass.getpass("Confirm password: ")
-
-    if admin_password != admin_password_confirm:
-        print("Passwords do not match.")
-        return
+    if len(sys.argv) > 1:
+        admin_password = sys.argv[1]
+    else:
+        admin_password = input(f"Enter password for {ADMIN_USERNAME}: ")
 
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
