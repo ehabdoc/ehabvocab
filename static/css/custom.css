@@ -2,72 +2,111 @@
 
 /* === Nature Theme — Base Variables === */
 :root {
-  --bs-primary: #2d7d46;
-  --bs-primary-rgb: 45, 125, 70;
-  --bs-body-bg: #f0f4f0;
+  --bs-primary: #166534;
+  --bs-primary-rgb: 22, 101, 52;
+  --bs-body-bg: #f8fafc;
 }
 
-/* === Navbar — Dark Navy with Green Accent === */
+/* === Navbar — Slate Navy with Green Accent === */
 .navbar-nature {
-  background-color: #1a2332 !important;
+  background-color: #0f172a !important;
   box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  border-bottom: 3px solid #2d7d46;
+  border-bottom: 3px solid #166534;
 }
 .navbar-nature .nav-link {
-  color: rgba(255,255,255,0.85) !important;
+  color: #e2e8f0 !important;
   transition: color 0.2s;
 }
 .navbar-nature .nav-link:hover {
   color: #fff !important;
 }
 
-/* === Primary Buttons — Forest Green === */
+/* === All Buttons — Rounded + Subtle Shadow === */
+.btn {
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* === Primary — Deep Forest Green (Submit / Start Review) === */
 .btn-primary {
-  background-color: #2d7d46 !important;
-  border-color: #2d7d46 !important;
+  background-color: #166534 !important;
+  border-color: #166534 !important;
 }
 .btn-primary:hover {
-  background-color: #236636 !important;
-  border-color: #236636 !important;
+  background-color: #14532d !important;
+  border-color: #14532d !important;
 }
 .btn-outline-primary {
-  color: #2d7d46 !important;
-  border-color: #2d7d46 !important;
+  color: #166534 !important;
+  border-color: #166534 !important;
 }
 .btn-outline-primary:hover {
-  background-color: #2d7d46 !important;
+  background-color: #166534 !important;
+  color: #fff !important;
+}
+
+/* === Warning — Amber (Words Due for Review) === */
+.btn-warning {
+  background-color: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: #fff !important;
+}
+.btn-warning:hover {
+  background-color: #d97706 !important;
+  border-color: #d97706 !important;
+  color: #fff !important;
+}
+
+/* === Success — Emerald (New Words / Next Word) === */
+.btn-success {
+  background-color: #15803d !important;
+  border-color: #15803d !important;
+}
+.btn-success:hover {
+  background-color: #166534 !important;
+  border-color: #166534 !important;
+}
+
+/* === Info — Sky Blue (Statistics) === */
+.btn-info {
+  background-color: #0ea5e9 !important;
+  border-color: #0ea5e9 !important;
+  color: #fff !important;
+}
+.btn-info:hover {
+  background-color: #0284c7 !important;
+  border-color: #0284c7 !important;
   color: #fff !important;
 }
 
 /* === Card/Container Accents === */
 .review-container {
-  border-top: 4px solid #2d7d46;
+  border-top: 4px solid #166534;
 }
 .arabic-word {
-  color: #1a2332 !important;
+  color: #1e293b !important;
 }
 
 .navbar-brand-custom {
-    font-family: 'Montserrat', sans-serif; /* A modern, clean font */
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
     background: linear-gradient(45deg, #6a11cb, #2575fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text; /* Standard property */
+    background-clip: text;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
-/* We also need to add the font to the project. Let's import it from Google Fonts. */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
-/* Custom button styles for book selection */
-.btn-green-1 { background-color: #E8F5E9; border-color: #C8E6C9; color: #333; }
-.btn-green-2 { background-color: #C8E6C9; border-color: #A5D6A7; color: #333; }
-.btn-green-3 { background-color: #A5D6A7; border-color: #81C784; color: #333; }
-.btn-green-4 { background-color: #81C784; border-color: #66BB6A; color: #fff; }
-.btn-green-5 { background-color: #66BB6A; border-color: #4CAF50; color: #fff; }
-.btn-green-6 { background-color: #4CAF50; border-color: #388E3C; color: #fff; }
+/* === Book Selection Buttons — Green Gradient (Preserved) + Rounded + Shadow === */
+.btn-green-1 { background-color: #E8F5E9; border-color: #C8E6C9; color: #333; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.btn-green-2 { background-color: #C8E6C9; border-color: #A5D6A7; color: #333; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.btn-green-3 { background-color: #A5D6A7; border-color: #81C784; color: #333; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.btn-green-4 { background-color: #81C784; border-color: #66BB6A; color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.btn-green-5 { background-color: #66BB6A; border-color: #4CAF50; color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.btn-green-6 { background-color: #4CAF50; border-color: #388E3C; color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
 
 .btn-green-1:hover { background-color: #d7edd8; border-color: #b7d9b8; color: #333; }
 .btn-green-2:hover { background-color: #b7d9b8; border-color: #94c996; color: #333; }
@@ -76,7 +115,6 @@
 .btn-green-5:hover { background-color: #55a958; border-color: #3c9d40; color: #fff; }
 .btn-green-6:hover { background-color: #3c9d40; border-color: #277c2a; color: #fff; }
 
-/* Add padding to the navbar to give the larger icon some space */
 .navbar {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
