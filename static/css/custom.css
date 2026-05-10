@@ -1,5 +1,52 @@
 /* Custom styles for ehabvocab */
 
+/* === Nature Theme — Base Variables === */
+:root {
+  --bs-primary: #2d7d46;
+  --bs-primary-rgb: 45, 125, 70;
+  --bs-body-bg: #f0f4f0;
+}
+
+/* === Navbar — Dark Navy with Green Accent === */
+.navbar-nature {
+  background-color: #1a2332 !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  border-bottom: 3px solid #2d7d46;
+}
+.navbar-nature .nav-link {
+  color: rgba(255,255,255,0.85) !important;
+  transition: color 0.2s;
+}
+.navbar-nature .nav-link:hover {
+  color: #fff !important;
+}
+
+/* === Primary Buttons — Forest Green === */
+.btn-primary {
+  background-color: #2d7d46 !important;
+  border-color: #2d7d46 !important;
+}
+.btn-primary:hover {
+  background-color: #236636 !important;
+  border-color: #236636 !important;
+}
+.btn-outline-primary {
+  color: #2d7d46 !important;
+  border-color: #2d7d46 !important;
+}
+.btn-outline-primary:hover {
+  background-color: #2d7d46 !important;
+  color: #fff !important;
+}
+
+/* === Card/Container Accents === */
+.review-container {
+  border-top: 4px solid #2d7d46;
+}
+.arabic-word {
+  color: #1a2332 !important;
+}
+
 .navbar-brand-custom {
     font-family: 'Montserrat', sans-serif; /* A modern, clean font */
     font-weight: 700;
