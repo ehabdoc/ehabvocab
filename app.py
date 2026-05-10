@@ -66,6 +66,10 @@ def create_words_table(cursor):
             book_name TEXT DEFAULT 'Uncategorized'
         )
     ''')
+    try:
+        cursor.execute('ALTER TABLE words ADD COLUMN example_en TEXT')
+    except sqlite3.OperationalError:
+        pass
 
 def create_user_word_progress_table(cursor):
     cursor.execute('''
