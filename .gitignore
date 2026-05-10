@@ -23,9 +23,7 @@ words_with_new_synonyms.csv
 words_with_synonyms.csv
 
 # Example sentence files
-english_example_sentences.txt
 arabic_example_sentences.txt
 
 # Local helper scripts
 seed_words.py
-seed_examples.py
