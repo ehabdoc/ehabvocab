@@ -1,121 +1,153 @@
 /* Custom styles for ehabvocab */
 
-/* === Nature Theme — Base Variables === */
+/* === Base Variables === */
 :root {
-  --bs-primary: #166534;
-  --bs-primary-rgb: 22, 101, 52;
-  --bs-body-bg: #f8fafc;
+  --bs-body-bg: #F4F7F5;
 }
 
-/* === Navbar — Slate Navy with Green Accent === */
+/* === Typography === */
+h1, h2, h3, h4, h5, h6 {
+  color: #111827;
+}
+.text-secondary {
+  color: #6B7280 !important;
+}
+
+/* === Top Navigation Bar === */
 .navbar-nature {
-  background-color: #0f172a !important;
+  background: linear-gradient(90deg, #0F172A 0%, #111827 100%) !important;
+  border-bottom: 1px solid #134E4A;
   box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  border-bottom: 3px solid #166534;
 }
 .navbar-nature .nav-link {
-  color: #e2e8f0 !important;
-  transition: color 0.2s;
+  color: #E5E7EB !important;
+  transition: color 200ms ease;
 }
 .navbar-nature .nav-link:hover {
+  color: #FFFFFF !important;
+}
+.navbar-nature .nav-link.active {
+  color: #22C55E !important;
+}
+
+/* === Dividers === */
+hr {
+  border-color: #D1D5DB !important;
+  opacity: 1;
+}
+
+/* === Action Buttons — Shared Styles === */
+.btn-primary,
+.btn-warning,
+.btn-success,
+.btn-info {
+  border: none !important;
+  border-radius: 14px !important;
   color: #fff !important;
+  transition: all 200ms ease !important;
+  box-shadow: none !important;
+}
+.btn-primary:hover,
+.btn-warning:hover,
+.btn-success:hover,
+.btn-info:hover {
+  transform: translateY(-2px);
+}
+.btn-primary:active,
+.btn-warning:active,
+.btn-success:success,
+.btn-info:info {
+  transform: translateY(0);
 }
 
-/* === All Buttons — Rounded + Subtle Shadow === */
-.btn {
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
-
-/* === Primary — Deep Forest Green (Submit / Start Review) === */
+/* === Start Review / Submit — Teal Gradient === */
 .btn-primary {
-  background-color: #166534 !important;
-  border-color: #166534 !important;
+  background: linear-gradient(90deg, #0F766E 0%, #0D9488 100%) !important;
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.18) !important;
 }
 .btn-primary:hover {
-  background-color: #14532d !important;
-  border-color: #14532d !important;
-}
-.btn-outline-primary {
-  color: #166534 !important;
-  border-color: #166534 !important;
-}
-.btn-outline-primary:hover {
-  background-color: #166534 !important;
-  color: #fff !important;
+  background: linear-gradient(90deg, #115E59 0%, #0F766E 100%) !important;
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.25) !important;
 }
 
-/* === Warning — Amber (Words Due for Review) === */
+/* === Words Due for Review — Amber Gradient === */
 .btn-warning {
-  background-color: #f59e0b !important;
-  border-color: #f59e0b !important;
-  color: #fff !important;
+  background: linear-gradient(90deg, #D97706 0%, #F59E0B 100%) !important;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18) !important;
 }
 .btn-warning:hover {
-  background-color: #d97706 !important;
-  border-color: #d97706 !important;
+  background: linear-gradient(90deg, #B45309 0%, #D97706 100%) !important;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25) !important;
   color: #fff !important;
 }
 
-/* === Success — Emerald (New Words / Next Word) === */
+/* === New Words / Next Word — Purple Gradient === */
 .btn-success {
-  background-color: #15803d !important;
-  border-color: #15803d !important;
+  background: linear-gradient(90deg, #7C3AED 0%, #9333EA 100%) !important;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.18) !important;
 }
 .btn-success:hover {
-  background-color: #166534 !important;
-  border-color: #166534 !important;
+  background: linear-gradient(90deg, #6D28D9 0%, #7E22CE 100%) !important;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25) !important;
 }
 
-/* === Info — Sky Blue (Statistics) === */
+/* === View Statistics — Sky Blue Gradient === */
 .btn-info {
-  background-color: #0ea5e9 !important;
-  border-color: #0ea5e9 !important;
-  color: #fff !important;
+  background: linear-gradient(90deg, #0284C7 0%, #2563EB 100%) !important;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18) !important;
 }
 .btn-info:hover {
-  background-color: #0284c7 !important;
-  border-color: #0284c7 !important;
+  background: linear-gradient(90deg, #0369A1 0%, #1D4ED8 100%) !important;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* === Outline Primary — Teal Search Button === */
+.btn-outline-primary {
+  color: #0D9488 !important;
+  border-color: #0D9488 !important;
+}
+.btn-outline-primary:hover {
+  background-color: #0D9488 !important;
+  border-color: #0D9488 !important;
   color: #fff !important;
 }
 
-/* === Card/Container Accents === */
+/* === Book Selection Buttons — Green Gradient (Preserved) === */
+.btn-green-1 { background-color: #E8F5E9; border-color: #C8E6C9; color: #333; }
+.btn-green-2 { background-color: #C8E6C9; border-color: #A5D6A7; color: #333; }
+.btn-green-3 { background-color: #A5D6A7; border-color: #81C784; color: #333; }
+.btn-green-4 { background-color: #81C784; border-color: #66BB6A; color: #fff; }
+.btn-green-5 { background-color: #66BB6A; border-color: #4CAF50; color: #fff; }
+.btn-green-6 { background-color: #4CAF50; border-color: #388E3C; color: #fff; }
+
+.btn-green-1:hover { background-color: #d7edd8; border-color: #b7d9b8; color: #333; transform: translateY(-2px); }
+.btn-green-2:hover { background-color: #b7d9b8; border-color: #94c996; color: #333; transform: translateY(-2px); }
+.btn-green-3:hover { background-color: #94c996; border-color: #70b973; color: #333; transform: translateY(-2px); }
+.btn-green-4:hover { background-color: #70b973; border-color: #55a958; color: #fff; transform: translateY(-2px); }
+.btn-green-5:hover { background-color: #55a958; border-color: #3c9d40; color: #fff; transform: translateY(-2px); }
+.btn-green-6:hover { background-color: #3c9d40; border-color: #277c2a; color: #fff; transform: translateY(-2px); }
+
+.btn-green-1, .btn-green-2, .btn-green-3,
+.btn-green-4, .btn-green-5, .btn-green-6 {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+  transition: all 200ms ease !important;
+}
+.btn-green-1:hover, .btn-green-2:hover, .btn-green-3:hover,
+.btn-green-4:hover, .btn-green-5:hover, .btn-green-6:hover {
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1) !important;
+}
+
+/* === Review Card === */
 .review-container {
-  border-top: 4px solid #166534;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
 }
 .arabic-word {
-  color: #1e293b !important;
+  color: #111827 !important;
 }
 
-.navbar-brand-custom {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    background: linear-gradient(45deg, #6a11cb, #2575fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-
-/* === Book Selection Buttons — Green Gradient (Preserved) + Rounded + Shadow === */
-.btn-green-1 { background-color: #E8F5E9; border-color: #C8E6C9; color: #333; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-.btn-green-2 { background-color: #C8E6C9; border-color: #A5D6A7; color: #333; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-.btn-green-3 { background-color: #A5D6A7; border-color: #81C784; color: #333; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-.btn-green-4 { background-color: #81C784; border-color: #66BB6A; color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-.btn-green-5 { background-color: #66BB6A; border-color: #4CAF50; color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-.btn-green-6 { background-color: #4CAF50; border-color: #388E3C; color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
-
-.btn-green-1:hover { background-color: #d7edd8; border-color: #b7d9b8; color: #333; }
-.btn-green-2:hover { background-color: #b7d9b8; border-color: #94c996; color: #333; }
-.btn-green-3:hover { background-color: #94c996; border-color: #70b973; color: #333; }
-.btn-green-4:hover { background-color: #70b973; border-color: #55a958; color: #fff; }
-.btn-green-5:hover { background-color: #55a958; border-color: #3c9d40; color: #fff; }
-.btn-green-6:hover { background-color: #3c9d40; border-color: #277c2a; color: #fff; }
-
+/* === Navbar padding === */
 .navbar {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
