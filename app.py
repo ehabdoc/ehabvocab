@@ -1,4 +1,5 @@
-import sqlite3
+import psycopg2
+import psycopg2.extras
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
@@ -16,19 +17,49 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # --- Database Functions ---
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vocab_app.db')
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+class DatabaseConnection:
+    """Wrapper around psycopg2 connection that mimics sqlite3 connection API."""
+    def __init__(self, conn):
+        self.conn = conn
+        self.cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        self._rowcount = 0
+
+    def execute(self, query, params=None):
+        if params is None:
+            self.cursor.execute(query)
+        else:
+            self.cursor.execute(query, params)
+        return self
+
+    def fetchone(self):
+        row = self.cursor.fetchone()
+        return row  # RealDictRow supports both row['col'] and row[0] access
+
+    def fetchall(self):
+        return self.cursor.fetchall()
+
+    def commit(self):
+        self.conn.commit()
+
+    def rollback(self):
+        self.conn.rollback()
+
+    def close(self):
+        self.cursor.close()
+        self.conn.close()
 
 def get_db_connection():
-    """Establishes a connection to the SQLite database using an absolute path."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute('PRAGMA foreign_keys = ON')  # Enforce foreign key constraints
-    conn.row_factory = sqlite3.Row
-    return conn
+    """Establishes a connection to the PostgreSQL database."""
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    conn.autocommit = False
+    return DatabaseConnection(conn)
 
 def init_db():
     """Clears existing data and creates new tables."""
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor  # Use the underlying cursor
 
     # Drop tables in the correct order to avoid foreign key constraint issues
     cursor.execute("DROP TABLE IF EXISTS visitor_stats")
@@ -49,7 +80,7 @@ def init_db():
 def create_users_table(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
             is_admin INTEGER NOT NULL DEFAULT 0
@@ -59,7 +90,7 @@ def create_users_table(cursor):
 def create_words_table(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS words (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             english_word TEXT NOT NULL,
             vocalized_arabic TEXT,
             alternative_translations TEXT,
@@ -67,8 +98,8 @@ def create_words_table(cursor):
         )
     ''')
     try:
-        cursor.execute('ALTER TABLE words ADD COLUMN example_en TEXT')
-    except sqlite3.OperationalError:
+        cursor.execute('ALTER TABLE words ADD COLUMN IF NOT EXISTS example_en TEXT')
+    except Exception:
         pass
 
 def create_user_word_progress_table(cursor):
@@ -76,8 +107,8 @@ def create_user_word_progress_table(cursor):
         CREATE TABLE IF NOT EXISTS user_word_progress (
             user_id INTEGER NOT NULL,
             word_id INTEGER NOT NULL,
-            last_reviewed TEXT DEFAULT (date('now')),
-            next_review TEXT DEFAULT (date('now')),
+            last_reviewed TEXT DEFAULT (CURRENT_DATE),
+            next_review TEXT DEFAULT (CURRENT_DATE),
             mastery_level INTEGER DEFAULT 0,
             ease_factor REAL DEFAULT 2.5,
             repetitions INTEGER DEFAULT 0,
@@ -91,7 +122,7 @@ def create_user_word_progress_table(cursor):
 def create_visitor_stats_table(cursor):
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS visitor_stats (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             ip_address TEXT NOT NULL,
             user_agent TEXT,
             visit_date DATE NOT NULL,
@@ -103,14 +134,15 @@ def create_visitor_stats_table(cursor):
 with app.app_context():
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    create_users_table(cursor)
-    create_words_table(cursor)
-    create_user_word_progress_table(cursor)
-    create_visitor_stats_table(cursor)
-    conn.commit()
-    conn.close()
+    if DATABASE_URL:
+        conn = get_db_connection()
+        cursor = conn.cursor
+        create_users_table(cursor)
+        create_words_table(cursor)
+        create_user_word_progress_table(cursor)
+        create_visitor_stats_table(cursor)
+        conn.commit()
+        conn.close()
 
 @app.before_request
 def track_visitor():
@@ -124,15 +156,15 @@ def track_visitor():
     today = datetime.now().date()
 
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
     try:
         cursor.execute('''
             INSERT INTO visitor_stats (ip_address, user_agent, visit_date)
-            VALUES (?, ?, ?)
+            VALUES (%s, %s, %s)
         ''', (ip_address, user_agent, today))
         conn.commit()
-    except sqlite3.IntegrityError:
-        # This means the IP for this date already exists, so we do nothing.
+    except psycopg2.errors.UniqueViolation:
+        conn.rollback()
         pass
     finally:
         conn.close()
@@ -158,14 +190,15 @@ def register():
 
         conn = get_db_connection()
         try:
-            cursor = conn.cursor()
-            cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)",
+            cursor = conn.cursor
+            cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)",
                            (username, generate_password_hash(password)))
             conn.commit()
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('login'))
-        except sqlite3.IntegrityError:
-            flash(f'Username "{username}" is already taken.', 'error')
+        except psycopg2.errors.UniqueViolation:
+            conn.rollback()
+            flash(f'Username "%s" is already taken.' % username, 'error')
         finally:
             conn.close()
     return render_template('register.html')
@@ -178,7 +211,7 @@ def login():
         password = clean_string(request.form['password'])
 
         conn = get_db_connection()
-        user = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+        user = conn.execute('SELECT * FROM users WHERE username = %s', (username,)).fetchone()
         conn.close()
 
         if user and check_password_hash(user['password'], password):
@@ -207,7 +240,7 @@ def index():
         return redirect(url_for('login'))
 
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
 
     cursor.execute('SELECT DISTINCT book_name FROM words ORDER BY book_name ASC')
     book_names = [row['book_name'] for row in cursor.fetchall()]
@@ -223,24 +256,24 @@ def index():
         params = []
 
         if book_filter:
-            conditions.append('book_name = ?')
+            conditions.append('book_name = %s')
             params.append(book_filter)
         
         if search_query:
-            conditions.append('(english_word LIKE ? OR vocalized_arabic LIKE ?)')
-            params.extend([f'%{search_query}%', f'%{search_query}%'])
+            conditions.append('(english_word LIKE %s OR vocalized_arabic LIKE %s)')
+            params.extend([f'%%{search_query}%%', f'%%{search_query}%%'])
 
         where_clause = ''
         if conditions:
             where_clause = ' WHERE ' + ' AND '.join(conditions)
 
         query = 'SELECT * ' + base_query + where_clause
-        count_query = 'SELECT COUNT(*) ' + base_query + where_clause
+        count_query = 'SELECT COUNT(*) AS count ' + base_query + where_clause
 
-        total_words = cursor.execute(count_query, tuple(params)).fetchone()[0]
+        total_words = cursor.execute(count_query, tuple(params)).fetchone()['count']
         total_pages = (total_words + per_page - 1) // per_page
 
-        query += ' ORDER BY english_word ASC LIMIT ? OFFSET ?'
+        query += ' ORDER BY english_word ASC LIMIT %s OFFSET %s'
         params.extend([per_page, (page - 1) * per_page])
 
         cursor.execute(query, tuple(params))
@@ -258,8 +291,8 @@ def index():
                 w.book_name,
                 COUNT(w.id) AS words_to_review
             FROM words w
-            LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
-            WHERE p.word_id IS NULL OR p.next_review <= date('now')
+            LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = %s
+            WHERE p.word_id IS NULL OR p.next_review <= CURRENT_DATE
             GROUP BY w.book_name
             ORDER BY w.book_name ASC;
         """
@@ -267,11 +300,11 @@ def index():
         books_with_counts = cursor.fetchall()
 
         # Also get the total counts for the "All Books" buttons
-        new_words_query = "SELECT COUNT(w.id) FROM words w LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ? WHERE p.word_id IS NULL"
-        due_words_query = "SELECT COUNT(p.word_id) FROM user_word_progress p JOIN words w ON p.word_id = w.id WHERE p.user_id = ? AND p.next_review <= date('now')"
+        new_words_query = "SELECT COUNT(w.id) AS count FROM words w LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = %s WHERE p.word_id IS NULL"
+        due_words_query = "SELECT COUNT(p.word_id) AS count FROM user_word_progress p JOIN words w ON p.word_id = w.id WHERE p.user_id = %s AND p.next_review <= CURRENT_DATE"
         
-        new_words_count = cursor.execute(new_words_query, (user_id,)).fetchone()[0]
-        due_words_count = cursor.execute(due_words_query, (user_id,)).fetchone()[0]
+        new_words_count = cursor.execute(new_words_query, (user_id,)).fetchone()['count']
+        due_words_count = cursor.execute(due_words_query, (user_id,)).fetchone()['count']
 
         conn.close()
         return render_template('index.html', 
@@ -314,29 +347,14 @@ def import_words_from_csv():
             return redirect(request.url)
 
         conn = get_db_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor
 
         try:
             if reset_database:
-                # --- Automatic Backup ---
-                conn.close() # Close connection before copying
-                backup_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'backups')
-                if not os.path.exists(backup_folder):
-                    os.makedirs(backup_folder)
-                
-                timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-                backup_path = os.path.join(backup_folder, f'vocab_app.db.bak.{timestamp}')
-                
-                try:
-                    shutil.copy2(DB_PATH, backup_path)
-                    flash(f'Database backup created at {backup_path}', 'info')
-                except Exception as e:
-                    flash(f'Error creating backup: {e}', 'danger')
-                    return redirect(request.url)
-
+                conn.close()
                 # Re-establish connection and reset
                 conn = get_db_connection()
-                cursor = conn.cursor()
+                cursor = conn.cursor
                 cursor.execute("DROP TABLE IF EXISTS user_word_progress")
                 cursor.execute("DROP TABLE IF EXISTS words")
                 conn.commit()
@@ -370,7 +388,6 @@ def import_words_from_csv():
                 synonyms_list = []
                 if synonyms_filepath:
                     with open(synonyms_filepath, mode='r', encoding='utf-8') as sf:
-                        # For each row, join all non-empty columns, replacing semicolons.
                         synonyms_list = [
                             ','.join(cell.strip().replace(';', ',') for cell in row if cell.strip()) if row else ''
                             for row in csv.reader(sf)
@@ -379,7 +396,6 @@ def import_words_from_csv():
                 # Process the data
                 added_count, skipped_count = 0, 0
                 
-                # Determine the number of words to process based on the shortest list
                 min_length = min(len(english_words), len(arabic_translations), len(synonyms_list) if synonyms_list else len(english_words))
                 
                 for i in range(min_length):
@@ -393,10 +409,9 @@ def import_words_from_csv():
                     
                     book_name = f'Book {(i // 600) + 1}'
 
-                    # Always insert, even if it's a duplicate
                     cursor.execute("""
                         INSERT INTO words (english_word, vocalized_arabic, alternative_translations, book_name) 
-                        VALUES (?, ?, ?, ?)
+                        VALUES (%s, %s, %s, %s)
                     """, (english_word, vocalized_arabic, synonyms, book_name))
                     added_count += 1
                 
@@ -415,24 +430,21 @@ def import_words_from_csv():
                     for row in reader:
                         if len(row) < 2: continue
                         english_word = row[0].strip()
-                        # Join all columns from the second one onwards, replacing semicolons and filtering out empty strings
                         synonyms_list = []
                         for s in row[1:]:
                             s_stripped = s.strip()
                             if s_stripped:
-                                # Replace internal semicolons before adding
                                 synonyms_list.append(s_stripped.replace(';', ','))
                         
-                        if not synonyms_list: continue # Skip if there are no actual synonyms
+                        if not synonyms_list: continue
 
                         synonyms = ','.join(synonyms_list)
                         
-                        # Find the word and update it
-                        cursor.execute("SELECT id FROM words WHERE english_word = ?", (english_word,))
+                        cursor.execute("SELECT id FROM words WHERE english_word = %s", (english_word,))
                         word_record = cursor.fetchone()
                         
                         if word_record:
-                            cursor.execute("UPDATE words SET alternative_translations = ? WHERE id = ?", (synonyms, word_record['id']))
+                            cursor.execute("UPDATE words SET alternative_translations = %s WHERE id = %s", (synonyms, word_record['id']))
                             updated_count += 1
                         else:
                             not_found_count += 1
@@ -445,7 +457,6 @@ def import_words_from_csv():
             flash(f'An error occurred: {e}', 'error')
         finally:
             conn.close()
-            # Clean up all possible uploaded files
             for f in [english_file, arabic_file, synonyms_file]:
                 if f and f.filename:
                     filepath = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
@@ -464,10 +475,10 @@ def review():
 
     user_id = session['user_id']
     book_filter = request.args.get('book_name')
-    review_type = request.args.get('review_type') # 'new', 'due', or None for all
+    review_type = request.args.get('review_type')
 
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
 
     cursor.execute('SELECT DISTINCT book_name FROM words ORDER BY book_name ASC')
     book_names = [row['book_name'] for row in cursor.fetchall()]
@@ -475,28 +486,24 @@ def review():
     base_query = """
         SELECT w.id, w.english_word, w.vocalized_arabic, w.book_name
         FROM words w
-        LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
+        LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = %s
     """
     params = [user_id]
     
-    # Add conditions based on review type
     if review_type == 'new':
         base_query += ' WHERE p.word_id IS NULL'
     elif review_type == 'due':
-        base_query += " WHERE p.next_review <= date('now')"
-    else: # Default behavior: due words first, then new words
-        base_query += " WHERE (p.next_review <= date('now') OR p.word_id IS NULL)"
+        base_query += " WHERE p.next_review <= CURRENT_DATE"
+    else:
+        base_query += " WHERE (p.next_review <= CURRENT_DATE OR p.word_id IS NULL)"
 
     if book_filter:
-        base_query += ' AND w.book_name = ?'
+        base_query += ' AND w.book_name = %s'
         params.append(book_filter)
 
-    # Prioritize due words over new words in the default case
     if review_type is None:
-        # Order by whether the word is new (p.word_id IS NULL gives 1, else 0), then by due date
         order_clause = ' ORDER BY CASE WHEN p.word_id IS NULL THEN 1 ELSE 0 END, p.next_review ASC, RANDOM()'
     else:
-        # For specific lists, just randomize
         order_clause = ' ORDER BY RANDOM()'
 
     query = base_query + order_clause + ' LIMIT 1'
@@ -532,10 +539,10 @@ def submit_review():
 
     print("--- 2. Database Fetch ---")
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
     print("Database connection established.")
 
-    word_info = cursor.execute('SELECT english_word, alternative_translations, example_en FROM words WHERE id = ?', (word_id,)).fetchone()
+    word_info = cursor.execute('SELECT english_word, alternative_translations, example_en FROM words WHERE id = %s', (word_id,)).fetchone()
     if not word_info:
         print(f"ERROR: Word with ID {word_id} not found.")
         conn.close()
@@ -543,7 +550,7 @@ def submit_review():
     
     print(f"Word Info Found: English='{word_info['english_word']}', Alternatives='{word_info['alternative_translations']}'")
 
-    progress = cursor.execute('SELECT * FROM user_word_progress WHERE user_id = ? AND word_id = ?', (user_id, word_id)).fetchone()
+    progress = cursor.execute('SELECT * FROM user_word_progress WHERE user_id = %s AND word_id = %s', (user_id, word_id)).fetchone()
     if progress:
         print(f"Existing progress found: Reps={progress['repetitions']}, Ease={progress['ease_factor']:.2f}, Interval={progress['interval_days']} days")
     else:
@@ -593,7 +600,7 @@ def submit_review():
             new_interval = max(1, int(round(interval_days * new_ease_factor)))
     else:
         new_repetitions = 0
-        new_interval = 1 # Reset interval on failure
+        new_interval = 1
     
     print(f"SRS Output: NewEase={new_ease_factor:.4f}, NewReps={new_repetitions}, NewInterval={new_interval}")
 
@@ -628,14 +635,14 @@ def submit_review():
     if progress:
         cursor.execute('''
             UPDATE user_word_progress
-            SET last_reviewed = ?, next_review = ?, repetitions = ?, ease_factor = ?, interval_days = ?
-            WHERE user_id = ? AND word_id = ?
+            SET last_reviewed = %s, next_review = %s, repetitions = %s, ease_factor = %s, interval_days = %s
+            WHERE user_id = %s AND word_id = %s
         ''', (today.isoformat(), new_next_review.isoformat(), new_repetitions, new_ease_factor, new_interval, user_id, word_id))
         print("DB command: UPDATE user_word_progress.")
     else:
         cursor.execute('''
             INSERT INTO user_word_progress (user_id, word_id, last_reviewed, next_review, repetitions, ease_factor, interval_days)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         ''', (user_id, word_id, today.isoformat(), new_next_review.isoformat(), new_repetitions, new_ease_factor, new_interval))
         print("DB command: INSERT INTO user_word_progress.")
 
@@ -678,33 +685,33 @@ def statistics():
 
     user_id = session['user_id']
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
 
-    # Total words reviewed by the user (words in user_word_progress)
+    # Total words reviewed by the user
     cursor.execute('''
-        SELECT COUNT(*) FROM user_word_progress WHERE user_id = ?
+        SELECT COUNT(*) AS count FROM user_word_progress WHERE user_id = %s
     ''', (user_id,))
-    total_reviewed_words = cursor.fetchone()[0]
+    total_reviewed_words = cursor.fetchone()['count']
 
     # Words due for review today
     cursor.execute('''
-        SELECT COUNT(*) FROM user_word_progress
-        WHERE user_id = ? AND next_review <= date('now')
+        SELECT COUNT(*) AS count FROM user_word_progress
+        WHERE user_id = %s AND next_review <= CURRENT_DATE
     ''', (user_id,))
-    words_due_today = cursor.fetchone()[0]
+    words_due_today = cursor.fetchone()['count']
 
-    # Words mastered (e.g., repetitions >= 5, this is an arbitrary threshold, can be adjusted)
+    # Words mastered (repetitions >= 5)
     cursor.execute('''
-        SELECT COUNT(*) FROM user_word_progress
-        WHERE user_id = ? AND repetitions >= 5
+        SELECT COUNT(*) AS count FROM user_word_progress
+        WHERE user_id = %s AND repetitions >= 5
     ''', (user_id,))
-    words_mastered = cursor.fetchone()[0]
+    words_mastered = cursor.fetchone()['count']
 
     # Average ease factor
     cursor.execute('''
-        SELECT AVG(ease_factor) FROM user_word_progress WHERE user_id = ?
+        SELECT AVG(ease_factor) AS ease FROM user_word_progress WHERE user_id = %s
     ''', (user_id,))
-    avg_ease_factor = cursor.fetchone()[0]
+    avg_ease_factor = cursor.fetchone()['ease']
     if avg_ease_factor is None:
         avg_ease_factor = 0.0
 
@@ -725,7 +732,7 @@ def word_list():
     list_type = request.args.get('list_type')
 
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
 
     words = []
     title = "Word List"
@@ -736,7 +743,7 @@ def word_list():
             SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
-            WHERE p.user_id = ?
+            WHERE p.user_id = %s
             ORDER BY w.english_word
         ''', (user_id,))
         words = cursor.fetchall()
@@ -746,7 +753,7 @@ def word_list():
             SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
-            WHERE p.user_id = ? AND p.next_review <= date('now')
+            WHERE p.user_id = %s AND p.next_review <= CURRENT_DATE
             ORDER BY w.english_word
         ''', (user_id,))
         words = cursor.fetchall()
@@ -756,12 +763,13 @@ def word_list():
             SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
             JOIN user_word_progress p ON w.id = p.word_id
-            WHERE p.user_id = ? AND p.repetitions >= 5
+            WHERE p.user_id = %s AND p.repetitions >= 5
             ORDER BY w.english_word
         ''', (user_id,))
         words = cursor.fetchall()
     else:
         flash('Invalid list type.', 'error')
+        conn.close()
         return redirect(url_for('statistics'))
 
     conn.close()
@@ -792,16 +800,14 @@ def session_word_list():
     words = []
     if word_ids:
         conn = get_db_connection()
-        # Using placeholders to prevent SQL injection
-        placeholders = ','.join('?' for _ in word_ids)
+        placeholders = ','.join('%s' for _ in word_ids)
         query = f'''
             SELECT w.id, w.english_word, w.vocalized_arabic, w.alternative_translations, p.next_review
             FROM words w
-            LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = ?
+            LEFT JOIN user_word_progress p ON w.id = p.word_id AND p.user_id = %s
             WHERE w.id IN ({placeholders})
             ORDER BY w.english_word
         '''
-        # We need to pass user_id first for the LEFT JOIN, then the list of word_ids
         params = [session['user_id']] + word_ids
         words = conn.execute(query, params).fetchall()
         conn.close()
@@ -820,7 +826,6 @@ def reset_session():
     flash('Review session statistics have been reset.', 'info')
     return redirect(url_for('review'))
 
-# Admin routes for editing and deleting global words
 @app.route('/edit_word/<int:word_id>', methods=['GET', 'POST'])
 def edit_word(word_id):
     if not session.get('is_admin'):
@@ -831,12 +836,10 @@ def edit_word(word_id):
     if request.method == 'POST':
         english_word = clean_string(request.form['english_word'])
         vocalized_arabic = clean_string(request.form.get('vocalized_arabic', ''))
-        # Standardize to comma-separated, allowing admins to use semicolons as well
         alternative_translations = clean_string(request.form.get('alternative_translations', '')).replace(';', ',')
         book_name = clean_string(request.form.get('book_name', 'Uncategorized'))
 
-        # Fetch the current word data to re-render the form if validation fails
-        current_word = conn.execute('SELECT * FROM words WHERE id = ?', (word_id,)).fetchone()
+        current_word = conn.execute('SELECT * FROM words WHERE id = %s', (word_id,)).fetchone()
         if not current_word:
             flash('Word not found.', 'error')
             conn.close()
@@ -863,14 +866,15 @@ def edit_word(word_id):
         try:
             conn.execute('''
                 UPDATE words
-                SET english_word = ?, vocalized_arabic = ?, alternative_translations = ?, book_name = ?
-                WHERE id = ?
+                SET english_word = %s, vocalized_arabic = %s, alternative_translations = %s, book_name = %s
+                WHERE id = %s
             ''', (english_word, vocalized_arabic, alternative_translations, book_name, word_id))
             conn.commit()
             flash('Word updated successfully!', 'success')
             return redirect(url_for('index'))
-        except sqlite3.IntegrityError:
-            flash(f'The English word "{english_word}" already exists.', 'error')
+        except psycopg2.errors.UniqueViolation:
+            conn.rollback()
+            flash(f'The English word "%s" already exists.' % english_word, 'error')
             conn.close()
             return render_template('edit_word.html', word=current_word)
         except Exception as e:
@@ -878,10 +882,9 @@ def edit_word(word_id):
             conn.close()
             return render_template('edit_word.html', word=current_word)
         finally:
-            # This finally block is now less critical as errors are caught and conn closed
             pass
     
-    word = conn.execute('SELECT * FROM words WHERE id = ?', (word_id,)).fetchone()
+    word = conn.execute('SELECT * FROM words WHERE id = %s', (word_id,)).fetchone()
     conn.close()
     if word is None:
         flash('Word not found.', 'error')
@@ -895,35 +898,31 @@ def delete_word(word_id):
         return redirect(url_for('index'))
     
     conn = get_db_connection()
-    conn.execute('DELETE FROM words WHERE id = ?', (word_id,))
+    conn.execute('DELETE FROM words WHERE id = %s', (word_id,))
     conn.commit()
     conn.close()
     flash('Word deleted successfully!', 'success')
     return redirect(url_for('index'))
 
-# Admin panel and user management routes remain largely the same
+# Admin panel and user management routes
 @app.route('/admin')
 def admin_panel():
     if not session.get('is_admin'):
         return redirect(url_for('index'))
     
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
 
-    # Fetch users
     users = cursor.execute('SELECT id, username, is_admin FROM users ORDER BY username ASC').fetchall()
 
-    # Pagination for words
     page = request.args.get('page', 1, type=int)
-    per_page = 50  # Words per page
+    per_page = 50
 
-    # Get total words for pagination
-    total_words = cursor.execute('SELECT COUNT(*) FROM words').fetchone()[0]
+    total_words = cursor.execute('SELECT COUNT(*) AS count FROM words').fetchone()['count']
     total_pages = (total_words + per_page - 1) // per_page
 
-    # Fetch words for the current page
     offset = (page - 1) * per_page
-    words = cursor.execute('SELECT * FROM words ORDER BY english_word ASC LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
+    words = cursor.execute('SELECT * FROM words ORDER BY english_word ASC LIMIT %s OFFSET %s', (per_page, offset)).fetchall()
     
     conn.close()
     
@@ -938,7 +937,7 @@ def make_admin(user_id):
     if not session.get('is_admin'):
         return redirect(url_for('index'))
     conn = get_db_connection()
-    conn.execute('UPDATE users SET is_admin = 1 WHERE id = ?', (user_id,))
+    conn.execute('UPDATE users SET is_admin = 1 WHERE id = %s', (user_id,))
     conn.commit()
     conn.close()
     flash('User promoted to admin.', 'success')
@@ -950,7 +949,7 @@ def admin_delete_user(user_id):
         flash("You cannot delete your own account.", 'error')
         return redirect(url_for('admin_panel'))
     conn = get_db_connection()
-    conn.execute('DELETE FROM users WHERE id = ?', (user_id,)) # ON DELETE CASCADE handles progress
+    conn.execute('DELETE FROM users WHERE id = %s', (user_id,))
     conn.commit()
     conn.close()
     flash('User and their progress have been deleted.', 'success')
@@ -966,7 +965,6 @@ def delete_all_words():
     conn = get_db_connection()
     try:
         conn.execute('DELETE FROM words')
-        # Also clear the progress for all users since the words are gone
         conn.execute('DELETE FROM user_word_progress')
         conn.commit()
         flash('All words have been successfully deleted.', 'success')
@@ -991,8 +989,7 @@ def delete_selected_words():
 
     conn = get_db_connection()
     try:
-        # Using placeholders to prevent SQL injection
-        placeholders = ','.join('?' for _ in word_ids_to_delete)
+        placeholders = ','.join('%s' for _ in word_ids_to_delete)
         query = f'DELETE FROM words WHERE id IN ({placeholders})'
         conn.execute(query, word_ids_to_delete)
         conn.commit()
@@ -1012,16 +1009,14 @@ def admin_visitor_stats():
         return redirect(url_for('index'))
 
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor
 
-    # Get today's visitor count
     today = datetime.now().date()
-    cursor.execute("SELECT COUNT(DISTINCT ip_address) FROM visitor_stats WHERE visit_date = ?", (today,))
-    daily_visitors = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(DISTINCT ip_address) AS count FROM visitor_stats WHERE visit_date = %s", (today,))
+    daily_visitors = cursor.fetchone()['count']
 
-    # Get all-time unique visitor count
-    cursor.execute("SELECT COUNT(DISTINCT ip_address) FROM visitor_stats")
-    total_visitors = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(DISTINCT ip_address) AS count FROM visitor_stats")
+    total_visitors = cursor.fetchone()['count']
 
     conn.close()
 
@@ -1030,8 +1025,6 @@ def admin_visitor_stats():
 
 import click
 from flask.cli import with_appcontext
-
-# ... (rest of the app code) ...
 
 @click.command('init-db')
 @with_appcontext
@@ -1044,4 +1037,4 @@ app.cli.add_command(init_db_command)
 
 # --- Main Execution ---
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+    app.run(debug=True)
